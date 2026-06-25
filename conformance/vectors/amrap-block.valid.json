@@ -1,0 +1,17 @@
+{
+  "name": "amrap-block",
+  "description": "A round-scheme Block: a 20-minute AMRAP over two exercises with a block-level outcome and Rx status (the §3.1 interval/round core).",
+  "specRefs": ["§5.4", "§5.18"],
+  "kind": "valid",
+  "record": {
+    "id": "blk-amrap-12", "recordType": "Block", "subject": "subj-001",
+    "scoring": { "scheme": "amrap", "timeCapSec": 1200 }, "rxStatus": "rx",
+    "children": [
+      { "id": "ex-a", "recordType": "Exercise", "exerciseRef": "pull-up",
+        "workUnits": [{ "id": "wu-a", "recordType": "WorkUnit", "scoring": "reps", "prescription": { "reps": 5 } }] },
+      { "id": "ex-b", "recordType": "Exercise", "exerciseRef": "thruster.barbell",
+        "workUnits": [{ "id": "wu-b", "recordType": "WorkUnit", "scoring": "reps", "prescription": { "reps": 10 } }] }
+    ],
+    "performance": { "outcome": { "kind": "score", "value": 14, "unit": "rounds" } }
+  }
+}

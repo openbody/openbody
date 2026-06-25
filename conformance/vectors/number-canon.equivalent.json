@@ -1,0 +1,16 @@
+{
+  "name": "number-canon",
+  "description": "A float and a fixed-point encoding of the same decimal value normalize equal (80.5 == {coefficient:8050,exponent:-2}, both → lowest-terms 805e-1). §8.3 step 1.",
+  "specRefs": ["§4.2", "§8.3"],
+  "kind": "equivalent",
+  "a": {
+    "id": "wu-load", "recordType": "WorkUnit", "subject": "subj-001",
+    "exerciseRef": "deadlift.barbell", "scoring": "reps",
+    "performance": { "reps": 3, "load": { "value": 80.5, "unit": "kg", "basis": "marked_weight" } }
+  },
+  "b": {
+    "id": "wu-load", "recordType": "WorkUnit", "subject": "subj-001",
+    "exerciseRef": "deadlift.barbell", "scoring": "reps",
+    "performance": { "reps": 3, "load": { "value": { "coefficient": 8050, "exponent": -2 }, "unit": "kg", "basis": "marked_weight" } }
+  }
+}

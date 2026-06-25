@@ -1,0 +1,13 @@
+{
+  "name": "resistance-set",
+  "description": "A strength set: reps-scored WorkUnit with load + effort, planned and performed (the §3.1 resistance core structure).",
+  "specRefs": ["§5.5", "§5.12", "§5.13"],
+  "kind": "valid",
+  "record": {
+    "id": "wu-bench-1", "recordType": "WorkUnit", "subject": "subj-001",
+    "exerciseRef": "bench-press.barbell", "scoring": "reps", "setRole": "working",
+    "prescription": { "reps": 5, "load": { "value": 100, "unit": "kg", "basis": "marked_weight" } },
+    "performance": { "reps": 5, "load": { "value": 100, "unit": "kg", "basis": "marked_weight" },
+                     "effortLoad": [{ "kind": "internal", "method": "RPE", "value": 8 }] }
+  }
+}

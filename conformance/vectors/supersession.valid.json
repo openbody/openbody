@@ -1,0 +1,13 @@
+{
+  "name": "supersession",
+  "description": "A correction in a supersession lineage: a new record with supersedes + incremented revision (§7.5/§7.6).",
+  "specRefs": ["§7.5"],
+  "kind": "valid",
+  "record": {
+    "id": "obs-hr-002", "recordType": "Measurement", "subject": "subj-001",
+    "type": "heart_rate", "quantity": 71, "unit": "/min",
+    "startTime": "2026-06-23T14:02:00Z", "endTime": "2026-06-23T14:02:00Z",
+    "status": "active", "supersedes": "obs-hr-001", "revision": 2,
+    "provenance": { "method": "manual", "sourceApp": "acme:myfitapp" }
+  }
+}

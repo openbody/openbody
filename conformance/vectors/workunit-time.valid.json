@@ -1,0 +1,8 @@
+{
+  "name": "workunit-time",
+  "description": "A time-scored WorkUnit (a plank hold).",
+  "specRefs": ["§5.5", "§5.8"],
+  "kind": "valid",
+  "record": { "id": "wu-plank", "recordType": "WorkUnit", "subject": "subj-001",
+    "exerciseRef": "plank.front", "scoring": "time", "performance": { "time": 60 } }
+}

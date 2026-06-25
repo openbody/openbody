@@ -1,0 +1,15 @@
+{
+  "name": "emom-block",
+  "description": "An EMOM Block exercising the interval scheme parameters (intervalSec + rounds).",
+  "specRefs": ["§5.4"],
+  "kind": "valid",
+  "record": {
+    "id": "blk-emom-3", "recordType": "Block", "subject": "subj-001",
+    "scoring": { "scheme": "emom", "intervalSec": 60, "rounds": 10 },
+    "children": [
+      { "id": "ex-c", "recordType": "Exercise", "exerciseRef": "clean.barbell.power",
+        "workUnits": [{ "id": "wu-c", "recordType": "WorkUnit", "scoring": "reps",
+          "prescription": { "reps": 3, "load": { "value": 60, "unit": "kg", "basis": "marked_weight" } } }] }
+    ]
+  }
+}

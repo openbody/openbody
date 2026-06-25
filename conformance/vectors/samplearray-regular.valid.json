@@ -1,0 +1,12 @@
+{
+  "name": "samplearray-regular",
+  "description": "A single-channel, regular (frequencyHz) sampleArray with a null dropped sample (HR at 1 Hz).",
+  "specRefs": ["§4.3"],
+  "kind": "valid",
+  "record": {
+    "id": "obs-hr-stream-3", "recordType": "Measurement", "subject": "subj-001",
+    "type": "heart_rate", "unit": "/min",
+    "sampleArray": { "frequencyHz": 1, "dataPoints": [72, 73, 74, null, 75] },
+    "startTime": "2026-06-23T14:00:00Z", "endTime": "2026-06-23T14:00:05Z"
+  }
+}

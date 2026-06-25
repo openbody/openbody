@@ -1,0 +1,11 @@
+{
+  "name": "opaque-exerciseref",
+  "description": "An unresolved ExerciseRef carrying only `opaque` (no id) — the lossless floor. MUST validate and round-trip; 'couldn't resolve' never means 'drop' (§6.1, §6.5).",
+  "specRefs": ["§6.1", "§6.5"],
+  "kind": "valid",
+  "record": {
+    "id": "ex-op", "recordType": "Exercise", "subject": "subj-001",
+    "exerciseRef": { "opaque": "Coach Dave's Special Bulgarian Lunge" },
+    "workUnits": [{ "id": "wu-op", "recordType": "WorkUnit", "scoring": "reps", "prescription": { "reps": 12 } }]
+  }
+}

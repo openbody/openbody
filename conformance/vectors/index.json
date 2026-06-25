@@ -1,22 +1,36 @@
 {
-  "description": "Manifest of OpenBody minimum-core conformance vectors (SPEC §8.3). A conformance runner loads each file and checks the assertion for its `kind`. Starter batch — grows to the full §8.3 minimum-core list.",
+  "description": "Manifest of OpenBody minimum-core conformance vectors (SPEC §8.3). A conformance runner loads each file and checks the assertion for its `kind`. Covers the §8.3 minimum-core list; grows with the extended corpus (CORPUS.md).",
   "vectors": [
     { "file": "measurement-heart-rate.valid.json", "kind": "valid" },
     { "file": "samplearray-gps-route.valid.json", "kind": "valid" },
+    { "file": "samplearray-regular.valid.json", "kind": "valid" },
     { "file": "tombstone.valid.json", "kind": "valid" },
+    { "file": "supersession.valid.json", "kind": "valid" },
     { "file": "unknown-extension.valid.json", "kind": "valid" },
+    { "file": "unknown-token.valid.json", "kind": "valid" },
+    { "file": "opaque-exerciseref.valid.json", "kind": "valid" },
+    { "file": "resistance-set.valid.json", "kind": "valid" },
+    { "file": "workunit-time.valid.json", "kind": "valid" },
+    { "file": "workunit-distance.valid.json", "kind": "valid" },
+    { "file": "workunit-energy.valid.json", "kind": "valid" },
+    { "file": "continuous-endurance.valid.json", "kind": "valid" },
+    { "file": "amrap-block.valid.json", "kind": "valid" },
+    { "file": "emom-block.valid.json", "kind": "valid" },
     { "file": "scalar-vs-target.equivalent.json", "kind": "equivalent" },
     { "file": "nested-vs-flat.equivalent.json", "kind": "equivalent" },
+    { "file": "number-canon.equivalent.json", "kind": "equivalent" },
     { "file": "sets-expansion.normalization.json", "kind": "normalization" }
   ],
-  "coverage_todo": [
-    "each of the five WorkUnit.scoring kinds (reps/time/distance/continuous/energy)",
-    "an interval/round scheme (AMRAP/EMOM/for-time) Block",
-    "a continuous-endurance record with measuredBy links",
-    "an unresolved ExerciseRef (opaque only) round-trip",
-    "an unknown open-vocabulary token round-trip",
-    "a supersession lineage (correction)",
-    "a sampleArray in regular (frequencyHz) form",
-    "number canonicalization (72 vs 72.0 vs fixed-point) equivalence"
+  "coverage": {
+    "scoring_kinds": "reps (scalar-vs-target, resistance-set), time, distance, energy, continuous (continuous-endurance) — all five covered",
+    "core_structures": "resistance set, AMRAP/EMOM round-scheme blocks, continuous endurance — covered (§3.1)",
+    "encodings": "scalar↔Target, nested↔flat+partOf, number float↔fixed-point — covered",
+    "round_trip": "opaque ExerciseRef, unknown extension, unknown open token, tombstone, supersession — covered",
+    "sampleArray": "regular (frequencyHz) + irregular (offsets), single- + multi-channel, null dropped sample — covered"
+  },
+  "todo": [
+    "for_time scheme block; phasePattern (tempo/breath); relativeToThreshold load (%1RM) resolution; multi-participant/synchronized; statusPeriod + ThresholdProfile records",
+    "pin exact `expected` canonical forms on normalization vectors (now that openbody-ts can emit them)",
+    "extended activity-coverage corpus (CORPUS.md): Highland games, kabaddi, freediving, isokinetic, climbing send/attempt, etc."
   ]
 }

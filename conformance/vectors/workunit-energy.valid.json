@@ -1,0 +1,8 @@
+{
+  "name": "workunit-energy",
+  "description": "An energy-scored WorkUnit (a 15 kcal air-bike sprint).",
+  "specRefs": ["§5.5", "§5.8"],
+  "kind": "valid",
+  "record": { "id": "wu-bike15", "recordType": "WorkUnit", "subject": "subj-001",
+    "exerciseRef": "bike.air", "scoring": "energy", "performance": { "energy": 15 } }
+}

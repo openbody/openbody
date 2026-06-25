@@ -1,0 +1,8 @@
+{
+  "name": "workunit-distance",
+  "description": "A distance-scored WorkUnit (a 500 m row interval).",
+  "specRefs": ["§5.5", "§5.8"],
+  "kind": "valid",
+  "record": { "id": "wu-row500", "recordType": "WorkUnit", "subject": "subj-001",
+    "exerciseRef": "row.erg", "scoring": "distance", "performance": { "distance": 500 } }
+}
