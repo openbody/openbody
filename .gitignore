@@ -8,3 +8,6 @@
 # Logs / tmp
 *.log
 tmp/
+
+# Node
+node_modules/

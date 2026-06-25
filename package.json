@@ -1,0 +1,14 @@
+{
+  "name": "openbody-tools",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Dev tooling for the OpenBody standard repo (not a shipped artifact). Checks that SPEC.md examples + conformance vectors validate against the JSON Schema.",
+  "scripts": {
+    "check": "node tools/check-consistency.mjs"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  }
+}
