@@ -1,0 +1,11 @@
+{
+  "name": "statusperiod",
+  "description": "A subject-timeline StatusPeriod record (§5.20) — context that explains gaps and modifies interpretation; not a training event.",
+  "specRefs": ["§5.20"],
+  "kind": "valid",
+  "record": {
+    "id": "sp-knee-2026", "recordType": "StatusPeriod", "subject": "subj-001",
+    "type": "injury", "from": "2026-05-01T00:00:00Z", "to": "2026-06-01T00:00:00Z",
+    "note": "left knee — reduced lower-body loading"
+  }
+}

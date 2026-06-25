@@ -1,5 +1,5 @@
 {
-  "description": "Manifest of OpenBody minimum-core conformance vectors (SPEC §8.3). A conformance runner loads each file and checks the assertion for its `kind`. Covers the §8.3 minimum-core list; grows with the extended corpus (CORPUS.md).",
+  "description": "Manifest of OpenBody minimum-core conformance vectors (SPEC §8.3). A conformance runner loads each file and checks the assertion for its `kind`. Covers the §8.3 minimum-core list; the extended activity corpus lives in CORPUS.md.",
   "vectors": [
     { "file": "measurement-heart-rate.valid.json", "kind": "valid" },
     { "file": "samplearray-gps-route.valid.json", "kind": "valid" },
@@ -16,21 +16,29 @@
     { "file": "continuous-endurance.valid.json", "kind": "valid" },
     { "file": "amrap-block.valid.json", "kind": "valid" },
     { "file": "emom-block.valid.json", "kind": "valid" },
+    { "file": "for-time-block.valid.json", "kind": "valid" },
+    { "file": "phasepattern.valid.json", "kind": "valid" },
+    { "file": "relative-threshold.valid.json", "kind": "valid" },
+    { "file": "multi-participant.valid.json", "kind": "valid" },
+    { "file": "statusperiod.valid.json", "kind": "valid" },
     { "file": "scalar-vs-target.equivalent.json", "kind": "equivalent" },
     { "file": "nested-vs-flat.equivalent.json", "kind": "equivalent" },
     { "file": "number-canon.equivalent.json", "kind": "equivalent" },
     { "file": "sets-expansion.normalization.json", "kind": "normalization" }
   ],
   "coverage": {
-    "scoring_kinds": "reps (scalar-vs-target, resistance-set), time, distance, energy, continuous (continuous-endurance) — all five covered",
-    "core_structures": "resistance set, AMRAP/EMOM round-scheme blocks, continuous endurance — covered (§3.1)",
-    "encodings": "scalar↔Target, nested↔flat+partOf, number float↔fixed-point — covered",
-    "round_trip": "opaque ExerciseRef, unknown extension, unknown open token, tombstone, supersession — covered",
-    "sampleArray": "regular (frequencyHz) + irregular (offsets), single- + multi-channel, null dropped sample — covered"
+    "scoring_kinds": "reps, time, distance, energy, continuous — all five",
+    "block_schemes": "amrap, emom, for_time",
+    "core_structures": "resistance set, round/interval/for-time blocks, continuous endurance (§3.1)",
+    "value_objects": "Target (all 4 variants incl. relativeToThreshold + stopCondition), Load (absolute + relative), EffortLoad, phasePattern (durations + ratios + qualifier), outcome, participants, ThresholdProfile, StatusPeriod",
+    "encodings": "scalar↔Target, nested↔flat+partOf, number float↔fixed-point",
+    "round_trip": "opaque ExerciseRef, unknown extension, unknown open token, tombstone, supersession",
+    "sampleArray": "regular + irregular, single + multi-channel, null dropped sample",
+    "normalization": "sets-expansion with exact pinned `expected` canonical bytes"
   },
   "todo": [
-    "for_time scheme block; phasePattern (tempo/breath); relativeToThreshold load (%1RM) resolution; multi-participant/synchronized; statusPeriod + ThresholdProfile records",
-    "pin exact `expected` canonical forms on normalization vectors (now that openbody-ts can emit them)",
-    "extended activity-coverage corpus (CORPUS.md): Highland games, kabaddi, freediving, isokinetic, climbing send/attempt, etc."
+    "tabata scheme; accumulation flag; Program with progression; modifiers beyond bfr; isokinetic (resistanceProfile accommodating + velocity target)",
+    "more pinned `expected` on additional normalization vectors as they're added",
+    "extended activity-coverage corpus (CORPUS.md): Highland games, kabaddi, freediving, isokinetic, climbing send/attempt/flash, swimming SWOLF, etc."
   ]
 }

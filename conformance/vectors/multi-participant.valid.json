@@ -1,0 +1,25 @@
+{
+  "name": "multi-participant",
+  "description": "A multi-participant Session (§5.19): participants[] with roles/subjectType, a synchronized Block, per-WorkUnit `by` attribution to another participant, and a groupActivity cross-record link.",
+  "specRefs": ["§5.19", "§7.2"],
+  "kind": "valid",
+  "record": {
+    "id": "sess-partner", "recordType": "Session", "subject": "subj-001",
+    "disciplines": ["functional-fitness"],
+    "participants": [
+      { "ref": "subj-001", "subjectType": "human", "role": "athlete" },
+      { "ref": "subj-002", "subjectType": "human", "role": "partner" }
+    ],
+    "links": [{ "type": "groupActivity", "ref": "grp-2026-06-25-a" }],
+    "blocks": [
+      { "id": "blk-sync", "recordType": "Block", "synchronized": true,
+        "children": [
+          { "id": "ex-wb", "recordType": "Exercise", "exerciseRef": "wall-ball",
+            "workUnits": [
+              { "id": "wu-wb", "recordType": "WorkUnit", "scoring": "reps",
+                "prescription": { "reps": 50 }, "by": "subj-002" }
+            ] }
+        ] }
+    ]
+  }
+}

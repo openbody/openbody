@@ -1,0 +1,15 @@
+{
+  "name": "for-time-block",
+  "description": "A for_time scheme Block (21 thrusters for time) with a block-level elapsed-time result and Rx status.",
+  "specRefs": ["§5.4", "§5.8"],
+  "kind": "valid",
+  "record": {
+    "id": "blk-ft", "recordType": "Block", "subject": "subj-001",
+    "scoring": { "scheme": "for_time", "timeCapSec": 600 }, "rxStatus": "rx",
+    "children": [
+      { "id": "ex-ft", "recordType": "Exercise", "exerciseRef": "thruster.barbell",
+        "workUnits": [{ "id": "wu-ft", "recordType": "WorkUnit", "scoring": "reps", "prescription": { "reps": 21 } }] }
+    ],
+    "performance": { "time": { "absolute": { "value": 432, "unit": "s" } } }
+  }
+}

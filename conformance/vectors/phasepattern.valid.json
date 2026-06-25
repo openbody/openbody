@@ -1,0 +1,34 @@
+{
+  "name": "phasepattern",
+  "description": "phasePattern in both forms (§5.15): a lifting tempo (30X1 — durations + an explosive qualifier) and a breath pattern (4-4-4-4 ratios) paired with a to_breath stopCondition Target.",
+  "specRefs": ["§5.15", "§5.10"],
+  "kind": "valid",
+  "record": [
+    {
+      "id": "wu-tempo", "recordType": "WorkUnit", "subject": "subj-001",
+      "exerciseRef": "squat.barbell.high-bar", "scoring": "reps",
+      "prescription": {
+        "reps": 5,
+        "phasePattern": [
+          { "name": "eccentric", "durationSec": 3 },
+          { "name": "pause", "durationSec": 0 },
+          { "name": "concentric", "qualifier": "explosive" },
+          { "name": "pause", "durationSec": 1 }
+        ]
+      }
+    },
+    {
+      "id": "wu-breath", "recordType": "WorkUnit", "subject": "subj-001",
+      "exerciseRef": "breathing.box", "scoring": "time",
+      "prescription": {
+        "time": { "stopCondition": { "kind": "to_breath", "value": 10 } },
+        "phasePattern": [
+          { "name": "inhale", "ratio": 4 },
+          { "name": "hold", "ratio": 4 },
+          { "name": "exhale", "ratio": 4 },
+          { "name": "hold", "ratio": 4 }
+        ]
+      }
+    }
+  ]
+}

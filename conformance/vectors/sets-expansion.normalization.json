@@ -1,7 +1,10 @@
 {
   "name": "sets-expansion",
   "description": "A planned `sets: N` shorthand expands to N atomic WorkUnits during normalization, with `sets` removed and deterministic ids (§5.5, §8.3 steps 5-6).",
-  "specRefs": ["§5.5", "§8.3"],
+  "specRefs": [
+    "§5.5",
+    "§8.3"
+  ],
   "kind": "normalization",
   "input": {
     "id": "ex-1",
@@ -9,8 +12,22 @@
     "subject": "subj-001",
     "exerciseRef": "squat.barbell.high-bar",
     "workUnits": [
-      { "id": "wu-1", "recordType": "WorkUnit", "scoring": "reps", "prescription": { "sets": 3, "reps": 5 } }
+      {
+        "id": "wu-1",
+        "recordType": "WorkUnit",
+        "scoring": "reps",
+        "prescription": {
+          "sets": 3,
+          "reps": 5
+        }
+      }
     ]
   },
-  "expectedNote": "Normalizes to 4 flat records: ex-1 (Exercise), and 3 WorkUnits. The 1st expanded WorkUnit keeps the source id `wu-1` at array position 1; the 2nd and 3rd are id-less and receive `ex-1#workUnits#2` and `ex-1#workUnits#3` (1-based position in the parent's post-sets-expansion `workUnits` array, §8.3 step 6). Each expanded WorkUnit: `sets` removed; `reps` expanded to {absolute:{value:5}}; carries `partOf: ex-1`; `subject` propagated as subj-001. Order-independent comparison as a set of canonical records."
+  "expectedNote": "Normalizes to 4 flat records: ex-1 (Exercise), and 3 WorkUnits. The 1st expanded WorkUnit keeps the source id `wu-1` at array position 1; the 2nd and 3rd are id-less and receive `ex-1#workUnits#2` and `ex-1#workUnits#3` (1-based position in the parent's post-sets-expansion `workUnits` array, §8.3 step 6). Each expanded WorkUnit: `sets` removed; `reps` expanded to {absolute:{value:5}}; carries `partOf: ex-1`; `subject` propagated as subj-001. Order-independent comparison as a set of canonical records.",
+  "expected": [
+    "{\"exerciseRef\":{\"id\":\"squat.barbell.high-bar\"},\"id\":\"ex-1\",\"recordType\":\"Exercise\",\"status\":\"active\",\"subject\":\"subj-001\"}",
+    "{\"id\":\"ex-1#workUnits#2\",\"links\":[{\"ref\":\"ex-1\",\"type\":\"partOf\"}],\"prescription\":{\"reps\":{\"absolute\":{\"value\":{\"coefficient\":\"5\",\"exponent\":\"0\"}}}},\"recordType\":\"WorkUnit\",\"scoring\":\"reps\",\"status\":\"active\",\"subject\":\"subj-001\"}",
+    "{\"id\":\"ex-1#workUnits#3\",\"links\":[{\"ref\":\"ex-1\",\"type\":\"partOf\"}],\"prescription\":{\"reps\":{\"absolute\":{\"value\":{\"coefficient\":\"5\",\"exponent\":\"0\"}}}},\"recordType\":\"WorkUnit\",\"scoring\":\"reps\",\"status\":\"active\",\"subject\":\"subj-001\"}",
+    "{\"id\":\"wu-1\",\"links\":[{\"ref\":\"ex-1\",\"type\":\"partOf\"}],\"prescription\":{\"reps\":{\"absolute\":{\"value\":{\"coefficient\":\"5\",\"exponent\":\"0\"}}}},\"recordType\":\"WorkUnit\",\"scoring\":\"reps\",\"status\":\"active\",\"subject\":\"subj-001\"}"
+  ]
 }

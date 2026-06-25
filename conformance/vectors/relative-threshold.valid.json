@@ -1,0 +1,23 @@
+{
+  "name": "relative-threshold",
+  "description": "A relativeToThreshold load (80% 1RM) plus the ThresholdProfile record it resolves against (§5.10/§5.11). Tests the ThresholdProfile record, a relative Load (unit omitted — derived from the threshold), and that both round-trip.",
+  "specRefs": ["§5.10", "§5.11", "§5.12"],
+  "kind": "valid",
+  "record": [
+    {
+      "id": "tp-subj-001", "recordType": "ThresholdProfile", "subject": "subj-001",
+      "entries": [
+        { "kind": "1RM", "value": 140, "unit": "kg", "for": "squat.barbell.high-bar",
+          "asOf": "2026-06-01T00:00:00Z", "source": "tested" }
+      ]
+    },
+    {
+      "id": "wu-rel", "recordType": "WorkUnit", "subject": "subj-001",
+      "exerciseRef": "squat.barbell.high-bar", "scoring": "reps",
+      "prescription": {
+        "reps": 5,
+        "load": { "value": { "relativeToThreshold": { "percent": 80, "of": "1RM" } }, "basis": "marked_weight" }
+      }
+    }
+  ]
+}
