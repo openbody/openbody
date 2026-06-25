@@ -27,6 +27,16 @@ implementation, not the schema (this is normal — JSON Schema can't see context
   present (§7.4);
 - the **§8.3 canonicalization / equivalence** procedure (the conformance mechanism).
 
+## Validate WIRE records, not the canonical form
+
+This schema validates **wire records** — the JSON a producer emits/transmits. It does
+**not** validate the §8.3 *normalized canonical form*, and that form deliberately will
+**not** pass it: normalization re-encodes numbers as string fixed-point
+(`{"coefficient":"21","exponent":"0"}`), propagates `subject`/`startTime` onto every
+descendant, and flattens containment. The canonical form is an internal **comparison**
+representation (for equivalence/round-trip), not the binding. Validate the wire record;
+normalize separately for equivalence.
+
 ## Validation status
 
 The schema is a valid Draft 2020-12 schema. As of this commit, **all worked examples
