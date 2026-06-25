@@ -4,6 +4,17 @@ All notable changes to the OpenBody **standard** are documented here. The standa
 follows [semantic versioning](https://semver.org/): additive = minor, breaking =
 major (deprecate-not-remove within a major), editorial = patch.
 
+## [0.3.0] — 2026-06-25 (private draft)
+
+**Additive (minor): human-readable labels.** Real-data dogfooding (Hevy/Strong/Strava)
+showed every app has a workout title with nowhere interoperable to live.
+
+- Added optional **`name`** (string) on `Program`, `Session`, `Block`.
+- Added optional **`notes`** (string) on `Session`, `Block`, `Exercise`, `WorkUnit`.
+- An exercise's name remains its identity (`exerciseRef`, §6); app cosmetics
+  (color/icon/UI state) stay in namespaced extensions, not core.
+- Backward-compatible: all v0.2.x records remain valid. Schema `$id` → v0.3.
+
 ## [Unreleased]
 
 - Added the **JSON Schema** (`schema/openbody.schema.json`, Draft 2020-12) — the

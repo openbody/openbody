@@ -1,0 +1,17 @@
+{
+  "name": "named-session",
+  "description": "Human-readable name + notes on records (v0.3): a named Session/Block, an Exercise note, and a per-set WorkUnit note.",
+  "specRefs": ["§5.2", "§5.3", "§5.4", "§5.5"],
+  "kind": "valid",
+  "record": {
+    "id": "sess-named", "recordType": "Session", "subject": "subj-001",
+    "name": "Push Day", "notes": "felt strong", "disciplines": ["strength"],
+    "blocks": [
+      { "id": "blk-main", "recordType": "Block", "name": "Main work",
+        "children": [
+          { "id": "ex-bench", "recordType": "Exercise", "exerciseRef": "bench-press.barbell", "notes": "paused reps",
+            "workUnits": [{ "id": "wu-bench-1", "recordType": "WorkUnit", "scoring": "reps", "prescription": { "reps": 5 }, "notes": "top set" }] }
+        ] }
+    ]
+  }
+}

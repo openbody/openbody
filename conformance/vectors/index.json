@@ -1,30 +1,106 @@
 {
   "description": "Manifest of OpenBody minimum-core conformance vectors (SPEC §8.3). A conformance runner loads each file and checks the assertion for its `kind`. Covers the §8.3 minimum-core list; the extended activity corpus lives in CORPUS.md.",
   "vectors": [
-    { "file": "measurement-heart-rate.valid.json", "kind": "valid" },
-    { "file": "samplearray-gps-route.valid.json", "kind": "valid" },
-    { "file": "samplearray-regular.valid.json", "kind": "valid" },
-    { "file": "tombstone.valid.json", "kind": "valid" },
-    { "file": "supersession.valid.json", "kind": "valid" },
-    { "file": "unknown-extension.valid.json", "kind": "valid" },
-    { "file": "unknown-token.valid.json", "kind": "valid" },
-    { "file": "opaque-exerciseref.valid.json", "kind": "valid" },
-    { "file": "resistance-set.valid.json", "kind": "valid" },
-    { "file": "workunit-time.valid.json", "kind": "valid" },
-    { "file": "workunit-distance.valid.json", "kind": "valid" },
-    { "file": "workunit-energy.valid.json", "kind": "valid" },
-    { "file": "continuous-endurance.valid.json", "kind": "valid" },
-    { "file": "amrap-block.valid.json", "kind": "valid" },
-    { "file": "emom-block.valid.json", "kind": "valid" },
-    { "file": "for-time-block.valid.json", "kind": "valid" },
-    { "file": "phasepattern.valid.json", "kind": "valid" },
-    { "file": "relative-threshold.valid.json", "kind": "valid" },
-    { "file": "multi-participant.valid.json", "kind": "valid" },
-    { "file": "statusperiod.valid.json", "kind": "valid" },
-    { "file": "scalar-vs-target.equivalent.json", "kind": "equivalent" },
-    { "file": "nested-vs-flat.equivalent.json", "kind": "equivalent" },
-    { "file": "number-canon.equivalent.json", "kind": "equivalent" },
-    { "file": "sets-expansion.normalization.json", "kind": "normalization" }
+    {
+      "file": "measurement-heart-rate.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "samplearray-gps-route.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "samplearray-regular.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "tombstone.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "supersession.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "unknown-extension.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "unknown-token.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "opaque-exerciseref.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "resistance-set.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "workunit-time.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "workunit-distance.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "workunit-energy.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "continuous-endurance.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "amrap-block.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "emom-block.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "for-time-block.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "phasepattern.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "relative-threshold.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "multi-participant.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "statusperiod.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "named-session.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "scalar-vs-target.equivalent.json",
+      "kind": "equivalent"
+    },
+    {
+      "file": "nested-vs-flat.equivalent.json",
+      "kind": "equivalent"
+    },
+    {
+      "file": "number-canon.equivalent.json",
+      "kind": "equivalent"
+    },
+    {
+      "file": "sets-expansion.normalization.json",
+      "kind": "normalization"
+    }
   ],
   "coverage": {
     "scoring_kinds": "reps, time, distance, energy, continuous — all five",
@@ -34,7 +110,8 @@
     "encodings": "scalar↔Target, nested↔flat+partOf, number float↔fixed-point",
     "round_trip": "opaque ExerciseRef, unknown extension, unknown open token, tombstone, supersession",
     "sampleArray": "regular + irregular, single + multi-channel, null dropped sample",
-    "normalization": "sets-expansion with exact pinned `expected` canonical bytes"
+    "normalization": "sets-expansion with exact pinned `expected` canonical bytes",
+    "labels": "name (Program/Session/Block) + notes (Session/Block/Exercise/WorkUnit) — named-session vector"
   },
   "todo": [
     "tabata scheme; accumulation flag; Program with progression; modifiers beyond bfr; isokinetic (resistanceProfile accommodating + velocity target)",
