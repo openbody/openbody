@@ -1,0 +1,28 @@
+{
+  "name": "nested-vs-flat",
+  "description": "The nested document form and the flat+partOf form of the same containment structure must normalize equal (§7.2). A Session > Exercise > WorkUnit.",
+  "specRefs": ["§7.2", "§8.3"],
+  "kind": "equivalent",
+  "a": {
+    "id": "sess-1",
+    "recordType": "Session",
+    "subject": "subj-001",
+    "exercises": [
+      {
+        "id": "ex-1",
+        "recordType": "Exercise",
+        "exerciseRef": "squat.barbell.high-bar",
+        "workUnits": [
+          { "id": "wu-1", "recordType": "WorkUnit", "scoring": "reps", "prescription": { "reps": 5 } }
+        ]
+      }
+    ]
+  },
+  "b": [
+    { "id": "sess-1", "recordType": "Session", "subject": "subj-001" },
+    { "id": "ex-1", "recordType": "Exercise", "subject": "subj-001", "exerciseRef": "squat.barbell.high-bar",
+      "links": [{ "type": "partOf", "ref": "sess-1" }] },
+    { "id": "wu-1", "recordType": "WorkUnit", "subject": "subj-001", "scoring": "reps", "prescription": { "reps": 5 },
+      "links": [{ "type": "partOf", "ref": "ex-1" }] }
+  ]
+}

@@ -4,6 +4,15 @@ All notable changes to the OpenBody **standard** are documented here. The standa
 follows [semantic versioning](https://semver.org/): additive = minor, breaking =
 major (deprecate-not-remove within a major), editorial = patch.
 
+## [Unreleased]
+
+- Added the **JSON Schema** (`schema/openbody.schema.json`, Draft 2020-12) — the
+  primary binding for §§4–7. All `SPEC.md` examples and conformance vectors validate
+  against it.
+- Added a starter batch of **conformance vectors** (`conformance/vectors/`) covering
+  scalar↔Target and nested↔flat equivalence, `sets` expansion, tombstone, GPS
+  sampleArray, and unknown-extension round-trip, with a manifest and format doc.
+
 ## [0.2.1] — 2026-06-24 (private draft)
 
 Publication-prep editorial pass; **no normative change** from v0.2.

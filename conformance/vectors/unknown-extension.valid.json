@@ -1,0 +1,17 @@
+{
+  "name": "unknown-extension",
+  "description": "A record carrying a namespaced extension a consumer doesn't understand. MUST validate and round-trip losslessly — never dropped (§3.3, §8.1).",
+  "specRefs": ["§8.1", "§3.3"],
+  "kind": "valid",
+  "record": {
+    "id": "wu-bench-1",
+    "recordType": "WorkUnit",
+    "subject": "subj-001",
+    "exerciseRef": "bench-press.barbell",
+    "scoring": "reps",
+    "prescription": { "reps": 8, "load": { "value": 80, "unit": "kg", "basis": "marked_weight" } },
+    "extension": {
+      "com.acme.coach": { "cue": "tuck elbows", "tempoTag": "controlled" }
+    }
+  }
+}

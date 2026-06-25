@@ -1,0 +1,17 @@
+{
+  "name": "measurement-heart-rate",
+  "description": "A simple instantaneous heart-rate Measurement (quantity).",
+  "specRefs": ["§4.1", "§4.6"],
+  "kind": "valid",
+  "record": {
+    "id": "obs-9f2a1c",
+    "recordType": "Measurement",
+    "subject": "subj-001",
+    "type": "heart_rate",
+    "quantity": 72,
+    "unit": "/min",
+    "startTime": "2026-06-23T14:02:00Z",
+    "endTime": "2026-06-23T14:02:00Z",
+    "provenance": { "method": "sensor", "device": { "manufacturer": "apple", "model": "Watch Ultra 2" } }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "tombstone",
+  "description": "A deletion tombstone: status:deleted with only id/recordType/status, exempt from all otherwise-required fields including subject (§7.1, §7.5). MUST validate and round-trip.",
+  "specRefs": ["§7.1", "§7.5"],
+  "kind": "valid",
+  "record": {
+    "id": "obs-hr-001",
+    "recordType": "Measurement",
+    "status": "deleted"
+  }
+}

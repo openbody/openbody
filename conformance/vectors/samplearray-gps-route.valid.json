@@ -1,0 +1,23 @@
+{
+  "name": "samplearray-gps-route",
+  "description": "Multi-channel, irregular sampleArray (GPS route) with a null dropped sample.",
+  "specRefs": ["§4.3", "§4.6"],
+  "kind": "valid",
+  "record": {
+    "id": "obs-route-77",
+    "recordType": "Measurement",
+    "subject": "subj-001",
+    "type": "location",
+    "sampleArray": {
+      "offsets": [0, 1.0, 2.1],
+      "channels": [
+        { "name": "lat", "unit": "deg" },
+        { "name": "lon", "unit": "deg" },
+        { "name": "alt", "unit": "m" }
+      ],
+      "dataPoints": [[37.4220, -122.0841, 12.0], [37.4221, -122.0840, 12.1], [37.4223, -122.0839, null]]
+    },
+    "startTime": "2026-06-23T08:00:00Z",
+    "endTime": "2026-06-23T08:00:02.1Z"
+  }
+}
