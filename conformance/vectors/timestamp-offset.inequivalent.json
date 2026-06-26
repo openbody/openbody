@@ -1,0 +1,26 @@
+{
+  "name": "timestamp-offset",
+  "description": "Two Measurements identical except their timestamp UTC offset (+05:00 vs Z) MUST NOT normalize equal — §8.3 step 1 preserves local-time offset context (only a zero offset folds to Z). Guards against a refactor that treats a non-zero offset as cosmetic and drops/folds it.",
+  "specRefs": ["§4.1", "§8.3"],
+  "kind": "inequivalent",
+  "a": {
+    "id": "obs-tz",
+    "recordType": "Measurement",
+    "subject": "subj-001",
+    "type": "heart_rate",
+    "quantity": 72,
+    "unit": "/min",
+    "startTime": "2026-06-23T14:02:00+05:00",
+    "endTime": "2026-06-23T14:02:00+05:00"
+  },
+  "b": {
+    "id": "obs-tz",
+    "recordType": "Measurement",
+    "subject": "subj-001",
+    "type": "heart_rate",
+    "quantity": 72,
+    "unit": "/min",
+    "startTime": "2026-06-23T14:02:00Z",
+    "endTime": "2026-06-23T14:02:00Z"
+  }
+}

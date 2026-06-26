@@ -41,7 +41,7 @@ for (const f of fs.readdirSync(vdir).sort()) {
   if (!f.endsWith(".json") || f === "index.json") continue;
   const v = JSON.parse(fs.readFileSync(path.join(vdir, f), "utf8"));
   if (v.kind === "valid") check(f, v.record);
-  else if (v.kind === "equivalent") { check(`${f}#a`, v.a); check(`${f}#b`, v.b); }
+  else if (v.kind === "equivalent" || v.kind === "inequivalent") { check(`${f}#a`, v.a); check(`${f}#b`, v.b); }
   else if (v.kind === "normalization") check(`${f}#input`, v.input);
   // "invalid" vectors are expected to fail the schema — skipped here.
 }
