@@ -31,6 +31,10 @@ permanent open-governance charter on GitHub.
 
 ## Versioning & change management
 
+- **Released normative text is immutable.** A published version's `SPEC.md` is never
+  edited in place. Every normative change follows: record the decision (with rationale) →
+  ratify → edit → bump the version with a `CHANGELOG.md` entry. (Editorial/typo fixes that
+  change no normative meaning may land as a patch without a ratification step.)
 - The specification follows **semantic versioning** (`CHANGELOG.md`): additive
   minor / breaking major / editorial patch; **deprecate-not-remove** within a major.
 - **Vocabulary growth** for open registry-backed fields happens via the independently

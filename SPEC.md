@@ -1,6 +1,11 @@
 # OpenBody — an open standard for health & fitness data interoperability
 ## Draft v0.3.1 (normative)
 
+> **Change control.** This is the canonical spec. A released version's normative text is
+> immutable — never edit it in place. Normative changes ship as a *new version* (record the
+> decision → ratify → edit → new `CHANGELOG.md` entry), per `GOVERNANCE.md` § Versioning &
+> change management. Copies elsewhere (e.g. a memory bank) are non-authoritative.
+
 ### 0. Status & Scope
 
 OpenBody is an **open, vendor-neutral, language-agnostic standard**: a canonical
