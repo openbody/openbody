@@ -116,6 +116,10 @@
     {
       "file": "accumulation.normalization.json",
       "kind": "normalization"
+    },
+    {
+      "file": "extension-fixedpoint.normalization.json",
+      "kind": "normalization"
     }
   ],
   "coverage": {

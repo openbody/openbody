@@ -1,0 +1,33 @@
+{
+  "name": "extension-fixedpoint",
+  "description": "A {coefficient,exponent}-shaped object inside an opaque extension is NOT re-read as a number (§8.3 step 1): it stays a structural object (its numeric members canonicalized), whereas the record's real numeric `quantity` IS collapsed to a lowest-terms fixed-point. `expected` pins the distinction.",
+  "specRefs": [
+    "§8.3",
+    "§8.1"
+  ],
+  "kind": "normalization",
+  "input": {
+    "id": "m-ext",
+    "recordType": "Measurement",
+    "subject": "subj-001",
+    "type": "body.mass",
+    "quantity": 80.5,
+    "unit": "kg",
+    "startTime": "2026-01-01T00:00:00Z",
+    "endTime": "2026-01-01T00:00:00Z",
+    "provenance": {
+      "method": "manual"
+    },
+    "extension": {
+      "com.acme": {
+        "calibration": {
+          "coefficient": 720,
+          "exponent": -1
+        }
+      }
+    }
+  },
+  "expected": [
+    "{\"endTime\":\"2026-01-01T00:00:00Z\",\"extension\":{\"com.acme\":{\"calibration\":{\"coefficient\":{\"coefficient\":\"72\",\"exponent\":\"1\"},\"exponent\":{\"coefficient\":\"-1\",\"exponent\":\"0\"}}}},\"id\":\"m-ext\",\"provenance\":{\"method\":\"manual\"},\"quantity\":{\"coefficient\":\"805\",\"exponent\":\"-1\"},\"recordType\":\"Measurement\",\"startTime\":\"2026-01-01T00:00:00Z\",\"status\":\"active\",\"subject\":\"subj-001\",\"type\":\"body.mass\",\"unit\":\"kg\"}"
+  ]
+}
