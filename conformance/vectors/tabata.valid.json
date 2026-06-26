@@ -1,0 +1,18 @@
+{
+  "name": "tabata",
+  "description": "A Tabata Block (8 rounds, 20s work / 10s rest) over a single exercise — exercises the tabata scheme parameters workSec/restSec/rounds (§5.4).",
+  "specRefs": ["§5.4", "§5.8"],
+  "kind": "valid",
+  "record": {
+    "id": "blk-tabata", "recordType": "Block", "subject": "subj-001",
+    "name": "Tabata Air Squats",
+    "scoring": { "scheme": "tabata", "workSec": 20, "restSec": 10, "rounds": 8 },
+    "children": [
+      { "id": "ex-sq", "recordType": "Exercise", "exerciseRef": "squat.air",
+        "workUnits": [
+          { "id": "wu-sq", "recordType": "WorkUnit", "scoring": "reps",
+            "prescription": { "reps": 12 } }
+        ] }
+    ]
+  }
+}

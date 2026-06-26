@@ -1,0 +1,37 @@
+{
+  "name": "accumulation",
+  "description": "A Session flagged accumulation:true — work gathered over a window rather than one contiguous bout (§5.3) — flattening to Session + Exercise + WorkUnit. Exercises subject/startTime propagation, scalar `reps` expansion, deterministic id-assignment for the id-less WorkUnit, and partOf wiring (§8.3). `expected` is the pinned canonical form.",
+  "specRefs": [
+    "§5.3",
+    "§8.3"
+  ],
+  "kind": "normalization",
+  "input": {
+    "id": "sess-accum",
+    "recordType": "Session",
+    "subject": "subj-001",
+    "startTime": "2026-06-20T07:00:00Z",
+    "accumulation": true,
+    "exercises": [
+      {
+        "id": "ex-pu",
+        "recordType": "Exercise",
+        "exerciseRef": "pull-up",
+        "workUnits": [
+          {
+            "recordType": "WorkUnit",
+            "scoring": "reps",
+            "prescription": {
+              "reps": 100
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "expected": [
+    "{\"accumulation\":true,\"id\":\"sess-accum\",\"recordType\":\"Session\",\"startTime\":\"2026-06-20T07:00:00Z\",\"status\":\"active\",\"subject\":\"subj-001\"}",
+    "{\"exerciseRef\":{\"id\":\"pull-up\"},\"id\":\"ex-pu\",\"links\":[{\"ref\":\"sess-accum\",\"type\":\"partOf\"}],\"recordType\":\"Exercise\",\"startTime\":\"2026-06-20T07:00:00Z\",\"status\":\"active\",\"subject\":\"subj-001\"}",
+    "{\"id\":\"ex-pu#workUnits#1\",\"links\":[{\"ref\":\"ex-pu\",\"type\":\"partOf\"}],\"prescription\":{\"reps\":{\"absolute\":{\"value\":{\"coefficient\":\"1\",\"exponent\":\"2\"}}}},\"recordType\":\"WorkUnit\",\"scoring\":\"reps\",\"startTime\":\"2026-06-20T07:00:00Z\",\"status\":\"active\",\"subject\":\"subj-001\"}"
+  ]
+}

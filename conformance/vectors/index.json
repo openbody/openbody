@@ -100,22 +100,38 @@
     {
       "file": "sets-expansion.normalization.json",
       "kind": "normalization"
+    },
+    {
+      "file": "tabata.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "program-progression.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "isokinetic.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "accumulation.normalization.json",
+      "kind": "normalization"
     }
   ],
   "coverage": {
     "scoring_kinds": "reps, time, distance, energy, continuous — all five",
-    "block_schemes": "amrap, emom, for_time",
-    "core_structures": "resistance set, round/interval/for-time blocks, continuous endurance (§3.1)",
+    "block_schemes": "amrap, emom, for_time, tabata",
+    "core_structures": "resistance set, round/interval/for-time/tabata blocks, continuous endurance (§3.1), Program with whole-plan progression, Session accumulation flag, isokinetic (accommodating resistanceProfile + velocity target)",
     "value_objects": "Target (all 4 variants incl. relativeToThreshold + stopCondition), Load (absolute + relative), EffortLoad, phasePattern (durations + ratios + qualifier), outcome, participants, ThresholdProfile, StatusPeriod",
     "encodings": "scalar↔Target, nested↔flat+partOf, number float↔fixed-point",
     "round_trip": "opaque ExerciseRef, unknown extension, unknown open token, tombstone, supersession",
     "sampleArray": "regular + irregular, single + multi-channel, null dropped sample",
-    "normalization": "sets-expansion with exact pinned `expected` canonical bytes",
+    "normalization": "sets-expansion + accumulation-flatten (subject/startTime propagation, id-assignment, partOf) with exact pinned `expected` canonical bytes",
     "labels": "name (Program/Session/Block) + notes (Session/Block/Exercise/WorkUnit) — named-session vector"
   },
   "todo": [
-    "tabata scheme; accumulation flag; Program with progression; modifiers beyond bfr; isokinetic (resistanceProfile accommodating + velocity target)",
+    "modifiers beyond bfr (ems, altitude, heat, terrain, …)",
     "more pinned `expected` on additional normalization vectors as they're added",
-    "extended activity-coverage corpus (CORPUS.md): Highland games, kabaddi, freediving, isokinetic, climbing send/attempt/flash, swimming SWOLF, etc."
+    "extended activity-coverage corpus (CORPUS.md): Highland games, kabaddi, freediving, climbing send/attempt/flash, swimming SWOLF, etc."
   ]
 }

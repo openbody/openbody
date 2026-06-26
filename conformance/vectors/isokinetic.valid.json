@@ -1,0 +1,23 @@
+{
+  "name": "isokinetic",
+  "description": "An isokinetic knee-extension Exercise: accommodating resistanceProfile (§5.16) plus per-rep velocity held at a fixed angular velocity (deg/s) carried as a velocity Target in repDetail (§5.7/§5.10) — the spec's isokinetic = accommodating + velocity-target encoding.",
+  "specRefs": ["§5.16", "§5.7", "§5.10"],
+  "kind": "valid",
+  "record": {
+    "id": "ex-iso", "recordType": "Exercise", "subject": "subj-001",
+    "exerciseRef": "knee-extension.isokinetic",
+    "descriptors": {
+      "resistanceProfile": "accommodating",
+      "equipment": { "manufacturer": "Biodex", "model": "System 4 Pro" }
+    },
+    "workUnits": [
+      { "id": "wu-iso", "recordType": "WorkUnit", "scoring": "reps",
+        "prescription": { "reps": 3 },
+        "repDetail": [
+          { "velocity": { "absolute": { "value": 60, "unit": "deg/s" } } },
+          { "velocity": { "absolute": { "value": 60, "unit": "deg/s" } } },
+          { "velocity": { "absolute": { "value": 60, "unit": "deg/s" } } }
+        ] }
+    ]
+  }
+}

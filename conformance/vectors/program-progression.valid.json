@@ -1,0 +1,13 @@
+{
+  "name": "program-progression",
+  "description": "A Program carrying a whole-plan linear Progression (rule + params) and an iteration index — progression defined at the Program level rather than per-prescription (§5.2/§5.14).",
+  "specRefs": ["§5.2", "§5.14"],
+  "kind": "valid",
+  "record": {
+    "id": "prog-531", "recordType": "Program", "subject": "subj-001",
+    "name": "5/3/1",
+    "sessions": ["sess-w1-d1", "sess-w1-d2"],
+    "iteration": 3,
+    "progression": { "rule": "linear", "params": { "stepKg": 2.5, "per": "session" } }
+  }
+}
