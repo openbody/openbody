@@ -9,8 +9,7 @@ regardless of background or identity.
 
 ## Reporting
 
-Report unacceptable behavior to the project maintainers. _(Contact address to be
-finalized before the public release — e.g. `conduct@openbody.dev`.)_ All reports are
-reviewed and handled confidentially.
+Report unacceptable behavior to the project maintainers at `conduct@openbody.dev`.
+All reports are reviewed and handled confidentially.
 
 Enforcement follows the Contributor Covenant's enforcement guidelines.

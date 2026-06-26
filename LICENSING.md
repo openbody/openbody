@@ -15,10 +15,15 @@ Official license texts:
 - Apache-2.0 — https://www.apache.org/licenses/LICENSE-2.0
 - CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/legalcode
 
-> **TODO before public release:** drop the verbatim license files into the repo —
-> `LICENSE` (OWFa 1.0 full text for the spec docs) and, in each code/registry repo,
-> the Apache-2.0 / CC0 texts respectively. They are intentionally referenced (not
-> inlined) during private review to avoid shipping unverified legal text.
+Verbatim license texts vendored into the repos:
+
+- **Reference code** (`openbody-ts/LICENSE`) — Apache-2.0, full text. ✅
+- **Registry data** (`openbody-registry/LICENSE`) — CC0 1.0 legal code, full text. ✅
+- **Specification docs** (this repo, `LICENSE`) — OWFa 1.0. ⏳ **Pending:** the verbatim
+  OWFa 1.0 (Granted Claims) text must be dropped in from the official source before the
+  public flip. It is not on SPDX and the openwebfoundation.org page is not a clean
+  machine-readable copy, so it is referenced (not scraped) to avoid shipping unverified
+  legal text. Copy the verified text from the official agreement into `LICENSE`.
 
 (Recorded in the project decision log: licensing was OWFa-1.0 / Apache-2.0 / CC0 as of
 2026-06-24, superseding an earlier CC-BY-4.0 docs license.)
