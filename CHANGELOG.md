@@ -29,15 +29,11 @@ showed every app has a workout title with nowhere interoperable to live.
 - An exercise's name remains its identity (`exerciseRef`, §6); app cosmetics
   (color/icon/UI state) stay in namespaced extensions, not core.
 - Backward-compatible: all v0.2.x records remain valid. Schema `$id` → v0.3.
-
-## [Unreleased]
-
-- Added the **JSON Schema** (`schema/openbody.schema.json`, Draft 2020-12) — the
-  primary binding for §§4–7. All `SPEC.md` examples and conformance vectors validate
-  against it.
-- Added a starter batch of **conformance vectors** (`conformance/vectors/`) covering
-  scalar↔Target and nested↔flat equivalence, `sets` expansion, tombstone, GPS
-  sampleArray, and unknown-extension round-trip, with a manifest and format doc.
+- **Tooling shipped in the 0.3.x line:** the **JSON Schema**
+  (`schema/openbody.schema.json`, Draft 2020-12) as the primary binding for §§4–7 (all
+  `SPEC.md` examples + conformance vectors validate against it), and the **conformance
+  vectors** (`conformance/vectors/`) — valid / equivalence / normalization cases with a
+  manifest and format doc.
 
 ## [0.2.1] — 2026-06-24 (private draft)
 
@@ -61,6 +57,3 @@ First complete two-pillar normative draft (§0–§11 + Appendix A).
 - Pillar A (Observation) + Pillar B (Structured Training), shared record envelope,
   exercise identity (hybrid registry + facets + coded + opaque), extensibility &
   conformance profiles, governance & versioning, incumbent mappings.
-
-[0.2.1]: #
-[0.2.0]: #
