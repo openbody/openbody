@@ -4,6 +4,21 @@ All notable changes to the OpenBody **standard** are documented here. The standa
 follows [semantic versioning](https://semver.org/): additive = minor, breaking =
 major (deprecate-not-remove within a major), editorial = patch.
 
+## [0.3.1] — 2026-06-26 (private draft)
+
+**Normative (patch): relax `provenance.algorithm` requirement on `derivedFrom`.**
+Previously `algorithm` was required whenever a record carried a `derivedFrom` link.
+Incumbents emit derived values (max HR, estimated 1RM, calories) without disclosing
+the algorithm, which forced a faithful mapper to either drop the lineage link or
+fabricate an algorithm (A3 / OB-8).
+
+- `provenance.algorithm` is now **required only when `method` is `algorithm`**, and
+  **recommended** (not required) when the sole trigger is a `derivedFrom` link
+  (§7.2 / §7.4).
+- Backward-compatible: every v0.3.0 document remains valid — this only widens what
+  conforms. No schema-structure change (the rule was implementation-enforced, never
+  schema-encoded; the schema NOTE is updated for accuracy).
+
 ## [0.3.0] — 2026-06-25 (private draft)
 
 **Additive (minor): human-readable labels.** Real-data dogfooding (Hevy/Strong/Strava)

@@ -1,5 +1,5 @@
 # OpenBody — an open standard for health & fitness data interoperability
-## Draft v0.3.0 (normative)
+## Draft v0.3.1 (normative)
 
 ### 0. Status & Scope
 
@@ -1143,7 +1143,7 @@ a target record `id` and `type` is a **closed** core relation:
 |---|---|
 | `partOf` | This record is contained by another (e.g. a WorkUnit `partOf` a Session). |
 | `sameActivityAs` | This record and the target are two sources' versions of the **same whole activity** (Apple's run + Strava's run) — the dedup relation (§7.3). |
-| `derivedFrom` | This record was computed from the target (e.g. an aggregate from a series; §4.3). When present, `provenance.algorithm` is **required** (§7.4). |
+| `derivedFrom` | This record was computed from the target (e.g. an aggregate from a series; §4.3). When present, `provenance.algorithm` is **recommended** (§7.4). |
 | `peerSensor` | A **parallel sensor stream** of one event (two HR straps on one run) — distinct from `sameActivityAs`, which relates whole-activity records, not raw co-streams. |
 | `measuredBy` | A Pillar B record's associated **Pillar A telemetry** — a `WorkUnit`/`Session` → the HR trace, power, velocity, or GPS-route `Measurement`s recorded during it. This is the cross-pillar reference of §1.3 (Pillar B references Pillar A, never duplicates it). |
 | `performedFrom` | A performed record realizes a planned one (the planned↔performed link, §5.6). |
@@ -1193,7 +1193,7 @@ the fields below are its members (the JSON examples in §4.6/§7.6 show this nes
 | `method` | recommended | enum | Closed: `manual｜sensor｜estimated｜algorithm`. |
 | `device` | optional | `{ manufacturer, model }` | `manufacturer` is an **open registry-backed token** (recommended canon `apple｜garmin｜…` + namespaced fallback). |
 | `sourceApp` | recommended | token | The producing app/platform, an **open registry-backed token** (recommended canon `google_health_connect｜strava｜…` + namespaced fallback). |
-| `algorithm` | conditional | `{ name, version }` | **Required** when `method` is `algorithm`, or when the record carries a `derivedFrom` link (§7.2), so derived values are reproducible/traceable. |
+| `algorithm` | conditional | `{ name, version }` | **Required** when `method` is `algorithm`; **recommended** when the record carries a `derivedFrom` link (§7.2) — derived values are more reproducible/traceable with it, but producers that compute from third-party/firmware logic often cannot name the algorithm, and forcing it would push mappers to drop the lineage link or fabricate a value. |
 | `confidence` | optional | number | Producer confidence in the value. |
 
 Defining `device.manufacturer`/`sourceApp` as registry-backed tokens (rather than a
