@@ -19,11 +19,9 @@ Verbatim license texts vendored into the repos:
 
 - **Reference code** (`openbody-ts/LICENSE`) — Apache-2.0, full text. ✅
 - **Registry data** (`openbody-registry/LICENSE`) — CC0 1.0 legal code, full text. ✅
-- **Specification docs** (this repo, `LICENSE`) — OWFa 1.0. ⏳ **Pending:** the verbatim
-  OWFa 1.0 (Granted Claims) text must be dropped in from the official source before the
-  public flip. It is not on SPDX and the openwebfoundation.org page is not a clean
-  machine-readable copy, so it is referenced (not scraped) to avoid shipping unverified
-  legal text. Copy the verified text from the official agreement into `LICENSE`.
+- **Specification docs** (this repo, `LICENSE`) — OWFa 1.0 (Granted Claims), full
+  verbatim text vendored from the official agreement, with the Specification identified
+  as `OpenBody 0.3.1` and an individual grant executed. ✅
 
 (Recorded in the project decision log: licensing was OWFa-1.0 / Apache-2.0 / CC0 as of
 2026-06-24, superseding an earlier CC-BY-4.0 docs license.)
