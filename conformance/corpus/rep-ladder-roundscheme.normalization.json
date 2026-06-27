@@ -1,0 +1,34 @@
+{
+  "name": "rep-ladder-roundscheme",
+  "description": "Block.roundScheme [21,15,9] (Fran, v0.4) expands on normalization (§8.3 step 5) to a 3-round, 6-WorkUnit enumeration. Each round injects its rep count into the ladder-following WorkUnits whose reps were absent; the thruster's fixed load is carried through unchanged. Round 1 keeps the source children ids (fr-thr, fr-pu, …); rounds 2-3 are id-less copies and receive deterministic #-ids. This pins the compact roundScheme form as equivalent to the hand-enumerated block.",
+  "specRefs": ["§5.4", "§5.8", "§8.3"],
+  "kind": "normalization",
+  "input": {
+    "id": "blk-fran", "recordType": "Block", "subject": "subj-001", "name": "Fran",
+    "scoring": { "scheme": "for_time", "timeCapSec": 600 }, "rxStatus": "rx",
+    "roundScheme": [21, 15, 9],
+    "children": [
+      { "id": "fr-thr", "recordType": "Exercise", "exerciseRef": "thruster.barbell",
+        "workUnits": [{ "id": "fr-thr-wu", "recordType": "WorkUnit", "scoring": "reps",
+          "prescription": { "load": { "value": 43, "unit": "kg", "basis": "marked_weight" } } }] },
+      { "id": "fr-pu", "recordType": "Exercise", "exerciseRef": "pull-up",
+        "workUnits": [{ "id": "fr-pu-wu", "recordType": "WorkUnit", "scoring": "reps" }] }
+    ]
+  },
+  "expectedNote": "13 flat records: blk-fran + 3 rounds × (thruster Exercise + WorkUnit, pull-up Exercise + WorkUnit). Round 1 keeps source ids; rounds 2-3 get blk-fran#children#3..6 (+ #workUnits#1). reps injected per round (21/15/9) only where absent; thruster load carried unchanged. Order-independent set comparison.",
+  "expected": [
+    "{\"exerciseRef\":{\"id\":\"pull-up\"},\"id\":\"blk-fran#children#4\",\"links\":[{\"ref\":\"blk-fran\",\"type\":\"partOf\"}],\"recordType\":\"Exercise\",\"status\":\"active\",\"subject\":\"subj-001\"}",
+    "{\"exerciseRef\":{\"id\":\"pull-up\"},\"id\":\"blk-fran#children#6\",\"links\":[{\"ref\":\"blk-fran\",\"type\":\"partOf\"}],\"recordType\":\"Exercise\",\"status\":\"active\",\"subject\":\"subj-001\"}",
+    "{\"exerciseRef\":{\"id\":\"pull-up\"},\"id\":\"fr-pu\",\"links\":[{\"ref\":\"blk-fran\",\"type\":\"partOf\"}],\"recordType\":\"Exercise\",\"status\":\"active\",\"subject\":\"subj-001\"}",
+    "{\"exerciseRef\":{\"id\":\"thruster.barbell\"},\"id\":\"blk-fran#children#3\",\"links\":[{\"ref\":\"blk-fran\",\"type\":\"partOf\"}],\"recordType\":\"Exercise\",\"status\":\"active\",\"subject\":\"subj-001\"}",
+    "{\"exerciseRef\":{\"id\":\"thruster.barbell\"},\"id\":\"blk-fran#children#5\",\"links\":[{\"ref\":\"blk-fran\",\"type\":\"partOf\"}],\"recordType\":\"Exercise\",\"status\":\"active\",\"subject\":\"subj-001\"}",
+    "{\"exerciseRef\":{\"id\":\"thruster.barbell\"},\"id\":\"fr-thr\",\"links\":[{\"ref\":\"blk-fran\",\"type\":\"partOf\"}],\"recordType\":\"Exercise\",\"status\":\"active\",\"subject\":\"subj-001\"}",
+    "{\"id\":\"blk-fran\",\"name\":\"Fran\",\"recordType\":\"Block\",\"rxStatus\":\"rx\",\"scoring\":{\"scheme\":\"for_time\",\"timeCapSec\":{\"coefficient\":\"6\",\"exponent\":\"2\"}},\"status\":\"active\",\"subject\":\"subj-001\"}",
+    "{\"id\":\"blk-fran#children#3#workUnits#1\",\"links\":[{\"ref\":\"blk-fran#children#3\",\"type\":\"partOf\"}],\"prescription\":{\"load\":{\"basis\":\"marked_weight\",\"unit\":\"kg\",\"value\":{\"absolute\":{\"value\":{\"coefficient\":\"43\",\"exponent\":\"0\"}}}},\"reps\":{\"absolute\":{\"value\":{\"coefficient\":\"15\",\"exponent\":\"0\"}}}},\"recordType\":\"WorkUnit\",\"scoring\":\"reps\",\"status\":\"active\",\"subject\":\"subj-001\"}",
+    "{\"id\":\"blk-fran#children#4#workUnits#1\",\"links\":[{\"ref\":\"blk-fran#children#4\",\"type\":\"partOf\"}],\"prescription\":{\"reps\":{\"absolute\":{\"value\":{\"coefficient\":\"15\",\"exponent\":\"0\"}}}},\"recordType\":\"WorkUnit\",\"scoring\":\"reps\",\"status\":\"active\",\"subject\":\"subj-001\"}",
+    "{\"id\":\"blk-fran#children#5#workUnits#1\",\"links\":[{\"ref\":\"blk-fran#children#5\",\"type\":\"partOf\"}],\"prescription\":{\"load\":{\"basis\":\"marked_weight\",\"unit\":\"kg\",\"value\":{\"absolute\":{\"value\":{\"coefficient\":\"43\",\"exponent\":\"0\"}}}},\"reps\":{\"absolute\":{\"value\":{\"coefficient\":\"9\",\"exponent\":\"0\"}}}},\"recordType\":\"WorkUnit\",\"scoring\":\"reps\",\"status\":\"active\",\"subject\":\"subj-001\"}",
+    "{\"id\":\"blk-fran#children#6#workUnits#1\",\"links\":[{\"ref\":\"blk-fran#children#6\",\"type\":\"partOf\"}],\"prescription\":{\"reps\":{\"absolute\":{\"value\":{\"coefficient\":\"9\",\"exponent\":\"0\"}}}},\"recordType\":\"WorkUnit\",\"scoring\":\"reps\",\"status\":\"active\",\"subject\":\"subj-001\"}",
+    "{\"id\":\"fr-pu-wu\",\"links\":[{\"ref\":\"fr-pu\",\"type\":\"partOf\"}],\"prescription\":{\"reps\":{\"absolute\":{\"value\":{\"coefficient\":\"21\",\"exponent\":\"0\"}}}},\"recordType\":\"WorkUnit\",\"scoring\":\"reps\",\"status\":\"active\",\"subject\":\"subj-001\"}",
+    "{\"id\":\"fr-thr-wu\",\"links\":[{\"ref\":\"fr-thr\",\"type\":\"partOf\"}],\"prescription\":{\"load\":{\"basis\":\"marked_weight\",\"unit\":\"kg\",\"value\":{\"absolute\":{\"value\":{\"coefficient\":\"43\",\"exponent\":\"0\"}}}},\"reps\":{\"absolute\":{\"value\":{\"coefficient\":\"21\",\"exponent\":\"0\"}}}},\"recordType\":\"WorkUnit\",\"scoring\":\"reps\",\"status\":\"active\",\"subject\":\"subj-001\"}"
+  ]
+}

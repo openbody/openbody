@@ -1,5 +1,5 @@
 # OpenBody — an open standard for health & fitness data interoperability
-## Draft v0.3.1 (normative)
+## Draft v0.4.0 (normative)
 
 > **Change control.** This is the canonical spec. A released version's normative text is
 > immutable — never edit it in place. Normative changes ship as a *new version* (record the
@@ -572,7 +572,8 @@ grouping semantics.
 | `name` | optional | string | Human-readable block name (e.g. a named circuit or benchmark WOD "Fran"). |
 | `notes` | optional | string | Free-text notes for the block. |
 | `children` | required-in-Block | array | Child `Block`s and/or `Exercise`s — or, when the `Exercise` level is collapsed (§5.5), `WorkUnit`s directly (each then carrying its own `exerciseRef`). A Block's `children` array is heterogeneous but every element is one of `Block｜Exercise｜WorkUnit`. |
-| `repetitions` | optional | integer | The block is performed N times (rounds, circuits). |
+| `repetitions` | optional | integer | The block is performed N times — **identical** rounds/circuits. Mutually exclusive with `roundScheme`. |
+| `roundScheme` | optional | array&lt;integer&gt; | **Laddered rounds** (R17): per-round counts, e.g. `[21,15,9]` (Fran), an ascending ladder, or a calorie ladder. The block is performed `length(roundScheme)` rounds; in round *r* each descendant `WorkUnit` whose **primary metric is absent** takes `roundScheme[r-1]` as that metric (§5.8). A *planned* shorthand that expands on normalization (§8.3); mutually exclusive with `repetitions`, and **MUST NOT** appear with a `performance`. |
 | `scoring` | optional | object | A **block-level scoring scheme** (R1): `scheme` (open token: `amrap`, `for_time`, `emom`, `tabata`, `rounds`) plus the scheme parameters defined below. The registry holds display synonyms/casing. |
 | `grouping` | optional | token | Open grouping semantic: `superset`, `giant_set`, `circuit`, `drop_set`, … (≈ wger Slot). |
 | `performance` | optional | object | The block-level **result** of a scoring scheme (fields below). |
@@ -604,6 +605,20 @@ incumbent models cleanly. Per-atom scoring lives on the `WorkUnit` (§5.5).
 A **drop set** is encoded canonically as a `Block` with `grouping: drop_set` whose
 post-first `WorkUnit`s carry `setRole: drop` (§5.5); producers **MUST NOT** encode
 the same structure two different ways.
+
+**Round structure vs scoring are orthogonal** (R17). `repetitions` / `roundScheme`
+describe *how the rounds are structured*; `scoring.scheme` (§5.8) describes *how the
+work is measured*. They compose: a 21-15-9 "for time" couplet is
+`scoring.scheme: for_time` **+** `roundScheme: [21,15,9]`; an ascending-rep AMRAP
+ladder is `scheme: amrap` **+** `roundScheme`. `roundScheme` is the compact form of a
+laddered block whose rounds differ only in their per-round count; it is **defined to
+expand** (§8.3) to the same fully-enumerated `children` an producer could write by
+hand — the two forms are equivalent. A `WorkUnit` that needs a different value than the
+scheme supplies carries its own metric and is left untouched by the expansion (so a
+fixed-rep accessory inside a laddered block is unaffected); a `continuous`-scored unit,
+having no single primary metric, never participates. Where rounds differ in more than a
+single count (e.g. the load also changes each round), enumerate the rounds explicitly
+rather than using `roundScheme`.
 
 #### 5.5 Exercise & WorkUnit
 
@@ -1365,11 +1380,23 @@ shorthands.
 4. **Expand & fold `ExerciseRef`.** A bare-string ref → `{ "id": … }` (§6.1); and a
    canonical `id` carrying an explicit `openbody:` prefix is folded to its unprefixed
    form (§6.2), so the two permitted synonyms canonicalize identically.
-5. **Expand `sets`.** A `prescription` with `sets: N` is replaced by **N** sibling
-   `WorkUnit`s, `sets` removed from each. The **1st** keeps the source `WorkUnit`'s
-   `id` and array position; the other N−1 follow **immediately after, in order**. A
-   `WorkUnit` carrying both `sets` and `performance` is invalid (§5.5) and is not
-   normalizable.
+5. **Expand `roundScheme`, then `sets`.**
+   - **`roundScheme`** (§5.4). A `Block` with `roundScheme: [v₁,…,vₙ]` has its `children`
+     replaced by **n** consecutive copies of the source `children`, in order, and
+     `roundScheme` removed. In the *r*-th copy, every descendant `WorkUnit` whose
+     **primary metric** — the metric named by its `scoring` (`reps｜time｜distance｜
+     energy`; a `continuous` unit is **skipped**) — is **absent** has that metric set to
+     `vᵣ` (a bare scalar, expanded by step 3); a `WorkUnit` that already carries its
+     primary metric is copied unchanged. The **1st** copy keeps the source children's
+     `id`s and positions; in copies 2…n every record (the copied children **and their
+     descendants**) is treated as **id-less** for step 6, so it receives a fresh
+     deterministic id and never collides. A `Block` carrying `roundScheme` together with
+     `repetitions`, or with a `performance`, is invalid (§5.4) and is not normalizable.
+   - **`sets`.** A `prescription` with `sets: N` is replaced by **N** sibling
+     `WorkUnit`s, `sets` removed from each. The **1st** keeps the source `WorkUnit`'s
+     `id` and array position; the other N−1 follow **immediately after, in order**. A
+     `WorkUnit` carrying both `sets` and `performance` is invalid (§5.5) and is not
+     normalizable.
 6. **Assign deterministic ids (root-down).** Any record still lacking an `id` is
    assigned `<nearestAncestorId>#<containerField>#<index>`, `<index>` being its 1-based
    position in the parent's container array as it stands after step 5 and before

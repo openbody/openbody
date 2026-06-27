@@ -4,6 +4,35 @@ All notable changes to the OpenBody **standard** are documented here. The standa
 follows [semantic versioning](https://semver.org/): additive = minor, breaking =
 major (deprecate-not-remove within a major), editorial = patch.
 
+## [0.4.0] — 2026-06-27 (private draft)
+
+**Additive (minor): laddered rounds — `Block.roundScheme` (R17).** The v1
+methodology-coverage validation found that per-round-varying rep schemes — 21-15-9
+(CrossFit's most iconic format; the spec even names "Fran"), ascending/descending
+ladders, pyramids, "Death by", and calorie ladders — had no compact representation:
+`Block.repetitions` only expresses *identical* rounds, so every laddered workout had to
+be fully enumerated (verbose and non-canonical to author).
+
+- Added optional **`Block.roundScheme`** (`array<integer>`): per-round counts, e.g.
+  `[21,15,9]`. The block runs `length(roundScheme)` rounds; in round *r* each descendant
+  `WorkUnit` whose **primary metric is absent** (the metric named by its `scoring` —
+  `reps｜time｜distance｜energy`; `continuous` is skipped) takes `roundScheme[r-1]`. So one
+  array covers rep-ladders *and* calorie-ladders, while fixed-metric accessories inside a
+  laddered block are untouched (§5.4, §5.8).
+- **Mutually exclusive with `repetitions`** (schema-enforced via a Block `not` constraint).
+  Round structure (`repetitions`/`roundScheme`) and scoring (`scoring.scheme`) are
+  orthogonal and compose: Fran = `scheme: for_time` + `roundScheme: [21,15,9]`.
+- **Planned shorthand**, like `sets`: it expands during normalization (§8.3 step 5) to the
+  same fully-enumerated `children` a producer could write by hand — so the compact and
+  enumerated forms are provably equivalent, and the canonical (normalized) form is
+  unchanged. `roundScheme` with `repetitions`, or with a `performance`, is invalid.
+- Schema `$id` → v0.4. Reference normalizer (`openbody-ts`) implements the expansion;
+  a `rep-ladder-roundscheme` normalization vector pins the expansion to the enumerated
+  Fran canonical bytes (`conformance/corpus/`).
+- **Pre-1.0 status:** this is one of several model changes still being iterated before a
+  1.0-readiness pass — not a final/ratified shape. v0.3.x documents that used enumeration
+  remain valid (enumeration is always valid; `roundScheme` is optional compression).
+
 ## [0.3.1] — 2026-06-26 (private draft)
 
 **Normative (patch): relax `provenance.algorithm` requirement on `derivedFrom`.**

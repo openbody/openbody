@@ -1,6 +1,6 @@
 {
   "name": "rep-ladder-fran",
-  "description": "Fran — the iconic 21-15-9 CrossFit couplet (thrusters + pull-ups), for time. The descending rep scheme varies per round, so Block.repetitions (identical rounds) cannot express it: it MUST be enumerated as one Exercise per round with its own rep count. This vector pins the canonical enumeration (METHODOLOGY-VALIDATION G2 — the rep-ladder gap).",
+  "description": "Fran — the iconic 21-15-9 CrossFit couplet (thrusters + pull-ups), for time, shown here fully ENUMERATED (one Exercise per round) with a performed result. The compact equivalent uses Block.roundScheme [21,15,9] (v0.4) — see rep-ladder-roundscheme.normalization.json, which expands to this same structure. Enumeration remains always valid; roundScheme is optional compression (METHODOLOGY-VALIDATION G2 — the rep-ladder gap).",
   "specRefs": ["§5.4", "§5.5", "§5.18"],
   "kind": "valid",
   "record": {
