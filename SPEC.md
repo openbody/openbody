@@ -1,5 +1,5 @@
 # OpenBody — an open standard for health & fitness data interoperability
-## Draft v0.4.0 (normative)
+## Draft v0.5.0 (normative)
 
 > **Change control.** This is the canonical spec. A released version's normative text is
 > immutable — never edit it in place. Normative changes ship as a *new version* (record the
@@ -548,6 +548,7 @@ A **`Session`** is one training occurrence.
 | `blocks` | optional | array&lt;Block&gt; | Contained Blocks (the most-structured form). |
 | `exercises` | optional | array&lt;Exercise&gt; | Contained Exercises directly (Block level collapsed). |
 | `workUnits` | optional | array&lt;WorkUnit&gt; | Contained WorkUnits directly (Block **and** Exercise collapsed; each then carries its own `exerciseRef`). |
+| `outcome` | optional | `outcome` | The **session-level result** (§5.18) — a match score, race placement, or game outcome, for sports whose contest *is* the session (R19). |
 
 A Session structures its content **one way only**: **at most one** of `blocks`,
 `exercises`, or `workUnits` is present (the choice fixes the granularity; to mix
@@ -654,8 +655,9 @@ takes the same fields minus `sets`, plus `outcome`):
 | Field | Type | Semantics |
 |---|---|---|
 | `reps` / `time` / `distance` / `energy` | scalar or `Target` | The metric matching `scoring` (a `time`-scored unit carries `time`, etc.); §5.10. |
-| `load` | `Load` | External resistance (§5.12). |
-| `effortLoad` | array&lt;`EffortLoad`&gt; | Plural effort measures (§5.13). |
+| `load` | `Load` | External **resistance** (§5.12) — weight, band, machine level, %1RM. |
+| `intensity` | array&lt;`Intensity`&gt; | Prescribed/achieved **intensity targets** on dimensions other than resistance — power, pace, heart-rate, speed, grade — absolute, relative-to-threshold (incl. a band), or a named zone (§5.13). |
+| `effortLoad` | array&lt;`EffortLoad`&gt; | Plural **perceived/derived effort** measures — RPE, RIR, sRPE, TRIMP, TSS (§5.13). |
 | `rest` | scalar or `Target` | Inter-set rest; a duration, e.g. `{ absolute: { value: 120, unit: "s" } }`. |
 | `phasePattern` | `phasePattern` | Tempo / breath pattern (§5.15). |
 | `modifiers` | array | Conditions (§5.17). |
@@ -665,7 +667,8 @@ takes the same fields minus `sets`, plus `outcome`):
 
 Each metric value (`reps`/`time`/`distance`/`energy`/`rest`, and per-rep
 `velocity`/`rangeOfMotion`) is **scalar-or-`Target`** (§5.10); `load.value` and
-`EffortLoad.value` are scalar-or-`Target` slots within their own objects.
+`Intensity.value` are scalar-or-`Target` slots within their own objects
+(`EffortLoad.value` is a plain number — §5.13).
 Prescription/performance fields are **modular and individually optional** (R4): a
 producer includes only what applies and **MUST NOT** be forced into relational
 decomposition. A bare `WorkUnit` with only `scoring` is valid.
@@ -708,6 +711,7 @@ A **`Rep`** is optional per-repetition detail under a `WorkUnit`, carried in the
 | `velocity` | optional | scalar or `Target` | Per-rep velocity (VBT), default unit `m/s` (§5.10). |
 | `rangeOfMotion` | optional | scalar or `Target` | Per-rep ROM, default unit `deg` (§5.10). |
 | `phasePattern` | optional | `phasePattern` | Per-rep phase timing (§5.15). |
+| `outcome` | optional | `outcome` | Per-rep/per-attempt result (§5.18) — e.g. an arrow's score, a made/missed free throw, a per-attempt success (R19). |
 
 Per-rep detail is an optional-tier elaboration; its absence never invalidates the
 `WorkUnit`. (`repDetail` is the per-rep array; the rep *count* is the `reps` metric,
@@ -739,11 +743,11 @@ methodology need a value we didn't ship?"*:
 - **Open, registry-backed token** — has a demonstrated long tail; uses the §4.5/§6
   mechanism (recommended canonical token + namespaced fallback + **lossless opaque
   round-trip**): `disciplines`, `movementPattern`, `modality`, `EffortLoad.method`,
-  `modifier.type`, `Block.scoring.scheme`, `Block.grouping`, `Load.basis`,
-  `Target.stopCondition.kind`, `Target.relativeToThreshold.of`,
-  `ThresholdProfile.kind`, `Progression.rule`, `participants.role`,
-  `StatusPeriod.type`, `phasePattern` phase `qualifier`, `setRole` (canon
-  `warmup｜working｜drop｜failure｜backoff`, with a tail — cluster/myo/primer roles).
+  `Intensity.dimension`, `Intensity.zone`, `modifier.type`, `Block.scoring.scheme`,
+  `Block.grouping`, `Load.basis`, `Target.stopCondition.kind`,
+  `Target.relativeToThreshold.of`, `ThresholdProfile.kind`, `Progression.rule`,
+  `participants.role`, `StatusPeriod.type`, `phasePattern` phase `qualifier`, `setRole`
+  (canon `warmup｜working｜drop｜failure｜backoff`, with a tail — cluster/myo/primer roles).
 
 Open tokens are what protect the "any surveyed niche is addable without a core
 release" guarantee; unknown values **MUST** round-trip (§3.3, §8).
@@ -753,11 +757,11 @@ release" guarantee; unknown values **MUST** round-trip (§3.3, §8).
 A **metric value** **MAY** be either a **scalar** or a **`Target`** object. The
 **exhaustive set of metric-value fields** (each scalar-or-`Target`) is: `reps`,
 `time`, `distance`, `energy`, `rest` (§5.5), and per-rep `velocity` and
-`rangeOfMotion` (§5.7). One further slot is scalar-or-`Target` **inside its own
-object**: `load.value` (§5.12) — it is wrapped/expanded exactly like a metric value
-(including in normalization, §8.3). `EffortLoad.value` (§5.13) is **not** a
-`Target`: it is a plain number, and a band is its sibling `range` object — so an
-effort never has two encodings. No other field is scalar-or-`Target`.
+`rangeOfMotion` (§5.7). Two further slots are scalar-or-`Target` **inside their own
+object**: `load.value` (§5.12) and `Intensity.value` (§5.13) — each wrapped/expanded
+exactly like a metric value (including in normalization, §8.3). `EffortLoad.value`
+(§5.13) is **not** a `Target`: it is a plain number, and a band is its sibling `range`
+object — so an effort never has two encodings. No other field is scalar-or-`Target`.
 
 `load` is the one structural exception to a metric being a `Target` *directly*: it
 always uses the `Load` object (§5.12), whose `value` field is the scalar-or-`Target`
@@ -773,7 +777,7 @@ is exactly **one** encoding; an implementer never guesses by shape:
 |---|---|---|
 | `absolute` | `{ "absolute": { "value": n, "unit"?: u } }` | A fixed value. |
 | `range` | `{ "range": { "min": a, "max": b, "unit"?: u } }` | A min–max band (e.g. 8–12 reps). |
-| `relativeToThreshold` | `{ "relativeToThreshold": { "percent": p, "of": t, "ref"?: r } }` | Relative to a `ThresholdProfile` entry (§5.11): `of` is an open threshold token (`1RM｜FTP｜maxHR｜pace｜…`); `percent` e.g. 80. |
+| `relativeToThreshold` | `{ "relativeToThreshold": { "percent": p, "of": t, "ref"?: r } }` **or** `{ "relativeToThreshold": { "min": a, "max": b, "of": t, "ref"?: r } }` | Relative to a `ThresholdProfile` entry (§5.11): `of` is an open threshold token (`1RM｜FTP｜maxHR｜pace｜…`). A **single** relative value uses `percent` (e.g. 80); a **relative band** (a training zone, e.g. 60–70% maxHR, sweet-spot 88–94% FTP) uses `min`/`max`. Exactly one of `percent` or (`min`+`max`) is present. |
 | `stopCondition` | `{ "stopCondition": { "kind": k, "value"?: v } }` | Open-ended/autoregulated: `kind` open token (`to_failure｜to_rpe｜amrap｜work_up_to｜max｜to_breath｜…`); `value` parameterizes (e.g. `to_rpe` 8). |
 
 **Scalar shorthand.** A bare scalar `n` (number or fixed-point, §4.2) is shorthand
@@ -847,21 +851,48 @@ be kilograms; `bodyweight_relative` carries loads as a multiple of bodyweight.
 (Isokinetic resistance is not a `basis`; it is a `resistanceProfile: accommodating`
 with a velocity target — §5.16.)
 
-#### 5.13 EffortLoad (F7)
+#### 5.13 Effort & Intensity (F7, R18)
 
-Effort is **plural**: a `WorkUnit` (or Block/Session) **MAY** carry an array of
-`EffortLoad` entries, each tagging its method and source:
+The "how hard" axis has **three distinct homes**, each with a crisp role so a value never
+has two encodings (R18):
+
+| Concept | Home | What it carries | Examples |
+|---|---|---|---|
+| **Resistance** | `load` (§5.12) | external resistance being moved | 100 kg, 80 %1RM, a band, machine level 7 |
+| **Intensity** | `intensity` (below) | a prescribed/achieved target on a non-resistance dimension | 250 W, 4:00/km, HR Zone 2, 88–94 %FTP |
+| **Perceived/derived effort** | `effortLoad` (below) | how hard it *felt* or a derived load index | RPE 8, RIR 2, sRPE, TRIMP, TSS |
+
+A relative *resistance* (%1RM) is a `load`; a relative *intensity* (%FTP, %maxHR, a zone)
+is an `intensity`; a *perception* (RPE/RIR) or *derived load* (TRIMP/TSS) is an
+`effortLoad`. (Velocity-based training is a velocity target → an `intensity` of dimension
+`speed`, or per-rep `velocity` §5.7.)
+
+**`EffortLoad`** — perceived/derived effort is **plural**: a `WorkUnit` (or Block/Session)
+**MAY** carry an array of `EffortLoad` entries:
 
 | Field | Tier | Type | Semantics |
 |---|---|---|---|
 | `kind` | required | enum | Closed: `external｜internal`. |
-| `method` | required | token | Open token: `RPE｜RIR｜sRPE｜TRIMP｜TSS｜VBT｜%1RM｜…`. |
+| `method` | required | token | Open token: `RPE｜RIR｜sRPE｜TRIMP｜TSS｜…` (perceived/derived effort only). |
 | `value` | required¹ | number | The measure (e.g. RPE 8). A plain number — **not** a `Target` — so an effort has exactly one encoding. Exactly one of `value` or `range`. |
 | `range` | required¹ | `{ min, max }` | A band (e.g. RPE 7–8); `min`/`max` are numbers. |
 | `unit` | optional | string | Unit for `value`/`range` where applicable (the band's unit lives here, not inside `range`). |
 | `source` | recommended | enum | `manual｜estimated`. |
 
 ¹ Exactly one of `value` or `range` is present.
+
+**`Intensity`** — non-resistance intensity targets are **plural** (a session may target
+power *and* a HR cap): a `WorkUnit` (or Block/Session) **MAY** carry an array of `Intensity`
+entries:
+
+| Field | Tier | Type | Semantics |
+|---|---|---|---|
+| `dimension` | required | token | Open token for the intensity dimension: `power｜pace｜hr｜speed｜grade｜…`. |
+| `value` | required² | scalar or `Target` | The target on that dimension — `absolute` (e.g. 250, `unit: W`), `range` (an absolute band), or `relativeToThreshold` (a single % or a relative **band**, e.g. 88–94 %FTP; §5.10/§5.11). |
+| `zone` | required² | token | Shorthand: a **named zone** (e.g. `z2｜tempo｜sweet_spot`) resolved by the zone registry to a band on `dimension`. |
+| `unit` | conditional | string | UCUM unit when `value` is a scalar or `absolute`/`range` `Target`; omitted for `relativeToThreshold`/`stopCondition` (derived from the threshold) and for `zone`. |
+
+² Exactly one of `value` or `zone` is present.
 
 #### 5.14 Progression (R3)
 
@@ -1414,12 +1445,13 @@ shorthands.
    to that same container, flattening does **not** add a duplicate.
 8. **Default `status`.** Absent `status` → `active` (§7.5).
 9. **Serialize canonically (final).** Order the **set-valued arrays** — `links` by
-   `(type, ref)`, `effortLoad` by `(kind, method)`, `modifiers` by `(type)`, **with any
-   tie broken by the element's own canonical byte string** (step 9 applied recursively),
-   giving a total order. These three (`links`, `effortLoad`, `modifiers`) are the
-   **only** set-valued arrays; **all other** arrays (`children`, `repDetail`,
-   `phasePattern` phases, `dataPoints`/`offsets`, `Program.sessions`) are
-   order-significant and keep their semantic order. Then
+   `(type, ref)`, `effortLoad` by `(kind, method)`, `intensity` by `(dimension)`,
+   `modifiers` by `(type)`, **with any tie broken by the element's own canonical byte
+   string** (step 9 applied recursively), giving a total order. These four (`links`,
+   `effortLoad`, `intensity`, `modifiers`) are the **only** set-valued arrays; **all
+   other** arrays (`children`, `repDetail`, `phasePattern` phases,
+   `dataPoints`/`offsets`, `Program.sessions`) are order-significant and keep their
+   semantic order. Then
    serialize each record per **RFC 8785 (JSON Canonicalization Scheme)** — lexicographic
    key sort, canonical string
    escaping, no insignificant whitespace. Because step 1 left no bare numbers, JCS's

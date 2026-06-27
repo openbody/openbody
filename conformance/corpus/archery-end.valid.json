@@ -1,0 +1,22 @@
+{
+  "name": "archery-end",
+  "description": "Precision-sport scoring (archery): one 'end' of 6 arrows, each with its own score (10, X→10, 9, 9, 8, M→0). One reps-scored WorkUnit whose repDetail carries a per-arrow outcome (v0.5 Rep.outcome) — no need for a WorkUnit per arrow.",
+  "specRefs": ["§5.7", "§5.18"],
+  "kind": "valid",
+  "record": {
+    "id": "wu-archery-1", "recordType": "WorkUnit", "subject": "subj-001",
+    "exerciseRef": { "opaque": "recurve archery" }, "scoring": "reps",
+    "performance": {
+      "reps": 6,
+      "outcome": { "kind": "score", "value": 46, "unit": "points" }
+    },
+    "repDetail": [
+      { "outcome": { "kind": "score", "value": 10 } },
+      { "outcome": { "kind": "score", "value": 10 } },
+      { "outcome": { "kind": "score", "value": 9 } },
+      { "outcome": { "kind": "score", "value": 9 } },
+      { "outcome": { "kind": "score", "value": 8 } },
+      { "outcome": { "kind": "score", "value": 0 } }
+    ]
+  }
+}

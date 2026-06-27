@@ -1,0 +1,20 @@
+{
+  "name": "zone-run",
+  "description": "Daniels/80-20-style easy run: 10 km continuous in heart-rate Zone 2, plus a power/pace cap. Shows the v0.5 intensity axis carrying multiple targets at once (HR zone + a pace target) on a continuous endurance WorkUnit, with telemetry referenced via Pillar A.",
+  "specRefs": ["§5.13", "§5.8", "§5.10"],
+  "kind": "valid",
+  "record": {
+    "id": "sess-run-z2", "recordType": "Session", "subject": "subj-001",
+    "intent": "train", "disciplines": ["running"],
+    "workUnits": [
+      { "id": "wu-run-z2", "recordType": "WorkUnit", "exerciseRef": "run", "scoring": "continuous",
+        "prescription": {
+          "distance": { "absolute": { "value": 10000, "unit": "m" } },
+          "intensity": [
+            { "dimension": "hr", "zone": "z2" },
+            { "dimension": "pace", "value": { "relativeToThreshold": { "min": 70, "max": 75, "of": "pace" } } }
+          ]
+        } }
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "cycling-intervals",
+  "description": "Structured cycling workout (TrainerRoad/Zwift-style): warmup in Zone 2, then 3×(8 min sweet-spot 88-94% FTP / 4 min recovery), cooldown. Exercises the v0.5 intensity axis: power targets as a relativeToThreshold BAND (sweet spot) and as named zones (z1/z2). Time is the scored metric; power is the intensity (no longer hacked onto the metric field).",
+  "specRefs": ["§5.4", "§5.13", "§5.10", "§5.11"],
+  "kind": "valid",
+  "record": {
+    "id": "sess-bike-1", "recordType": "Session", "subject": "subj-001",
+    "intent": "train", "disciplines": ["cycling"],
+    "blocks": [
+      { "id": "bk-wu", "recordType": "Block", "name": "Warmup",
+        "children": [
+          { "id": "wu-wu", "recordType": "WorkUnit", "exerciseRef": "cycling", "scoring": "time",
+            "prescription": { "time": { "absolute": { "value": 600, "unit": "s" } },
+              "intensity": [{ "dimension": "power", "zone": "z2" }] } }
+        ] },
+      { "id": "bk-main", "recordType": "Block", "name": "Sweet Spot 3x8", "repetitions": 3,
+        "children": [
+          { "id": "wu-work", "recordType": "WorkUnit", "exerciseRef": "cycling", "scoring": "time", "setRole": "working",
+            "prescription": { "time": { "absolute": { "value": 480, "unit": "s" } },
+              "intensity": [{ "dimension": "power", "value": { "relativeToThreshold": { "min": 88, "max": 94, "of": "FTP" } } }] } },
+          { "id": "wu-rec", "recordType": "WorkUnit", "exerciseRef": "cycling", "scoring": "time",
+            "prescription": { "time": { "absolute": { "value": 240, "unit": "s" } },
+              "intensity": [{ "dimension": "power", "zone": "z1" }] } }
+        ] },
+      { "id": "bk-cd", "recordType": "Block", "name": "Cooldown",
+        "children": [
+          { "id": "wu-cd", "recordType": "WorkUnit", "exerciseRef": "cycling", "scoring": "time",
+            "prescription": { "time": { "absolute": { "value": 600, "unit": "s" } },
+              "intensity": [{ "dimension": "power", "zone": "z2" }] } }
+        ] }
+    ]
+  }
+}

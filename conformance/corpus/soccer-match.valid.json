@@ -1,0 +1,23 @@
+{
+  "name": "soccer-match",
+  "description": "Team-sport match whose contest IS the session: a 90-minute football match, final score 2-1 win, with GPS/load telemetry referenced via Pillar A. Uses the v0.5 Session.outcome (a result has a home at session level), participants for the opponent, and measuredBy for the load trace.",
+  "specRefs": ["§5.3", "§5.18", "§5.19", "§7.2"],
+  "kind": "valid",
+  "record": {
+    "id": "sess-match-1", "recordType": "Session", "subject": "subj-001",
+    "intent": "compete", "disciplines": ["football"],
+    "startTime": "2026-06-27T19:00:00Z", "endTime": "2026-06-27T20:45:00Z",
+    "participants": [
+      { "ref": "subj-001", "subjectType": "team", "role": "athlete" },
+      { "ref": "team-099", "subjectType": "team", "role": "opponent" }
+    ],
+    "outcome": {
+      "kind": "score", "value": 2,
+      "components": [
+        { "name": "goals_for", "value": 2 },
+        { "name": "goals_against", "value": 1 }
+      ]
+    },
+    "links": [{ "type": "measuredBy", "ref": "obs-playerload-1" }]
+  }
+}

@@ -1,7 +1,7 @@
 {
   "name": "swim-send-off",
-  "description": "Swim set on a send-off clock: 10×100 m freestyle 'on 1:30' at Critical Swim Speed. The send-off (not the rest) is fixed, carried as Block.scoring.scheme 'send_off' with intervalSec 90; pace target via relativeToThreshold of CSS (METHODOLOGY-VALIDATION G3 — send-off intervals).",
-  "specRefs": ["§5.4", "§5.10", "§5.11"],
+  "description": "Swim set on a send-off clock: 10×100 m freestyle 'on 1:30' at Critical Swim Speed. The send-off (not the rest) is fixed, carried as Block.scoring.scheme 'send_off' with intervalSec 90. Distance is the scored metric; the CSS pace target is an `intensity` (v0.5) — no longer hacked onto the time field.",
+  "specRefs": ["§5.4", "§5.13", "§5.11"],
   "kind": "valid",
   "record": {
     "id": "blk-swim-1", "recordType": "Block", "subject": "subj-001",
@@ -13,7 +13,7 @@
             "prescription": {
               "sets": 10,
               "distance": { "absolute": { "value": 100, "unit": "m" } },
-              "time": { "relativeToThreshold": { "percent": 100, "of": "CSS" } }
+              "intensity": [{ "dimension": "pace", "value": { "relativeToThreshold": { "percent": 100, "of": "CSS" } } }]
             } }
         ] }
     ]

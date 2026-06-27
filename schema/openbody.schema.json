@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://openbody.dev/schema/v0.4/openbody.schema.json",
+  "$id": "https://openbody.dev/schema/v0.5/openbody.schema.json",
   "title": "OpenBody record (v0.3.1)",
   "description": "JSON Schema for the OpenBody standard, primary binding (SPEC.md §§4-7). NOTE: this validates STRUCTURE. Several rules are context-dependent or normalization-level and are enforced by a CONFORMING implementation, not this schema (the reference impl openbody-ts validate() currently runs schema validation only — these remain to be added there): top-level records MUST carry id+subject while inlined children may inherit them (§7.1/§7.2); a tombstone (status:deleted) is exempt from all required fields except id/recordType/status (§7.1); a Measurement MUST carry type, startTime and endTime, with unit conditionally required by value kind (§4.1); a Session carries at most one of blocks|exercises|workUnits (§5.3); a WorkUnit's exerciseRef is mutually exclusive with an enclosing Exercise (§5.5); scoring<->metric agreement (§5.5); `sets` only in a planned prescription (§5.5); algorithm required when method=algorithm (recommended, not required, when derivedFrom present) (§7.4); and the §8.3 canonicalization/equivalence procedure. Open registry-backed tokens are typed `string` (closed enums are constrained).",
   "$ref": "#/$defs/record",
@@ -166,8 +166,15 @@
           "properties": {
             "relativeToThreshold": {
               "type": "object",
+              "description": "Relative to a ThresholdProfile entry (§5.10/§5.11). Exactly one of `percent` (single) or `min`+`max` (a relative band / training zone).",
               "properties": {
                 "percent": {
+                  "type": "number"
+                },
+                "min": {
+                  "type": "number"
+                },
+                "max": {
                   "type": "number"
                 },
                 "of": {
@@ -178,8 +185,11 @@
                 }
               },
               "required": [
-                "percent",
                 "of"
+              ],
+              "oneOf": [
+                { "required": ["percent"] },
+                { "required": ["min", "max"] }
               ],
               "additionalProperties": false
             },
@@ -311,6 +321,35 @@
             "range"
           ]
         }
+      ],
+      "additionalProperties": false
+    },
+    "Intensity": {
+      "type": "object",
+      "description": "A non-resistance intensity target (§5.13): power/pace/HR/speed/grade, as an absolute value, a relative-to-threshold value or band, or a named zone. Exactly one of `value` or `zone`.",
+      "properties": {
+        "dimension": {
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/scalarOrTarget"
+        },
+        "zone": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "extension": {
+          "$ref": "#/$defs/extension"
+        }
+      },
+      "required": [
+        "dimension"
+      ],
+      "oneOf": [
+        { "required": ["value"] },
+        { "required": ["zone"] }
       ],
       "additionalProperties": false
     },
@@ -670,6 +709,12 @@
             "$ref": "#/$defs/EffortLoad"
           }
         },
+        "intensity": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Intensity"
+          }
+        },
         "rest": {
           "$ref": "#/$defs/scalarOrTarget"
         },
@@ -714,6 +759,12 @@
             "$ref": "#/$defs/EffortLoad"
           }
         },
+        "intensity": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Intensity"
+          }
+        },
         "rest": {
           "$ref": "#/$defs/scalarOrTarget"
         },
@@ -741,6 +792,9 @@
         },
         "phasePattern": {
           "$ref": "#/$defs/phasePattern"
+        },
+        "outcome": {
+          "$ref": "#/$defs/outcome"
         }
       },
       "additionalProperties": false
@@ -998,6 +1052,9 @@
         },
         "notes": {
           "type": "string"
+        },
+        "outcome": {
+          "$ref": "#/$defs/outcome"
         }
       },
       "required": [

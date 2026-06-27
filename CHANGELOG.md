@@ -4,6 +4,35 @@ All notable changes to the OpenBody **standard** are documented here. The standa
 follows [semantic versioning](https://semver.org/): additive = minor, breaking =
 major (deprecate-not-remove within a major), editorial = patch.
 
+## [0.5.0] — 2026-06-27 (private draft)
+
+**Additive + re-scoping: the intensity axis — `Intensity`, relative bands, effort
+re-scope (R18).** Methodology validation pass 2 (non-strength) found that the model's
+"how hard" axis was strength-shaped and scattered: endurance/cardio intensity (power,
+pace, HR, **zones**) had no clean home, `relativeToThreshold` couldn't express a band,
+and `effortLoad` conflated subjective effort with relative load/intensity.
+
+- **Three crisp homes for "how hard" (§5.13):** `load` = external **resistance**
+  (weight/band/%1RM); new **`intensity`** = non-resistance **targets** (power/pace/HR/
+  speed/grade, incl. zones); `effortLoad` = **perceived/derived effort** (RPE/RIR/sRPE/
+  TRIMP/TSS), re-scoped — relative load (%1RM) → `load`, %FTP/%maxHR/zones → `intensity`.
+- **New `Intensity` value object**, plural on `prescription`/`performance`:
+  `{ dimension, value | zone, unit? }` — `value` is scalar-or-`Target` (absolute,
+  range, or relative-to-threshold incl. a band); `zone` is a registry-named zone.
+- **`Target.relativeToThreshold` gains a relative band:** `{ min, max, of }` alongside
+  the single `{ percent, of }` (e.g. Zone 2 = 60–70% maxHR, sweet-spot 88–94% FTP).
+- **`intensity` is a set-valued array** (ordered by `dimension` in §8.3 step 9, like
+  `effortLoad`). Schema `$id` → v0.5; reference normalizer expands `intensity.value`.
+- **Result capture (R19), the rest of the non-strength bundle:** added optional
+  **`Session.outcome`** (a match/race/game result for sports whose contest *is* the
+  session) and **`Rep.outcome`** (per-attempt results — arrow scores, made/missed) —
+  both the §5.18 `outcome` object. Closes pass-2 gaps N5 and N2.
+- Corpus: structured cycling intervals + zone run + archery (per-attempt) + a match
+  result added; `swim-send-off` now carries pace as an `intensity` (was hacked onto
+  `time`). Zone/intensity vocab in the registry.
+- **Pre-1.0, private:** breaking re-scope of `effortLoad` is acceptable; not a final
+  shape — non-strength model iteration continues.
+
 ## [0.4.0] — 2026-06-27 (private draft)
 
 **Additive (minor): laddered rounds — `Block.roundScheme` (R17).** The v1
