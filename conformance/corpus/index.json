@@ -1,0 +1,21 @@
+{
+  "description": "Manifest of the OpenBody extended activity-coverage corpus (SPEC §8.3). Coverage validation — the executable 'never inferior to prior art' gate — NOT a conformance bar. Each entry is a real-world training methodology asserted to round-trip losslessly. Seeded from the v1 methodology-coverage validation (adoption/METHODOLOGY-VALIDATION.md). A runner loads each file and checks the assertion for its `kind` (here all `valid`: schema-valid + normalizes idempotently).",
+  "vectors": [
+    { "file": "rest-pause.valid.json", "kind": "valid", "methodology": "Rest-pause sets (strength/hypertrophy)" },
+    { "file": "cluster-set.valid.json", "kind": "valid", "methodology": "Cluster sets" },
+    { "file": "myo-reps.valid.json", "kind": "valid", "methodology": "Myo-reps" },
+    { "file": "drop-set.valid.json", "kind": "valid", "methodology": "Drop set (canonical encoding)" },
+    { "file": "mechanical-drop-set.valid.json", "kind": "valid", "methodology": "Mechanical drop set" },
+    { "file": "rep-ladder-fran.valid.json", "kind": "valid", "methodology": "CrossFit 21-15-9 rep ladder (Fran)" },
+    { "file": "swim-send-off.valid.json", "kind": "valid", "methodology": "Swim send-off intervals (on the clock)" },
+    { "file": "hyrox-race.valid.json", "kind": "valid", "methodology": "HYROX functional-fitness race" },
+    { "file": "oly-complex.valid.json", "kind": "valid", "methodology": "Olympic weightlifting complex" },
+    { "file": "kettlebell-sport-amrap.valid.json", "kind": "valid", "methodology": "Kettlebell sport (Girevoy)" },
+    { "file": "hangboard-repeaters.valid.json", "kind": "valid", "methodology": "Climbing fingerboard repeaters" },
+    { "file": "breathwork-wim-hof.valid.json", "kind": "valid", "methodology": "Wim Hof breathwork" },
+    { "file": "gymnastics-judged-score.valid.json", "kind": "valid", "methodology": "Judged gymnastics (D/E score)" },
+    { "file": "powerlifting-attempts.valid.json", "kind": "valid", "methodology": "Powerlifting meet attempts" },
+    { "file": "lengthened-partials.valid.json", "kind": "valid", "methodology": "Lengthened partials (hypertrophy trend)" },
+    { "file": "combat-rounds-bjj.valid.json", "kind": "valid", "methodology": "BJJ rolling rounds (combat sport)" }
+  ]
+}

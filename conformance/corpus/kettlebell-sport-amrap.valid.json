@@ -1,0 +1,16 @@
+{
+  "name": "kettlebell-sport-amrap",
+  "description": "Kettlebell sport (Girevoy): max-rep one-arm kettlebell snatch in a fixed 10-minute set, hand-switch allowed. A Block scheme 'amrap' (timeCapSec 600) over one exercise scored by reps, with the result as a rep-count outcome and the no-set-down rule noted.",
+  "specRefs": ["§5.4", "§5.18"],
+  "kind": "valid",
+  "record": {
+    "id": "blk-gs-1", "recordType": "Block", "subject": "subj-001",
+    "scoring": { "scheme": "amrap", "timeCapSec": 600 },
+    "children": [
+      { "id": "gs-ex", "recordType": "Exercise", "exerciseRef": "kettlebell-snatch", "notes": "24 kg; one hand switch, bell not set down",
+        "workUnits": [{ "id": "gs-wu", "recordType": "WorkUnit", "scoring": "reps",
+          "performance": { "reps": 132, "load": { "value": 24, "unit": "kg", "basis": "marked_weight" } } }] }
+    ],
+    "performance": { "outcome": { "kind": "score", "value": 132, "unit": "reps" } }
+  }
+}

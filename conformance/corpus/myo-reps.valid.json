@@ -1,0 +1,24 @@
+{
+  "name": "myo-reps",
+  "description": "Myo-reps: an activation set to near-failure, then several mini-sets of fixed reps with minimal rest. Block grouping 'rest_pause'; the activation set is setRole 'failure', the mini-sets setRole 'myo'.",
+  "specRefs": ["§5.4", "§5.5"],
+  "kind": "valid",
+  "record": {
+    "id": "blk-myo-1", "recordType": "Block", "subject": "subj-001",
+    "grouping": "rest_pause",
+    "children": [
+      { "id": "ex-myo", "recordType": "Exercise", "exerciseRef": "curl.dumbbell",
+        "workUnits": [
+          { "id": "myo-act", "recordType": "WorkUnit", "scoring": "reps", "setRole": "failure",
+            "performance": { "reps": 15, "load": { "value": 12, "unit": "kg", "basis": "marked_weight" }, "rest": 5,
+                             "effortLoad": [{ "kind": "internal", "method": "RIR", "value": 0 }] } },
+          { "id": "myo-1", "recordType": "WorkUnit", "scoring": "reps", "setRole": "myo",
+            "performance": { "reps": 3, "load": { "value": 12, "unit": "kg", "basis": "marked_weight" }, "rest": 5 } },
+          { "id": "myo-2", "recordType": "WorkUnit", "scoring": "reps", "setRole": "myo",
+            "performance": { "reps": 3, "load": { "value": 12, "unit": "kg", "basis": "marked_weight" }, "rest": 5 } },
+          { "id": "myo-3", "recordType": "WorkUnit", "scoring": "reps", "setRole": "myo",
+            "performance": { "reps": 3, "load": { "value": 12, "unit": "kg", "basis": "marked_weight" } } }
+        ] }
+    ]
+  }
+}

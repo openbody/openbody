@@ -1,0 +1,23 @@
+{
+  "name": "hangboard-repeaters",
+  "description": "Climbing fingerboard repeaters: 6×(7 s hang / 3 s rest) on a 20 mm edge with +10 kg added. A time-scored WorkUnit whose phasePattern encodes the 7-on/3-off repeater, edge depth via a modifier, and the added weight as Load.",
+  "specRefs": ["§5.5", "§5.12", "§5.15", "§5.17"],
+  "kind": "valid",
+  "record": {
+    "id": "wu-hb-1", "recordType": "WorkUnit", "subject": "subj-001",
+    "exerciseRef": "pull-up", "scoring": "time",
+    "performance": {
+      "time": { "absolute": { "value": 42, "unit": "s" } },
+      "load": { "value": 10, "unit": "kg", "basis": "marked_weight" },
+      "phasePattern": [
+        { "name": "hang", "durationSec": 7 }, { "name": "rest", "durationSec": 3 },
+        { "name": "hang", "durationSec": 7 }, { "name": "rest", "durationSec": 3 },
+        { "name": "hang", "durationSec": 7 }, { "name": "rest", "durationSec": 3 },
+        { "name": "hang", "durationSec": 7 }, { "name": "rest", "durationSec": 3 },
+        { "name": "hang", "durationSec": 7 }, { "name": "rest", "durationSec": 3 },
+        { "name": "hang", "durationSec": 7 }
+      ],
+      "modifiers": [{ "type": "edge_depth", "value": 20, "unit": "mm" }]
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "mechanical-drop-set",
+  "description": "Mechanical drop set: change to a mechanically easier variation to continue past failure. Block grouping 'mechanical_drop_set' with the Exercise level collapsed so each WorkUnit carries its own exerciseRef (§5.5).",
+  "specRefs": ["§5.4", "§5.5"],
+  "kind": "valid",
+  "record": {
+    "id": "blk-mds-1", "recordType": "Block", "subject": "subj-001",
+    "grouping": "mechanical_drop_set",
+    "children": [
+      { "id": "mds-1", "recordType": "WorkUnit", "exerciseRef": "overhead-press.barbell", "scoring": "reps", "setRole": "working",
+        "performance": { "reps": 6, "load": { "value": 50, "unit": "kg", "basis": "marked_weight" } } },
+      { "id": "mds-2", "recordType": "WorkUnit", "exerciseRef": "push-up", "scoring": "reps", "setRole": "drop",
+        "performance": { "reps": 12, "load": { "value": 1, "basis": "bodyweight_relative" } } }
+    ]
+  }
+}

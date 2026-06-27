@@ -35,18 +35,28 @@ const blocks = [...spec.matchAll(/```json\n([\s\S]*?)\n```/g)].map((m) => m[1]);
 for (const b of blocks) check("spec-example", JSON.parse(b));
 const specCount = total;
 
-// 2. Conformance vectors
-const vdir = path.join(root, "conformance/vectors");
-for (const f of fs.readdirSync(vdir).sort()) {
-  if (!f.endsWith(".json") || f === "index.json") continue;
-  const v = JSON.parse(fs.readFileSync(path.join(vdir, f), "utf8"));
-  if (v.kind === "valid") check(f, v.record);
-  else if (v.kind === "equivalent" || v.kind === "inequivalent") { check(`${f}#a`, v.a); check(`${f}#b`, v.b); }
-  else if (v.kind === "normalization") check(`${f}#input`, v.input);
-  // "invalid" vectors are expected to fail the schema — skipped here.
+// 2. Conformance vectors + 3. the extended activity-coverage corpus.
+// Both use the same vector file format; the corpus is coverage validation, not a
+// conformance bar (§8.3), but its records must still be schema-valid.
+function checkVectorDir(rel) {
+  const dir = path.join(root, rel);
+  if (!fs.existsSync(dir)) return 0;
+  const before = total;
+  for (const f of fs.readdirSync(dir).sort()) {
+    if (!f.endsWith(".json") || f === "index.json") continue;
+    const v = JSON.parse(fs.readFileSync(path.join(dir, f), "utf8"));
+    if (v.kind === "valid") check(f, v.record);
+    else if (v.kind === "equivalent" || v.kind === "inequivalent") { check(`${f}#a`, v.a); check(`${f}#b`, v.b); }
+    else if (v.kind === "normalization") check(`${f}#input`, v.input);
+    // "invalid" vectors are expected to fail the schema — skipped here.
+  }
+  return total - before;
 }
 
-console.log(`OpenBody consistency: ${total - fails}/${total} records validate (${specCount} from SPEC.md, ${total - specCount} from vectors).`);
+const vectorCount = checkVectorDir("conformance/vectors");
+const corpusCount = checkVectorDir("conformance/corpus");
+
+console.log(`OpenBody consistency: ${total - fails}/${total} records validate (${specCount} from SPEC.md, ${vectorCount} from vectors, ${corpusCount} from corpus).`);
 if (fails) {
   console.error(`\n${fails} record(s) failed — spec/schema/vectors are out of sync.`);
   process.exit(1);

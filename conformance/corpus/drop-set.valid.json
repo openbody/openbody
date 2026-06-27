@@ -1,0 +1,21 @@
+{
+  "name": "drop-set",
+  "description": "Canonical drop set (§5.4): a Block grouping 'drop_set' whose post-first WorkUnits carry setRole 'drop' at reduced load with no rest. Producers MUST NOT encode this two different ways.",
+  "specRefs": ["§5.4", "§5.5"],
+  "kind": "valid",
+  "record": {
+    "id": "blk-drop-1", "recordType": "Block", "subject": "subj-001",
+    "grouping": "drop_set",
+    "children": [
+      { "id": "ex-drop", "recordType": "Exercise", "exerciseRef": "lat-pulldown.cable",
+        "workUnits": [
+          { "id": "drop-top", "recordType": "WorkUnit", "scoring": "reps", "setRole": "working",
+            "performance": { "reps": 10, "load": { "value": 80, "unit": "kg", "basis": "stack" } } },
+          { "id": "drop-1", "recordType": "WorkUnit", "scoring": "reps", "setRole": "drop",
+            "performance": { "reps": 8, "load": { "value": 60, "unit": "kg", "basis": "stack" } } },
+          { "id": "drop-2", "recordType": "WorkUnit", "scoring": "reps", "setRole": "drop",
+            "performance": { "reps": 6, "load": { "value": 40, "unit": "kg", "basis": "stack" } } }
+        ] }
+    ]
+  }
+}

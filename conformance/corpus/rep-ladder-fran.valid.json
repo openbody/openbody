@@ -1,0 +1,28 @@
+{
+  "name": "rep-ladder-fran",
+  "description": "Fran — the iconic 21-15-9 CrossFit couplet (thrusters + pull-ups), for time. The descending rep scheme varies per round, so Block.repetitions (identical rounds) cannot express it: it MUST be enumerated as one Exercise per round with its own rep count. This vector pins the canonical enumeration (METHODOLOGY-VALIDATION G2 — the rep-ladder gap).",
+  "specRefs": ["§5.4", "§5.5", "§5.18"],
+  "kind": "valid",
+  "record": {
+    "id": "blk-fran", "recordType": "Block", "subject": "subj-001", "name": "Fran",
+    "scoring": { "scheme": "for_time", "timeCapSec": 600 }, "rxStatus": "rx",
+    "children": [
+      { "id": "fr-r1-thr", "recordType": "Exercise", "exerciseRef": "thruster.barbell",
+        "workUnits": [{ "id": "fr-r1-thr-1", "recordType": "WorkUnit", "scoring": "reps",
+          "prescription": { "reps": 21, "load": { "value": 43, "unit": "kg", "basis": "marked_weight" } } }] },
+      { "id": "fr-r1-pu", "recordType": "Exercise", "exerciseRef": "pull-up",
+        "workUnits": [{ "id": "fr-r1-pu-1", "recordType": "WorkUnit", "scoring": "reps", "prescription": { "reps": 21 } }] },
+      { "id": "fr-r2-thr", "recordType": "Exercise", "exerciseRef": "thruster.barbell",
+        "workUnits": [{ "id": "fr-r2-thr-1", "recordType": "WorkUnit", "scoring": "reps",
+          "prescription": { "reps": 15, "load": { "value": 43, "unit": "kg", "basis": "marked_weight" } } }] },
+      { "id": "fr-r2-pu", "recordType": "Exercise", "exerciseRef": "pull-up",
+        "workUnits": [{ "id": "fr-r2-pu-1", "recordType": "WorkUnit", "scoring": "reps", "prescription": { "reps": 15 } }] },
+      { "id": "fr-r3-thr", "recordType": "Exercise", "exerciseRef": "thruster.barbell",
+        "workUnits": [{ "id": "fr-r3-thr-1", "recordType": "WorkUnit", "scoring": "reps",
+          "prescription": { "reps": 9, "load": { "value": 43, "unit": "kg", "basis": "marked_weight" } } }] },
+      { "id": "fr-r3-pu", "recordType": "Exercise", "exerciseRef": "pull-up",
+        "workUnits": [{ "id": "fr-r3-pu-1", "recordType": "WorkUnit", "scoring": "reps", "prescription": { "reps": 9 } }] }
+    ],
+    "performance": { "outcome": { "kind": "score", "value": 245, "unit": "s" } }
+  }
+}

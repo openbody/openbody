@@ -26,11 +26,13 @@ mandatory at every tier.
   in regular/irregular × scalar/multi-channel with a `null` sample; and a
   normalization-determinism vector (sets-expansion + id-less child + number
   canonicalization).
-- `CORPUS.md` — the **extended activity-coverage corpus** (coverage validation, *not* a
-  conformance bar): the executable form of the "never inferior to prior art" gate.
+- `corpus/` + `CORPUS.md` — the **extended activity-coverage corpus** (coverage validation,
+  *not* a conformance bar): the executable form of the "never inferior to prior art" gate.
 
 ## Status
 
-**Stub.** The vectors and corpus are authored once a reference implementation exists to
-run the round-trip assertions against (they encode behavior the implementation must
-reproduce). Until then this directory documents the intended structure.
+The minimum-core `vectors/` and the activity-coverage `corpus/` are both **authored and
+runnable**: `openbody-ts` (`npm run vectors`) checks each assertion against the reference
+implementation, and this repo's `npm run check` schema-validates every record. The corpus
+covers 16 real-world training methodologies (see `CORPUS.md`); it grows as new activities
+are stress-tested, and gaps it surfaces feed the standard's change process.

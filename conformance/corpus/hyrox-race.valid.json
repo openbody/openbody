@@ -1,0 +1,27 @@
+{
+  "name": "hyrox-race",
+  "description": "HYROX (the #1 functional-fitness-race trend): the full race is 8×(1 km run + functional station), for time. Abbreviated here to 2 run/station pairs (run→sled push, run→wall balls) to show the structure: a top Block scheme 'for_time' nesting alternating run and station blocks; sled = distance + Load, wall ball = reps + target_height modifier; overall result on the Block outcome.",
+  "specRefs": ["§5.4", "§5.5", "§5.12", "§5.17", "§5.18"],
+  "kind": "valid",
+  "record": {
+    "id": "blk-hyrox", "recordType": "Block", "subject": "subj-001", "name": "HYROX",
+    "scoring": { "scheme": "for_time" }, "rxStatus": "rx",
+    "children": [
+      { "id": "hx-run1", "recordType": "Exercise", "exerciseRef": "run",
+        "workUnits": [{ "id": "hx-run1-wu", "recordType": "WorkUnit", "scoring": "distance",
+          "performance": { "distance": { "absolute": { "value": 1000, "unit": "m" } }, "time": { "absolute": { "value": 255, "unit": "s" } } } }] },
+      { "id": "hx-sled", "recordType": "Exercise", "exerciseRef": "sled-push",
+        "workUnits": [{ "id": "hx-sled-wu", "recordType": "WorkUnit", "scoring": "distance",
+          "performance": { "distance": { "absolute": { "value": 50, "unit": "m" } },
+                           "load": { "value": 152, "unit": "kg", "basis": "marked_weight" } } }] },
+      { "id": "hx-run2", "recordType": "Exercise", "exerciseRef": "run",
+        "workUnits": [{ "id": "hx-run2-wu", "recordType": "WorkUnit", "scoring": "distance",
+          "performance": { "distance": { "absolute": { "value": 1000, "unit": "m" } }, "time": { "absolute": { "value": 268, "unit": "s" } } } }] },
+      { "id": "hx-wb", "recordType": "Exercise", "exerciseRef": "wall-ball",
+        "workUnits": [{ "id": "hx-wb-wu", "recordType": "WorkUnit", "scoring": "reps",
+          "performance": { "reps": 100, "load": { "value": 9, "unit": "kg", "basis": "marked_weight" },
+                           "modifiers": [{ "type": "target_height", "value": 3, "unit": "m" }] } }] }
+    ],
+    "performance": { "outcome": { "kind": "score", "value": 1046, "unit": "s" } }
+  }
+}

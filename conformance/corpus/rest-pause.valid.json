@@ -1,0 +1,22 @@
+{
+  "name": "rest-pause",
+  "description": "Rest-pause (the Hevy motivating gap): one effort to near-failure, then short ~15 s rests with more reps, counted as one working set. Encoded as a Block grouping 'rest_pause' whose component WorkUnits carry setRole 'rest_pause' and a short rest.",
+  "specRefs": ["§5.4", "§5.5"],
+  "kind": "valid",
+  "record": {
+    "id": "blk-rp-1", "recordType": "Block", "subject": "subj-001",
+    "grouping": "rest_pause",
+    "children": [
+      { "id": "ex-rp", "recordType": "Exercise", "exerciseRef": "lat-pulldown.cable",
+        "workUnits": [
+          { "id": "rp-1", "recordType": "WorkUnit", "scoring": "reps", "setRole": "rest_pause",
+            "performance": { "reps": 12, "load": { "value": 70, "unit": "kg", "basis": "stack" }, "rest": 15,
+                             "effortLoad": [{ "kind": "internal", "method": "RIR", "value": 0 }] } },
+          { "id": "rp-2", "recordType": "WorkUnit", "scoring": "reps", "setRole": "rest_pause",
+            "performance": { "reps": 4, "load": { "value": 70, "unit": "kg", "basis": "stack" }, "rest": 15 } },
+          { "id": "rp-3", "recordType": "WorkUnit", "scoring": "reps", "setRole": "rest_pause",
+            "performance": { "reps": 3, "load": { "value": 70, "unit": "kg", "basis": "stack" } } }
+        ] }
+    ]
+  }
+}

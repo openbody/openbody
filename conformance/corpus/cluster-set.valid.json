@@ -1,0 +1,21 @@
+{
+  "name": "cluster-set",
+  "description": "Cluster set: intra-set rests at fixed points (here 3×(2 reps @ ~90% with 20 s)). Block grouping 'cluster'; each mini-set is a WorkUnit with setRole 'cluster' and a short intra-set rest. Relative load via %1RM.",
+  "specRefs": ["§5.4", "§5.5", "§5.10", "§5.12"],
+  "kind": "valid",
+  "record": {
+    "id": "blk-cluster-1", "recordType": "Block", "subject": "subj-001",
+    "grouping": "cluster",
+    "children": [
+      { "id": "ex-cl", "recordType": "Exercise", "exerciseRef": "clean-and-jerk.barbell",
+        "workUnits": [
+          { "id": "cl-1", "recordType": "WorkUnit", "scoring": "reps", "setRole": "cluster",
+            "prescription": { "reps": 2, "load": { "value": { "relativeToThreshold": { "percent": 90, "of": "1RM" } }, "basis": "marked_weight" }, "rest": 20 } },
+          { "id": "cl-2", "recordType": "WorkUnit", "scoring": "reps", "setRole": "cluster",
+            "prescription": { "reps": 2, "load": { "value": { "relativeToThreshold": { "percent": 90, "of": "1RM" } }, "basis": "marked_weight" }, "rest": 20 } },
+          { "id": "cl-3", "recordType": "WorkUnit", "scoring": "reps", "setRole": "cluster",
+            "prescription": { "reps": 2, "load": { "value": { "relativeToThreshold": { "percent": 90, "of": "1RM" } }, "basis": "marked_weight" } } }
+        ] }
+    ]
+  }
+}

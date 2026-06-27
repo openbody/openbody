@@ -1,0 +1,17 @@
+{
+  "name": "breathwork-wim-hof",
+  "description": "Wim Hof breathwork: 3 rounds of ~30 power breaths then a maximal retention (breath hold). A recovery-intent Block scheme 'rounds'; the breathing phase uses a phasePattern of inhale/exhale ratios, the hold uses a to_breath stop-condition.",
+  "specRefs": ["§5.4", "§5.10", "§5.15"],
+  "kind": "valid",
+  "record": {
+    "id": "blk-wh-1", "recordType": "Block", "subject": "subj-001", "name": "Wim Hof Method",
+    "scoring": { "scheme": "rounds", "rounds": 3 },
+    "children": [
+      { "id": "wh-breaths", "recordType": "WorkUnit", "scoring": "reps", "notes": "~30 power breaths",
+        "prescription": { "reps": 30, "phasePattern": [
+          { "name": "inhale", "ratio": 1 }, { "name": "exhale", "ratio": 1 } ] } },
+      { "id": "wh-hold", "recordType": "WorkUnit", "scoring": "time", "notes": "maximal retention on the exhale",
+        "prescription": { "time": { "stopCondition": { "kind": "to_breath" } } } }
+    ]
+  }
+}

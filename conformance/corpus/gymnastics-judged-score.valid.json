@@ -1,0 +1,20 @@
+{
+  "name": "gymnastics-judged-score",
+  "description": "Judged gymnastics routine: final score = Difficulty (D) + Execution (E) − deductions. Uses outcome.components to carry the judged parts (the §5.18 composite-scoring case the model was built for).",
+  "specRefs": ["§5.18"],
+  "kind": "valid",
+  "record": {
+    "id": "wu-gym-1", "recordType": "WorkUnit", "subject": "subj-001",
+    "exerciseRef": { "opaque": "floor routine" }, "scoring": "reps",
+    "performance": {
+      "outcome": {
+        "kind": "score", "value": 13.8,
+        "components": [
+          { "name": "difficulty", "value": 5.4 },
+          { "name": "execution", "value": 8.7 },
+          { "name": "deductions", "value": -0.3 }
+        ]
+      }
+    }
+  }
+}

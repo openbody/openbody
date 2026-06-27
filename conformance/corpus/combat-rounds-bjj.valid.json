@@ -1,0 +1,23 @@
+{
+  "name": "combat-rounds-bjj",
+  "description": "Combat-sport training: BJJ rolling rounds (5×5 min) against opponents, with submissions landed as a score outcome. Session with a 'rounds'-scheme Block of time-scored rounds; the opponent is a participant with role 'opponent' (METHODOLOGY-VALIDATION G5).",
+  "specRefs": ["§5.3", "§5.4", "§5.18", "§5.19"],
+  "kind": "valid",
+  "record": {
+    "id": "sess-bjj-1", "recordType": "Session", "subject": "subj-001",
+    "intent": "train", "disciplines": ["bjj"],
+    "participants": [
+      { "ref": "subj-001", "subjectType": "human", "role": "athlete" },
+      { "ref": "subj-099", "subjectType": "human", "role": "opponent" }
+    ],
+    "blocks": [
+      { "id": "bjj-rolls", "recordType": "Block", "name": "Live rolls",
+        "scoring": { "scheme": "rounds", "rounds": 5, "intervalSec": 300 },
+        "children": [
+          { "id": "bjj-roll-wu", "recordType": "WorkUnit", "scoring": "time",
+            "performance": { "time": { "absolute": { "value": 300, "unit": "s" } },
+                             "outcome": { "kind": "score", "value": 3, "unit": "submissions" } } }
+        ] }
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "powerlifting-attempts",
+  "description": "Powerlifting meet squat: three attempts at increasing loads, each judged good (white lights) or no-lift (red). intent 'compete'; each attempt is a WorkUnit with the load and a success outcome. The best good lift counting toward the total is an app-level concern.",
+  "specRefs": ["§5.3", "§5.5", "§5.18"],
+  "kind": "valid",
+  "record": [
+    { "id": "pl-att-1", "recordType": "Session", "subject": "subj-001", "intent": "compete", "disciplines": ["powerlifting"],
+      "exercises": [
+        { "id": "pl-squat", "recordType": "Exercise", "exerciseRef": "squat.barbell.high-bar",
+          "workUnits": [
+            { "id": "pl-a1", "recordType": "WorkUnit", "scoring": "reps", "setRole": "working",
+              "performance": { "reps": 1, "load": { "value": 250, "unit": "kg", "basis": "marked_weight" },
+                               "outcome": { "kind": "success", "value": true } } },
+            { "id": "pl-a2", "recordType": "WorkUnit", "scoring": "reps", "setRole": "working",
+              "performance": { "reps": 1, "load": { "value": 265, "unit": "kg", "basis": "marked_weight" },
+                               "outcome": { "kind": "success", "value": true } } },
+            { "id": "pl-a3", "recordType": "WorkUnit", "scoring": "reps", "setRole": "working",
+              "performance": { "reps": 0, "load": { "value": 275, "unit": "kg", "basis": "marked_weight" },
+                               "outcome": { "kind": "success", "value": false } } }
+          ] }
+      ] }
+  ]
+}
