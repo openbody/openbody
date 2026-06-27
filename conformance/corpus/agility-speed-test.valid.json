@@ -1,0 +1,21 @@
+{
+  "name": "agility-speed-test",
+  "description": "A speed & agility testing session: a 5-10-5 pro-agility shuttle (timed change-of-direction drill) and a 40 m maximal sprint. Shows the v0.6 `qualities` axis on a `test`-intent Session carrying `agility` + `speed`; the agility drill is a `time`-scored result, the sprint a `continuous` unit recording distance + time. Confirms speed/agility tests need no new primitive.",
+  "specRefs": ["§5.3", "§5.8", "§5.5"],
+  "kind": "valid",
+  "record": {
+    "id": "sess-speed-test", "recordType": "Session", "subject": "subj-001",
+    "intent": "test", "disciplines": ["strength"], "qualities": ["agility", "speed"],
+    "workUnits": [
+      { "id": "wu-pro-agility", "recordType": "WorkUnit", "exerciseRef": "pro-agility-shuttle", "scoring": "time",
+        "performance": {
+          "time": { "absolute": { "value": 4.62, "unit": "s" } }
+        } },
+      { "id": "wu-sprint-40", "recordType": "WorkUnit", "exerciseRef": "sprint", "scoring": "continuous",
+        "performance": {
+          "distance": { "absolute": { "value": 40, "unit": "m" } },
+          "time": { "absolute": { "value": 5.18, "unit": "s" } }
+        } }
+    ]
+  }
+}

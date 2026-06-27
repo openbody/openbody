@@ -4,6 +4,30 @@ All notable changes to the OpenBody **standard** are documented here. The standa
 follows [semantic versioning](https://semver.org/): additive = minor, breaking =
 major (deprecate-not-remove within a major), editorial = patch.
 
+## [0.6.0] — 2026-06-27 (private draft)
+
+**Additive (minor): the trained-quality axis — `qualities` (R20).** Methodology
+validation pass 3 probed the model along the **components of fitness** (endurance,
+mobility, flexibility, stability, balance, agility, speed, coordination, muscular
+endurance) rather than by training *domain*. The activities all represent cleanly
+(holds → `time`, ROM targets → `rom_target` modifier, balance → `time`, agility/sprint
+tests → timed `distance`/`outcome`), but the model had **no first-class way to say
+which physical quality a piece of work develops** — it could only be inferred from
+exercise identity + prescription shape (lossy) or stuffed into notes/`disciplines`.
+
+- **New optional `qualities` field on `Session` (§5.3) and `Block` (§5.4):** an array
+  of open registry-backed tokens (`endurance｜strength｜power｜mobility｜flexibility｜
+  stability｜balance｜agility｜speed｜coordination｜…`). A descriptive classification axis
+  **orthogonal** to `disciplines` (the activity) and `intent` (the purpose). Block-level
+  tags add to, not override, session-level ones.
+- **`qualities` is a set-valued array** (ordered by token value in §8.3 step 9). Listed
+  in the §5.9 open-token inventory. Registry ships a `physical-quality` vocabulary.
+- Vocab: `unstable_surface` modifier token (BOSU/wobble-board balance work). Corpus:
+  mobility/CARs, static-stretch flexibility, stability/balance, and an agility-speed
+  test vector added — rebalancing the corpus toward the non-strength fitness qualities.
+- **Pre-1.0, private, not a final shape:** `qualities` is the one design call of pass 3
+  (a new descriptive axis); open to revision as model iteration continues.
+
 ## [0.5.0] — 2026-06-27 (private draft)
 
 **Additive + re-scoping: the intensity axis — `Intensity`, relative bands, effort

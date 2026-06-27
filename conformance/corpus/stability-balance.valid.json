@@ -1,0 +1,31 @@
+{
+  "name": "stability-balance",
+  "description": "A balance + stability circuit: a single-leg balance hold on an unstable surface (BOSU) and an anti-rotation Pallof press hold. Shows the v0.6 `qualities` axis carrying TWO qualities on one Block (`balance` + `stability`, which canonicalize to sorted order), and the `unstable_surface` modifier. Balance/stability work collapses to `time`-scored holds.",
+  "specRefs": ["§5.4", "§5.17", "§8.3"],
+  "kind": "valid",
+  "record": {
+    "id": "sess-balance", "recordType": "Session", "subject": "subj-001",
+    "intent": "train", "disciplines": ["mobility"], "qualities": ["balance", "stability"],
+    "blocks": [
+      { "id": "blk-balance", "recordType": "Block", "grouping": "circuit", "qualities": ["balance", "stability"],
+        "children": [
+          { "id": "ex-sls", "recordType": "Exercise", "exerciseRef": "single-leg-stance",
+            "workUnits": [
+              { "id": "wu-sls", "recordType": "WorkUnit", "scoring": "time",
+                "prescription": {
+                  "time": { "absolute": { "value": 30, "unit": "s" } },
+                  "modifiers": [ { "type": "unstable_surface", "value": "bosu" } ]
+                } }
+            ] },
+          { "id": "ex-pallof", "recordType": "Exercise", "exerciseRef": "pallof-press",
+            "workUnits": [
+              { "id": "wu-pallof", "recordType": "WorkUnit", "scoring": "time",
+                "prescription": {
+                  "time": { "absolute": { "value": 20, "unit": "s" } },
+                  "load": { "value": 15, "unit": "kg", "basis": "stack" }
+                } }
+            ] }
+        ] }
+    ]
+  }
+}

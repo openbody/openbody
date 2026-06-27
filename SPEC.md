@@ -1,5 +1,5 @@
 # OpenBody — an open standard for health & fitness data interoperability
-## Draft v0.5.0 (normative)
+## Draft v0.6.0 (normative)
 
 > **Change control.** This is the canonical spec. A released version's normative text is
 > immutable — never edit it in place. Normative changes ship as a *new version* (record the
@@ -543,6 +543,7 @@ A **`Session`** is one training occurrence.
 | `endTime` | optional | timestamp | End of the session; omit for an open/ongoing or single-instant session. |
 | `disciplines` | recommended | array&lt;token&gt; | One or more disciplines — open registry-backed tokens from a disciplines vocabulary (same mechanism as §4.5/§6); multiple ⇒ multisport/hybrid. |
 | `intent` | optional | enum | `train｜test｜compete｜recover｜rehab` (R10). |
+| `qualities` | optional | array&lt;token&gt; | The **physical quality/qualities** this session develops — open registry-backed tokens (§5.9): `endurance｜strength｜power｜mobility｜flexibility｜stability｜balance｜agility｜speed｜coordination｜…` (R20). A descriptive classification axis **orthogonal** to `disciplines` (the activity) and `intent` (the purpose); a single session MAY develop several. |
 | `participants` | optional | array | Subjects involved (§5.19); default is the single envelope `subject`. |
 | `accumulation` | optional | bool | Work gathered over a window rather than one contiguous bout (R8). |
 | `blocks` | optional | array&lt;Block&gt; | Contained Blocks (the most-structured form). |
@@ -577,6 +578,7 @@ grouping semantics.
 | `roundScheme` | optional | array&lt;integer&gt; | **Laddered rounds** (R17): per-round counts, e.g. `[21,15,9]` (Fran), an ascending ladder, or a calorie ladder. The block is performed `length(roundScheme)` rounds; in round *r* each descendant `WorkUnit` whose **primary metric is absent** takes `roundScheme[r-1]` as that metric (§5.8). A *planned* shorthand that expands on normalization (§8.3); mutually exclusive with `repetitions`, and **MUST NOT** appear with a `performance`. |
 | `scoring` | optional | object | A **block-level scoring scheme** (R1): `scheme` (open token: `amrap`, `for_time`, `emom`, `tabata`, `rounds`) plus the scheme parameters defined below. The registry holds display synonyms/casing. |
 | `grouping` | optional | token | Open grouping semantic: `superset`, `giant_set`, `circuit`, `drop_set`, … (≈ wger Slot). |
+| `qualities` | optional | array&lt;token&gt; | The **physical quality/qualities** this block develops (R20) — same open vocabulary and semantics as `Session.qualities` (§5.3), at block granularity (a strength session's mobility warmup, conditioning finisher, …). Block-level tags **add to**, and do not override, any session-level `qualities`. |
 | `performance` | optional | object | The block-level **result** of a scoring scheme (fields below). |
 | `rxStatus` | optional | enum | `rx｜scaled` for the block as performed (§5.5). |
 | `synchronized` | optional | bool | Multi-participant coordination constraint — work counts only if met (R15, §5.19). |
@@ -742,7 +744,7 @@ methodology need a value we didn't ship?"*:
   `rxStatus` (`rx｜scaled`).
 - **Open, registry-backed token** — has a demonstrated long tail; uses the §4.5/§6
   mechanism (recommended canonical token + namespaced fallback + **lossless opaque
-  round-trip**): `disciplines`, `movementPattern`, `modality`, `EffortLoad.method`,
+  round-trip**): `disciplines`, `qualities`, `movementPattern`, `modality`, `EffortLoad.method`,
   `Intensity.dimension`, `Intensity.zone`, `modifier.type`, `Block.scoring.scheme`,
   `Block.grouping`, `Load.basis`, `Target.stopCondition.kind`,
   `Target.relativeToThreshold.of`, `ThresholdProfile.kind`, `Progression.rule`,
@@ -1446,9 +1448,10 @@ shorthands.
 8. **Default `status`.** Absent `status` → `active` (§7.5).
 9. **Serialize canonically (final).** Order the **set-valued arrays** — `links` by
    `(type, ref)`, `effortLoad` by `(kind, method)`, `intensity` by `(dimension)`,
-   `modifiers` by `(type)`, **with any tie broken by the element's own canonical byte
-   string** (step 9 applied recursively), giving a total order. These four (`links`,
-   `effortLoad`, `intensity`, `modifiers`) are the **only** set-valued arrays; **all
+   `modifiers` by `(type)`, and `qualities` (an array of plain tokens) by **token value**,
+   **with any tie broken by the element's own canonical byte
+   string** (step 9 applied recursively), giving a total order. These five (`links`,
+   `effortLoad`, `intensity`, `modifiers`, `qualities`) are the **only** set-valued arrays; **all
    other** arrays (`children`, `repDetail`, `phasePattern` phases,
    `dataPoints`/`offsets`, `Program.sessions`) are order-significant and keep their
    semantic order. Then

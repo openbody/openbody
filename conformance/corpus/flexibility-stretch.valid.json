@@ -1,0 +1,33 @@
+{
+  "name": "flexibility-stretch",
+  "description": "A static-stretch flexibility block: long passive holds, plus one PNF contract-relax stretch expressed via phasePattern (contract → relax phases). Shows the v0.6 `qualities` axis tagging passive-ROM flexibility work (`time`-scored holds), distinct from active mobility (see mobility-cars).",
+  "specRefs": ["§5.4", "§5.10", "§5.15"],
+  "kind": "valid",
+  "record": {
+    "id": "sess-flex", "recordType": "Session", "subject": "subj-001",
+    "intent": "train", "disciplines": ["stretching"], "qualities": ["flexibility"],
+    "blocks": [
+      { "id": "blk-stretch", "recordType": "Block", "qualities": ["flexibility"],
+        "children": [
+          { "id": "ex-ham", "recordType": "Exercise", "exerciseRef": "hamstring-stretch.standing",
+            "workUnits": [
+              { "id": "wu-ham-hold", "recordType": "WorkUnit", "scoring": "time",
+                "prescription": {
+                  "time": { "absolute": { "value": 45, "unit": "s" } }
+                } }
+            ] },
+          { "id": "ex-couch", "recordType": "Exercise", "exerciseRef": "couch-stretch",
+            "workUnits": [
+              { "id": "wu-couch-pnf", "recordType": "WorkUnit", "scoring": "time",
+                "prescription": {
+                  "time": { "absolute": { "value": 30, "unit": "s" } },
+                  "phasePattern": [
+                    { "name": "contract", "durationSec": 6 },
+                    { "name": "relax", "durationSec": 24 }
+                  ]
+                } }
+            ] }
+        ] }
+    ]
+  }
+}

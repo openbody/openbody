@@ -1,0 +1,24 @@
+{
+  "name": "mobility-cars",
+  "description": "A joint-mobility routine (FRC-style Controlled Articular Rotations): slow, controlled end-range circles. Shows the v0.6 `qualities` axis tagging a Block as mobility work, with a `controlled` tempo via phasePattern and a prescribed end-range target via the `rom_target` modifier — distinct from passive flexibility (see flexibility-stretch).",
+  "specRefs": ["§5.4", "§5.15", "§5.17"],
+  "kind": "valid",
+  "record": {
+    "id": "sess-mobility", "recordType": "Session", "subject": "subj-001",
+    "intent": "train", "disciplines": ["mobility"], "qualities": ["mobility"],
+    "blocks": [
+      { "id": "blk-cars", "recordType": "Block", "qualities": ["mobility"],
+        "children": [
+          { "id": "ex-shoulder-cars", "recordType": "Exercise", "exerciseRef": "shoulder-cars",
+            "workUnits": [
+              { "id": "wu-cars", "recordType": "WorkUnit", "scoring": "reps",
+                "prescription": {
+                  "reps": { "absolute": { "value": 5 } },
+                  "phasePattern": [ { "name": "rotation", "qualifier": "controlled" } ],
+                  "modifiers": [ { "type": "rom_target", "value": "end_range" } ]
+                } }
+            ] }
+        ] }
+    ]
+  }
+}
