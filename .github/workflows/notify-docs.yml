@@ -1,0 +1,30 @@
+name: notify-docs
+
+# When the canonical spec (or the artifacts the docs site renders from it) changes on main,
+# trigger an immediate rebuild of the docs site (openbody/openbody-docs). The docs build
+# re-syncs SPEC.md / CHANGELOG.md / schema / conformance at build time, so it must rebuild to
+# pick up a spec change. Without this, the docs site's own daily schedule is the fallback.
+#
+# Requires a repo secret DOCS_DISPATCH_TOKEN: a fine-grained PAT scoped to
+# openbody/openbody-docs with Contents: Read and write (the permission the `dispatches`
+# endpoint requires).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "SPEC.md"
+      - "CHANGELOG.md"
+      - "schema/**"
+      - "conformance/README.md"
+  # Allow a manual "rebuild the docs now" from the Actions tab.
+  workflow_dispatch: {}
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger openbody-docs rebuild
+        env:
+          GH_TOKEN: ${{ secrets.DOCS_DISPATCH_TOKEN }}
+        run: gh api -X POST repos/openbody/openbody-docs/dispatches -f event_type=spec-updated
