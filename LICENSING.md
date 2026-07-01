@@ -23,7 +23,8 @@ Verbatim license texts vendored into the repos:
   Open Web Foundation **Final Specification Agreement (OWFa 1.0), Patent and Copyright
   Grants** (the title the vendored `LICENSE` carries; same variant, not the Patent-Only or
   CLA variants). Full verbatim text vendored from the official agreement, with the
-  Specification identified as `OpenBody 0.3.1` and an individual grant executed. ✅
+  Specification identified as `OpenBody 0.6.0` and an individual grant executed. ✅
 
 (Recorded in the project decision log: licensing was OWFa-1.0 / Apache-2.0 / CC0 as of
-2026-06-24, superseding an earlier CC-BY-4.0 docs license.)
+2026-06-24, superseding an earlier CC-BY-4.0 docs license. The OWFa grant was re-executed
+for `OpenBody 0.6.0` on 2026-07-01, superseding the initial execution for `OpenBody 0.3.1`.)
