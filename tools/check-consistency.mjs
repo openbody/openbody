@@ -61,3 +61,32 @@ if (fails) {
   console.error(`\n${fails} record(s) failed — spec/schema/vectors are out of sync.`);
   process.exit(1);
 }
+
+// 4. Version consistency (see VERSIONING.md). SPEC.md's "Draft vX.Y.Z" heading is the single
+// source of truth; every file that MUST track the spec version is asserted to match it here.
+// Deliberate/legal files (LICENSE, LICENSING.md — a conscious OWFa re-execution) are NOT
+// checked; they follow the manual checklist in VERSIONING.md.
+const read = (rel) => fs.readFileSync(path.join(root, rel), "utf8");
+const canonical = read("SPEC.md").match(/Draft\s+v?(\d+\.\d+\.\d+)/i)?.[1];
+const versionErrors = [];
+if (!canonical) {
+  versionErrors.push('SPEC.md: could not find the canonical "Draft vX.Y.Z" version heading.');
+} else {
+  const [maj, min] = canonical.split(".");
+  const expect = (label, actual) => {
+    if (actual !== canonical) versionErrors.push(`${label}: found ${actual ?? "none"}, expected ${canonical} (matches SPEC.md).`);
+  };
+  expect("CHANGELOG.md top entry", read("CHANGELOG.md").match(/^##\s*\[(\d+\.\d+\.\d+)\]/m)?.[1]);
+  expect("README.md status line", read("README.md").match(/Status:\s*DRAFT\s*[—-]\s*v?(\d+\.\d+\.\d+)/i)?.[1]);
+  expect("schema title", JSON.parse(read("schema/openbody.schema.json")).title?.match(/(\d+\.\d+\.\d+)/)?.[1]);
+  // schema $id carries only the major.minor line (bumped when the schema changes shape).
+  const idMinor = JSON.parse(read("schema/openbody.schema.json")).$id?.match(/schema\/v(\d+\.\d+)\//)?.[1];
+  if (idMinor !== `${maj}.${min}`) versionErrors.push(`schema $id: found v${idMinor ?? "?"}, expected v${maj}.${min} (major.minor of ${canonical}).`);
+}
+if (versionErrors.length) {
+  console.error(`\nVersion drift (SPEC.md says ${canonical ?? "?"}):`);
+  for (const e of versionErrors) console.error(`  FAIL ${e}`);
+  console.error(`See VERSIONING.md for the source of truth and the bump checklist.`);
+  process.exit(1);
+}
+console.log(`OpenBody version: v${canonical} consistent across SPEC.md, CHANGELOG.md, README.md, schema title + $id.`);
