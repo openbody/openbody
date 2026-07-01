@@ -1582,9 +1582,11 @@ shorthands.
 2. **Canonicalize units.** For every metric `Target`, a `unit` equal to the field's
    §5.10 default is **removed** (so `time: 120` and `time: {absolute:{value:120,
    unit:"s"}}` converge to the same unit-less `absolute`). A `unit` written inside
-   `load.value` is moved to `Load.unit` (its one canonical home, §5.12). Likewise, a
-   `unit` written inside `Intensity.value` is moved to `Intensity.unit` (its one
-   canonical home, §5.13). This unit handling applies uniformly to whichever `Target`
+   `load.value` is moved to `Load.unit` (its one canonical home, §5.12) — this applies
+   identically whether `load.value` is `absolute` or `range`: a unit nested inside
+   `load.value.range` folds to `Load.unit` exactly as it does from `load.value.absolute`.
+   Likewise, a `unit` written inside `Intensity.value` is moved to `Intensity.unit` (its
+   one canonical home, §5.13). This unit handling applies uniformly to whichever `Target`
    variant is present, including `ramp`. A `ramp`'s `from`/`to` are **never**
    canonicalized by value — they are preserved exactly as authored, with **no**
    reordering (contrast `range`'s `min`/`max`, which this step also leaves untouched

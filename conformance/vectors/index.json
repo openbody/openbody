@@ -142,6 +142,10 @@
       "kind": "equivalent"
     },
     {
+      "file": "load-range-unit-fold.equivalent.json",
+      "kind": "equivalent"
+    },
+    {
       "file": "ramp-warmup-cooldown.inequivalent.json",
       "kind": "inequivalent"
     },
