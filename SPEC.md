@@ -1407,7 +1407,9 @@ shorthands.
 2. **Canonicalize units.** For every metric `Target`, a `unit` equal to the field's
    §5.10 default is **removed** (so `time: 120` and `time: {absolute:{value:120,
    unit:"s"}}` converge to the same unit-less `absolute`). A `unit` written inside
-   `load.value` is moved to `Load.unit` (its one canonical home, §5.12).
+   `load.value` is moved to `Load.unit` (its one canonical home, §5.12). Likewise, a
+   `unit` written inside `Intensity.value` is moved to `Intensity.unit` (its one
+   canonical home, §5.13).
 3. **Expand scalar metrics.** A bare scalar → `{ "absolute": { "value": … } }` for
    every metric-value field **and for `load.value`** (§5.10).
 4. **Expand & fold `ExerciseRef`.** A bare-string ref → `{ "id": … }` (§6.1); and a

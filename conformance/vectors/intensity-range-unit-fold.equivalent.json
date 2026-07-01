@@ -1,0 +1,28 @@
+{
+  "name": "intensity-range-unit-fold",
+  "description": "A unit nested inside Intensity.value.range must fold up to the sibling Intensity.unit on normalization (§8.3 step 2), symmetrically to the absolute-Target case. A 200-250 W power band written with the unit inside `range` must normalize equal to the same band with `unit` on `Intensity`.",
+  "specRefs": ["§5.13", "§8.3"],
+  "kind": "equivalent",
+  "a": {
+    "id": "wu-bike-1",
+    "recordType": "WorkUnit",
+    "subject": "subj-001",
+    "exerciseRef": "cycling",
+    "scoring": "time",
+    "prescription": {
+      "time": { "absolute": { "value": 480, "unit": "s" } },
+      "intensity": [{ "dimension": "power", "value": { "range": { "min": 200, "max": 250, "unit": "W" } } }]
+    }
+  },
+  "b": {
+    "id": "wu-bike-1",
+    "recordType": "WorkUnit",
+    "subject": "subj-001",
+    "exerciseRef": "cycling",
+    "scoring": "time",
+    "prescription": {
+      "time": { "absolute": { "value": 480, "unit": "s" } },
+      "intensity": [{ "dimension": "power", "unit": "W", "value": { "range": { "min": 200, "max": 250 } } }]
+    }
+  }
+}
