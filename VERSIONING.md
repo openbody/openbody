@@ -39,12 +39,30 @@ The **docs site** (`openbody-docs`) never hardcodes the version. Its build runs
 there. A spec change reaches the live site via the docs site's daily rebuild or the
 `notify-docs` dispatch (see `openbody-docs/DEPLOY.md`). **Nothing to update by hand.**
 
-## 3. Deliberate / legal — manual, never auto-synced
+## 3. Deliberate / legal — manual, tracks *releases* not every bump
 
 The **OWFa 1.0 grant** identifies a specific specification version, and re-identifying it is
-a conscious **re-execution** by the grantor, not a string bump. These are intentionally
-**not** CI-checked. When (and only when) you decide the royalty-free patent + copyright
-grant should cover a new version:
+a conscious **re-execution** by the grantor (it re-dates a signature — a legal act), not a
+string bump. So it is **not** CI-**gated**.
+
+**When it must match — and when it needn't.** The grant covers the version it names; that
+version stays covered forever. You do **not** re-execute on every intermediate draft bump
+(`0.6.1`, `0.7.0-dev`, …) — a temporary lag behind `SPEC.md` is expected and harmless while
+no one is implementing the newer text. The grant **MUST** match the spec version **at the
+moments you publish a version people implement**:
+
+- the **public draft release**, and
+- **each subsequently released version** (and **v1.0**).
+
+Two safety nets stop this being forgotten:
+
+- **Non-failing CI note.** `tools/check-consistency.mjs` prints a note (not a failure)
+  whenever the LICENSE-identified version differs from `SPEC.md`, so the lag is visible on
+  every `npm run check` — never silent.
+- **Release gate.** Reconciling the grant is a checklist item at public-release / go-public
+  (see the go-public tracking issue) and at every release, where it *is* a hard requirement.
+
+**To re-execute** (do all three together):
 
 - [ ] `LICENSE` — update `Identify the Specification and version number here: OpenBody X.Y.Z`
       and re-date the signature block.

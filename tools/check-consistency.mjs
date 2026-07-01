@@ -90,3 +90,17 @@ if (versionErrors.length) {
   process.exit(1);
 }
 console.log(`OpenBody version: v${canonical} consistent across SPEC.md, CHANGELOG.md, README.md, schema title + $id.`);
+
+// The OWFa 1.0 grant (LICENSE) identifies the specification version it was executed for.
+// Re-executing it is a deliberate legal act by the grantor (VERSIONING.md §3), NOT auto-sync,
+// so a lag is *not* a build failure. But it must not be silent: surface it as a NON-FAILING
+// note so it's reconciled before a version is published. The hard gate lives at release /
+// go-public (see VERSIONING.md §3 and the go-public checklist), not on every bump.
+const grantVersion = read("LICENSE").match(/Identify the Specification[^\n]*\n+\s*OpenBody\s+(\d+\.\d+\.\d+)/i)?.[1];
+if (canonical && grantVersion && grantVersion !== canonical) {
+  console.warn(
+    `\nNOTE: the OWFa grant (LICENSE) identifies OpenBody ${grantVersion}, but SPEC.md is ${canonical}.\n` +
+    `      This is fine mid-draft, but re-execute the grant before publishing ${canonical}\n` +
+    `      (VERSIONING.md §3). Not a failure — informational.`,
+  );
+}
