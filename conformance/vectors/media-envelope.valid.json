@@ -1,0 +1,32 @@
+{
+  "name": "media-envelope",
+  "description": "`media` is a shared envelope field (§7.6), so it is available on any addressable record kind — not just Session/WorkUnit. Shown here on a WorkUnit (a form-check video for one logged set) and, in the same document, on a Measurement (a photo of a scale reading), proving it genuinely generalizes across the envelope rather than being scoped per record type.",
+  "specRefs": ["§7.6", "§8.3"],
+  "kind": "valid",
+  "record": [
+    {
+      "id": "wu-backsquat-3",
+      "recordType": "WorkUnit",
+      "subject": "subj-001",
+      "exerciseRef": "squat.barbell.high-bar",
+      "scoring": "reps",
+      "performance": { "reps": 5, "load": { "value": 100, "unit": "kg" } },
+      "media": [
+        { "url": "https://example.com/set3-backsquat.mp4", "type": "video", "label": "Set 3 form check" }
+      ]
+    },
+    {
+      "id": "obs-scale-001",
+      "recordType": "Measurement",
+      "subject": "subj-001",
+      "type": "body_mass",
+      "quantity": 82.4,
+      "unit": "kg",
+      "startTime": "2026-06-23T07:00:00Z",
+      "endTime": "2026-06-23T07:00:00Z",
+      "media": [
+        { "url": "https://example.com/scale.jpg", "type": "photo" }
+      ]
+    }
+  ]
+}

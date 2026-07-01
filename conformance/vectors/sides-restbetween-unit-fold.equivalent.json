@@ -1,0 +1,30 @@
+{
+  "name": "sides-restbetween-unit-fold",
+  "description": "sides.restBetween is scalar-or-Target with the same default-unit handling as `rest` (§5.5, §5.10): a bare scalar 5 (default unit s) must normalize equal to the explicit absolute-Target form with unit \"s\" (which is stripped as redundant with the default).",
+  "specRefs": ["§5.5", "§5.10", "§8.3"],
+  "kind": "equivalent",
+  "a": {
+    "id": "wu-copenhagen-plank",
+    "recordType": "WorkUnit",
+    "subject": "subj-001",
+    "exerciseRef": "plank.copenhagen",
+    "scoring": "time",
+    "performance": {
+      "time": 20,
+      "sides": { "count": 2, "restBetween": 5 },
+      "effortLoad": [{ "kind": "internal", "method": "RPE", "value": 7 }]
+    }
+  },
+  "b": {
+    "id": "wu-copenhagen-plank",
+    "recordType": "WorkUnit",
+    "subject": "subj-001",
+    "exerciseRef": "plank.copenhagen",
+    "scoring": "time",
+    "performance": {
+      "time": { "absolute": { "value": 20, "unit": "s" } },
+      "sides": { "count": 2, "restBetween": { "absolute": { "value": 5, "unit": "s" } } },
+      "effortLoad": [{ "kind": "internal", "method": "RPE", "value": 7 }]
+    }
+  }
+}

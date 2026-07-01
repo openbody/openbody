@@ -1,0 +1,38 @@
+{
+  "name": "program-phases",
+  "description": "A Program with an explicit sessions list grouped into three named periodization phases (Hypertrophy, Strength, Peaking) — each phase's sessions is a subset of the top-level sessions list, and one session (a one-off test day) belongs to no phase (§5.1/§5.2).",
+  "specRefs": ["§5.1", "§5.2"],
+  "kind": "valid",
+  "record": {
+    "id": "prog-macro-12wk", "recordType": "Program", "subject": "subj-001",
+    "name": "12-Week Powerlifting Macrocycle",
+    "sessions": [
+      "sess-w1d1", "sess-w1d2", "sess-w2d1", "sess-w2d2",
+      "sess-w5d1", "sess-w5d2", "sess-w6d1", "sess-w6d2",
+      "sess-w9d1", "sess-w9d2",
+      "sess-testday"
+    ],
+    "phases": [
+      {
+        "name": "Hypertrophy",
+        "weekStart": 1,
+        "weekEnd": 4,
+        "goal": "Volume accumulation",
+        "sessions": ["sess-w1d1", "sess-w1d2", "sess-w2d1", "sess-w2d2"]
+      },
+      {
+        "name": "Strength",
+        "weekStart": 5,
+        "weekEnd": 8,
+        "goal": "Intensity ramp",
+        "sessions": ["sess-w5d1", "sess-w5d2", "sess-w6d1", "sess-w6d2"]
+      },
+      {
+        "name": "Peaking",
+        "weekStart": 9,
+        "weekEnd": 11,
+        "sessions": ["sess-w9d1", "sess-w9d2"]
+      }
+    ]
+  }
+}

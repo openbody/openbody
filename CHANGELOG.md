@@ -4,6 +4,47 @@ All notable changes to the OpenBody **standard** are documented here. The standa
 follows [semantic versioning](https://semver.org/): additive = minor, breaking =
 major (deprecate-not-remove within a major), editorial = patch.
 
+## [0.7.0] — 2026-07-01 (private draft)
+
+**Additive (minor): a post-v0.6.0 competitive/critical review round** — a fresh
+comparison against OpenWeight and a newly-surveyed competitor, OpenSet, plus a
+self-directed pre-public red-team pass, surfaced real capability gaps and one
+documentation gap. Each item below is additive/non-breaking:
+
+- **`Intensity.value.range` unit-folding fixed (§8.3 step 2; OB-33).** A sibling of the
+  still-open `Load.value.range` gap (OB-27): the normative unit-fold rule named `Load`
+  but not `Intensity`, even though §5.10 states they're normalized identically.
+- **`ramp` Target variant (§5.10, §5.13; OB-34).** A fifth `Target` variant for directional
+  linear progressions (`{ramp: {from, to, unit?}}` or threshold-relative), e.g. a
+  Zwift-style warmup/cooldown ramping 50→75% FTP. `range`'s `min`/`max` are unordered and
+  can't distinguish a ramp from its reverse; `ramp` fixes that — normalization preserves
+  `from`/`to` exactly as authored, never reordered.
+- **`phasePattern` phase `name` classified as open, registry-backed (§5.9; OB-36).** The
+  one token-shaped field the spec's own open/closed classification rule never covered.
+- **Nutrition/hydration and reproductive-health scope boundary documented (§3.2; OB-37).**
+  Both are in scope today via the generic `Measurement` mechanism — no model change — but
+  this was undocumented. Reproductive-health types also get a SHOULD-level note on
+  elevated legal sensitivity in some jurisdictions.
+- **`WorkUnit.sides` — per-side sub-structure (§5.5, §6.3; OB-41).** Lets one scored atom
+  (one `effortLoad`, one `notes`) carry internal per-side structure (e.g. a per-side plank
+  hold), as an alternative to the two-`WorkUnit`-plus-`laterality` decomposition.
+- **`Program.phases` — periodization mid-tier (§5.1, §5.2; OB-42).** Optional named
+  macro/meso/microcycle grouping over a program's sessions (e.g. "Hypertrophy,"
+  "Strength," "Peaking," "Deload"), additive over the existing flat `Program.sessions`.
+- **`media` — envelope-level attachments (§7.6, §8.3; OB-43).** URL-referenced photo/video/
+  audio/document attachments, available on **any** addressable record kind since it lives
+  on the shared envelope rather than one record type. Closed `type` enum; reference-by-URL
+  only (no embedded binary); per-node, not inherited by nested children.
+- **Registry** (independently versioned per §9.2, not itself part of this spec-version
+  bump, but shipped alongside it): `vocab/grip.json`/`stance.json`/`bar-position.json`
+  (OB-35) and `vocab/phase-name.json` (OB-36) controlled vocabularies; `progressions`/
+  `regressions`/`variations` relationship fields on `registry-entry.schema.json` (OB-44).
+- `Load.value.range`'s unit-folding gap (OB-27) remains open — not fixed in this round.
+
+**Pre-1.0, private, not a final shape:** this is a review-driven batch, not a single
+design axis like R17–R20; each item above is independently revisable as model iteration
+continues.
+
 ## [0.6.0] — 2026-06-27 (private draft)
 
 **Additive (minor): the trained-quality axis — `qualities` (R20).** Methodology

@@ -50,6 +50,10 @@
       "kind": "valid"
     },
     {
+      "file": "workunit-sides.valid.json",
+      "kind": "valid"
+    },
+    {
       "file": "continuous-endurance.valid.json",
       "kind": "valid"
     },
@@ -110,6 +114,10 @@
       "kind": "valid"
     },
     {
+      "file": "program-phases.valid.json",
+      "kind": "valid"
+    },
+    {
       "file": "isokinetic.valid.json",
       "kind": "valid"
     },
@@ -136,6 +144,18 @@
     {
       "file": "ramp-warmup-cooldown.inequivalent.json",
       "kind": "inequivalent"
+    },
+    {
+      "file": "sides-restbetween-unit-fold.equivalent.json",
+      "kind": "equivalent"
+    },
+    {
+      "file": "media-envelope.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "media-order.equivalent.json",
+      "kind": "equivalent"
     }
   ],
   "coverage": {
@@ -147,7 +167,8 @@
     "round_trip": "opaque ExerciseRef, unknown extension, unknown open token, tombstone, supersession",
     "sampleArray": "regular + irregular, single + multi-channel, null dropped sample",
     "normalization": "sets-expansion + accumulation-flatten (subject/startTime propagation, id-assignment, partOf) with exact pinned `expected` canonical bytes",
-    "labels": "name (Program/Session/Block) + notes (Session/Block/Exercise/WorkUnit) — named-session vector"
+    "labels": "name (Program/Session/Block) + notes (Session/Block/Exercise/WorkUnit) — named-session vector",
+    "media": "envelope-level `media` attachments (§7.6) on two different record kinds (WorkUnit + Measurement) in one document, plus set-ordering equivalence for `media` arrays"
   },
   "todo": [
     "modifiers beyond bfr (ems, altitude, heat, terrain, …)",
