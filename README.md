@@ -5,7 +5,7 @@ interoperability** — a canonical data model plus mapping semantics that anyone
 implement in any language. Its mission: that **individuals own and port their health
 and fitness data without platform lock-in**.
 
-> **Status: DRAFT — v0.3.1, pre-v1.0. In private review.**
+> **Status: DRAFT — v0.6.0, pre-v1.0. In private review.**
 > This repository is not yet public. The standard has passed an independent
 > implementability review (see `CHANGELOG.md`) but is being dogfooded before a public
 > pre-v1.0 draft release. Breaking changes are still possible before v1.0.
