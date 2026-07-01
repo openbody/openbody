@@ -132,13 +132,17 @@
     {
       "file": "intensity-range-unit-fold.equivalent.json",
       "kind": "equivalent"
+    },
+    {
+      "file": "ramp-warmup-cooldown.inequivalent.json",
+      "kind": "inequivalent"
     }
   ],
   "coverage": {
     "scoring_kinds": "reps, time, distance, energy, continuous — all five",
     "block_schemes": "amrap, emom, for_time, tabata",
     "core_structures": "resistance set, round/interval/for-time/tabata blocks, continuous endurance (§3.1), Program with whole-plan progression, Session accumulation flag, isokinetic (accommodating resistanceProfile + velocity target)",
-    "value_objects": "Target (all 4 variants incl. relativeToThreshold + stopCondition), Load (absolute + relative), EffortLoad, phasePattern (durations + ratios + qualifier), outcome, participants, ThresholdProfile, StatusPeriod",
+    "value_objects": "Target (all 5 variants incl. relativeToThreshold + stopCondition + ramp), Load (absolute + relative), EffortLoad, phasePattern (durations + ratios + qualifier), outcome, participants, ThresholdProfile, StatusPeriod",
     "encodings": "scalar↔Target, nested↔flat+partOf, number float↔fixed-point; timestamp spelling converges (zero-offset/fraction/case → equal) while a non-zero offset stays distinct (preserved, not folded)",
     "round_trip": "opaque ExerciseRef, unknown extension, unknown open token, tombstone, supersession",
     "sampleArray": "regular + irregular, single + multi-channel, null dropped sample",

@@ -1,0 +1,28 @@
+{
+  "name": "ramp-warmup-cooldown",
+  "description": "A Zwift-style Warmup ramping 50->75 %FTP and a Cooldown ramping 75->50 %FTP MUST NOT normalize to the same record. `ramp`'s `from`/`to` are directional and order-significant (§5.10) — unlike `range`'s unordered `min`/`max`, which cannot distinguish a ramp from its reverse. This is the regression test for the bug OB-34 reports: before `ramp` existed, a warmup and its reverse-order cooldown both canonicalized to the identical `range` object.",
+  "specRefs": ["§5.10", "§5.13", "§8.3"],
+  "kind": "inequivalent",
+  "a": {
+    "id": "wu-ramp",
+    "recordType": "WorkUnit",
+    "subject": "subj-001",
+    "exerciseRef": "cycling",
+    "scoring": "time",
+    "prescription": {
+      "time": { "absolute": { "value": 600, "unit": "s" } },
+      "intensity": [{ "dimension": "power", "value": { "ramp": { "from": 50, "to": 75, "of": "FTP" } } }]
+    }
+  },
+  "b": {
+    "id": "wu-ramp",
+    "recordType": "WorkUnit",
+    "subject": "subj-001",
+    "exerciseRef": "cycling",
+    "scoring": "time",
+    "prescription": {
+      "time": { "absolute": { "value": 600, "unit": "s" } },
+      "intensity": [{ "dimension": "power", "value": { "ramp": { "from": 75, "to": 50, "of": "FTP" } } }]
+    }
+  }
+}

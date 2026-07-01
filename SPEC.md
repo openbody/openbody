@@ -748,7 +748,8 @@ methodology need a value we didn't ship?"*:
   `Intensity.dimension`, `Intensity.zone`, `modifier.type`, `Block.scoring.scheme`,
   `Block.grouping`, `Load.basis`, `Target.stopCondition.kind`,
   `Target.relativeToThreshold.of`, `ThresholdProfile.kind`, `Progression.rule`,
-  `participants.role`, `StatusPeriod.type`, `phasePattern` phase `qualifier`, `setRole`
+  `participants.role`, `StatusPeriod.type`, `phasePattern` phase `name`,
+  `phasePattern` phase `qualifier`, `setRole`
   (canon `warmup｜working｜drop｜failure｜backoff`, with a tail — cluster/myo/primer roles).
 
 Open tokens are what protect the "any surveyed niche is addable without a core
@@ -781,6 +782,7 @@ is exactly **one** encoding; an implementer never guesses by shape:
 | `range` | `{ "range": { "min": a, "max": b, "unit"?: u } }` | A min–max band (e.g. 8–12 reps). |
 | `relativeToThreshold` | `{ "relativeToThreshold": { "percent": p, "of": t, "ref"?: r } }` **or** `{ "relativeToThreshold": { "min": a, "max": b, "of": t, "ref"?: r } }` | Relative to a `ThresholdProfile` entry (§5.11): `of` is an open threshold token (`1RM｜FTP｜maxHR｜pace｜…`). A **single** relative value uses `percent` (e.g. 80); a **relative band** (a training zone, e.g. 60–70% maxHR, sweet-spot 88–94% FTP) uses `min`/`max`. Exactly one of `percent` or (`min`+`max`) is present. |
 | `stopCondition` | `{ "stopCondition": { "kind": k, "value"?: v } }` | Open-ended/autoregulated: `kind` open token (`to_failure｜to_rpe｜amrap｜work_up_to｜max｜to_breath｜…`); `value` parameterizes (e.g. `to_rpe` 8). |
+| `ramp` | `{ "ramp": { "from": a, "to": b, "unit"?: u } }` **or** `{ "ramp": { "from": a, "to": b, "of": t, "ref"?: r } }` | A **directional** linear progression from `from` (the value at the start of the enclosing step) to `to` (the value at its end) — e.g. a warmup ramping 50→75 %FTP, or 150→200 W. Unlike `range`, order is significant and **MUST NOT** be normalized/sorted; `from` may be greater than `to` (a descending ramp, e.g. a cooldown). Exactly one of `unit` or (`of`, `ref`?) applies, mirroring the `absolute`/`relativeToThreshold` split. |
 
 **Scalar shorthand.** A bare scalar `n` (number or fixed-point, §4.2) is shorthand
 for `{ "absolute": { "value": n } }`, used when the unit is implied by the field or
@@ -788,6 +790,11 @@ registry, or carried by an enclosing `Load`. Normalization (§8.3) expands every
 bare scalar to its `absolute` form before comparison. (Maps to a `oneof` in the
 Protobuf alt binding; test vectors **MUST** cover both the scalar and the `Target`
 form of a field.)
+
+**`ramp` order is preserved.** `ramp` is the only `Target` variant where value order
+carries meaning: normalization (§8.3) **MUST** preserve `from`/`to` exactly as
+authored and **MUST NOT** apply any min/max canonicalization to it (contrast `range`,
+whose `min`/`max` are unordered by definition).
 
 A `Target` (and any other discriminated value object — `Load`, `outcome`, a
 `phasePattern` phase) has **exactly one variant/discriminator key**; it **MAY**
@@ -890,7 +897,7 @@ entries:
 | Field | Tier | Type | Semantics |
 |---|---|---|---|
 | `dimension` | required | token | Open token for the intensity dimension: `power｜pace｜hr｜speed｜grade｜…`. |
-| `value` | required² | scalar or `Target` | The target on that dimension — `absolute` (e.g. 250, `unit: W`), `range` (an absolute band), or `relativeToThreshold` (a single % or a relative **band**, e.g. 88–94 %FTP; §5.10/§5.11). |
+| `value` | required² | scalar or `Target` | The target on that dimension — `absolute` (e.g. 250, `unit: W`), `range` (an absolute band), `relativeToThreshold` (a single % or a relative **band**, e.g. 88–94 %FTP; §5.10/§5.11), or `ramp` (a directional progression, e.g. a warmup/cooldown; §5.10). |
 | `zone` | required² | token | Shorthand: a **named zone** (e.g. `z2｜tempo｜sweet_spot`) resolved by the zone registry to a band on `dimension`. |
 | `unit` | conditional | string | UCUM unit when `value` is a scalar or `absolute`/`range` `Target`; omitted for `relativeToThreshold`/`stopCondition` (derived from the threshold) and for `zone`. |
 
@@ -1409,7 +1416,12 @@ shorthands.
    unit:"s"}}` converge to the same unit-less `absolute`). A `unit` written inside
    `load.value` is moved to `Load.unit` (its one canonical home, §5.12). Likewise, a
    `unit` written inside `Intensity.value` is moved to `Intensity.unit` (its one
-   canonical home, §5.13).
+   canonical home, §5.13). This unit handling applies uniformly to whichever `Target`
+   variant is present, including `ramp`. A `ramp`'s `from`/`to` are **never**
+   canonicalized by value — they are preserved exactly as authored, with **no**
+   reordering (contrast `range`'s `min`/`max`, which this step also leaves untouched
+   but which carry no order to preserve in the first place, being unordered by
+   definition; §5.10).
 3. **Expand scalar metrics.** A bare scalar → `{ "absolute": { "value": … } }` for
    every metric-value field **and for `load.value`** (§5.10).
 4. **Expand & fold `ExerciseRef`.** A bare-string ref → `{ "id": … }` (§6.1); and a

@@ -224,6 +224,54 @@
             }
           },
           "additionalProperties": false
+        },
+        {
+          "required": [
+            "ramp"
+          ],
+          "properties": {
+            "ramp": {
+              "type": "object",
+              "description": "Directional linear progression from `from` to `to` (§5.10). Order is significant and MUST NOT be normalized/sorted — `from` may be greater than `to` (a descending ramp). Exactly one of `unit` or `of` (with optional `ref`) applies, mirroring the absolute/relativeToThreshold split.",
+              "properties": {
+                "from": {
+                  "$ref": "#/$defs/number"
+                },
+                "to": {
+                  "$ref": "#/$defs/number"
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "of": {
+                  "type": "string"
+                },
+                "ref": {
+                  "$ref": "#/$defs/id"
+                }
+              },
+              "required": [
+                "from",
+                "to"
+              ],
+              "not": {
+                "required": [
+                  "unit",
+                  "of"
+                ]
+              },
+              "dependentRequired": {
+                "ref": [
+                  "of"
+                ]
+              },
+              "additionalProperties": false
+            },
+            "extension": {
+              "$ref": "#/$defs/extension"
+            }
+          },
+          "additionalProperties": false
         }
       ]
     },
