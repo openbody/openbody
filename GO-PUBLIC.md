@@ -1,8 +1,10 @@
 # Going public — release checklist
 
 The master checklist for taking OpenBody from **private review** to a **public draft
-release**. It spans all four repos (`openbody`, `openbody-ts`, `openbody-registry`,
-`openbody-docs`). Nothing here is automated — going public is a deliberate, one-time event.
+release**. It spans all five repos (`openbody`, `openbody-ts`, `openbody-registry`,
+`openbody-measurements`, `openbody-docs`) — **released together, as one synchronized
+event**, not staggered per-repo. Nothing here is automated — going public is a
+deliberate, one-time event.
 
 > Tracked by the go-public issue in `openbody/openbody-docs` (label `go-public`), which
 > points back here. Detail for individual items lives in `DEPLOY.md` (docs/CI) and
@@ -49,8 +51,8 @@ stay — they're history):
 
 ## 4. Repository visibility
 
-- [ ] Make public: **`openbody`**, **`openbody-ts`**, **`openbody-registry`**,
-      **`openbody-docs`** (whichever are being released).
+- [ ] Make public, **all five, together**: **`openbody`**, **`openbody-ts`**,
+      **`openbody-registry`**, **`openbody-measurements`**, **`openbody-docs`**.
 - [ ] Verify the docs site's GitHub links resolve once public — `editLink`, the GitHub
       social link, and the `blob/main/...` source links in `astro.config.mjs` and pages
       (they 404 while private).
@@ -67,12 +69,25 @@ Two secrets exist **only** to read the currently-private `openbody/openbody`:
 - [ ] **Keep `DOCS_DISPATCH_TOKEN`** (in `openbody/openbody`) — permanent cross-repo
       dispatch infra, unrelated to visibility. Do **not** remove it.
 
-## 6. Reference implementation & registry (as their own readiness allows)
+## 6. Reference implementation & registries
 
-- [ ] **`openbody-ts`** — publish to npm when ready, then update the docs install steps (the
-      getting-started page currently says "not yet published to npm").
+Not an independent readiness gate — these follow §4's repo-visibility flip, not their
+own separate timing. `npm publish` in particular only makes sense once
+`openbody-ts`'s own repo is public: the package's `repository`/`homepage`/`bugs`
+fields resolve to `github.com/openbody/openbody-ts`, so publishing while that repo
+is still private means anyone who clicks through from npm hits a 404, regardless of
+whether the *spec* is public. Given §4 makes all five repos public in the same
+event, "spec is public" and "`openbody-ts` is public" are the same moment in
+practice — so sequence this step **right after §4**, same event, not later:
+
+- [ ] **`openbody-ts`** — packaging is done (`OB-11`: build/vendor-schema/pack all
+      verified, see commit `538de78`) — nothing left to block this once §4 lands.
+      `npm publish`, then update the docs install steps (the getting-started page
+      currently says "not yet published to npm").
 - [ ] **`openbody-registry`** — confirm the CC0 `LICENSE`, `SOURCES.md` provenance, and
       id-stability note are release-ready.
+- [ ] **`openbody-measurements`** — confirm the CC0 `LICENSE` and token-stability note
+      (`README.md` "Status") are release-ready (added 2026-07-02, `OB-13`).
 
 ## 7. Post-publish smoke test
 
