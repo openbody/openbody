@@ -160,6 +160,10 @@
     {
       "file": "media-order.equivalent.json",
       "kind": "equivalent"
+    },
+    {
+      "file": "media-data-uri.invalid.json",
+      "kind": "invalid"
     }
   ],
   "coverage": {

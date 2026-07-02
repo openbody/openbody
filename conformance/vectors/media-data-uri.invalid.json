@@ -1,0 +1,17 @@
+{
+  "name": "media-data-uri",
+  "description": "A `data:` URI in `media[].url` MUST fail validation (§7.6). `url` is restricted to the `http`/`https` scheme; a `data:` URI is embedded binary encoded as URI syntax and is exactly the case the §7.6 'Reference by URL only' MUST forbids.",
+  "specRefs": ["§7.6"],
+  "kind": "invalid",
+  "record": {
+    "id": "wu-backsquat-3",
+    "recordType": "WorkUnit",
+    "subject": "subj-001",
+    "exerciseRef": "squat.barbell.high-bar",
+    "scoring": "reps",
+    "performance": { "reps": 5, "load": { "value": 100, "unit": "kg" } },
+    "media": [
+      { "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=", "type": "photo" }
+    ]
+  }
+}

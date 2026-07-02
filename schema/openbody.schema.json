@@ -224,8 +224,28 @@
             }
           },
           "additionalProperties": false
+        }
+      ]
+    },
+    "scalarOrTarget": {
+      "description": "A metric value: a bare scalar (shorthand for {absolute:{value}}) or a Target (§5.10). Does not include the `ramp` variant, which is legal only on Load.value/Intensity.value — see scalarOrTargetWithRamp.",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/number"
         },
         {
+          "$ref": "#/$defs/Target"
+        }
+      ]
+    },
+    "TargetWithRamp": {
+      "description": "Target (§5.10) plus the `ramp` variant. Used only by Load.value and Intensity.value — ramp has no defined meaning on other scalarOrTarget fields (reps, time, distance, energy, rest, sides.restBetween, Rep.velocity, Rep.rangeOfMotion).",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/Target"
+        },
+        {
+          "type": "object",
           "required": [
             "ramp"
           ],
@@ -275,14 +295,14 @@
         }
       ]
     },
-    "scalarOrTarget": {
-      "description": "A metric value: a bare scalar (shorthand for {absolute:{value}}) or a Target (§5.10).",
+    "scalarOrTargetWithRamp": {
+      "description": "A metric value: a bare scalar (shorthand for {absolute:{value}}) or a Target including the `ramp` variant (§5.10). Used only by Load.value and Intensity.value.",
       "oneOf": [
         {
           "$ref": "#/$defs/number"
         },
         {
-          "$ref": "#/$defs/Target"
+          "$ref": "#/$defs/TargetWithRamp"
         }
       ]
     },
@@ -298,7 +318,7 @@
       "description": "External resistance (§5.12). `unit` is required for scalar/absolute/range value, omitted for relativeToThreshold/stopCondition (enforced in code).",
       "properties": {
         "value": {
-          "$ref": "#/$defs/scalarOrTarget"
+          "$ref": "#/$defs/scalarOrTargetWithRamp"
         },
         "unit": {
           "type": "string"
@@ -380,7 +400,7 @@
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/scalarOrTarget"
+          "$ref": "#/$defs/scalarOrTargetWithRamp"
         },
         "zone": {
           "type": "string"
@@ -647,7 +667,10 @@
       "description": "A single URL-referenced attachment (§7.6). Reference by URL only — never embedded/base64 binary.",
       "properties": {
         "url": {
-          "type": "string"
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https?://",
+          "description": "MUST use the http or https scheme (§7.6); data: and other schemes are disallowed."
         },
         "type": {
           "type": "string",

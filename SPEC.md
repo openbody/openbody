@@ -1446,7 +1446,21 @@ Each element of `media`:
 `url`; embedding binary (e.g. base64-encoded image or video data) directly in the
 JSON document is disallowed. OpenBody documents are human-readable and
 lightweight by design (§0/§3.1); embedding binary defeats that goal and would
-bloat every record carrying an attachment.
+bloat every record carrying an attachment. `url` **MUST** use the `http` or
+`https` scheme — equivalently, it **MUST NOT** use `data:` or any other scheme
+(e.g. `s3://`, `file://`). A `data:` URI is embedded binary encoded as URI
+syntax and is exactly the case this MUST forbids; leaving the scheme
+unconstrained would make that MUST unenforceable.
+
+**Fetching `url` is a trust boundary, not a spec requirement.** `url` is
+untrusted, producer-supplied input — this spec does not itself assume or
+require that any consumer fetch it; the field's default contract is
+reference-only. A consumer that does fetch `media.url` server-side (e.g. to
+proxy, thumbnail, or cache an attachment for display) **SHOULD** apply standard
+SSRF mitigations before treating the fetched content as trusted: a scheme
+allowlist limited to `http`/`https`, blocking requests to link-local/private/
+metadata IP ranges, disallowing redirects to disallowed targets, and applying
+timeouts and size limits.
 
 **Not inherited.** Unlike `subject`, which an inlined child inherits from its
 nearest enclosing record when absent (§7.1), or `startTime`/`endTime`, which
@@ -1843,6 +1857,10 @@ map to a source-namespaced `type` (§4.4) — preserved, not blocked.
 | OpenWeight template / log | planned/performed `Session`; sets → `WorkUnit`s; %1RM → `relativeToThreshold`; `app:` → extension |
 | wger `Slot` + iteration | `Block.grouping` + `Program` iteration + `Progression` |
 | SugarWOD WOD + Rx + score | `Block.scoring` (AMRAP/for_time/EMOM) + `rxStatus` + `outcome` |
+| Zwift `.zwo` `<Warmup>`/`<Cooldown>`/`<Ramp>` (`PowerLow`/`PowerHigh`/`Duration` attributes) | `Intensity.value` `ramp` Target (`from`/`to`, `unit`; §5.13) |
+| TrainingPeaks/TrainerRoad annual-plan periodization block (Base/Build/Specialty, or macro/meso/microcycle) | `Program.phases[]` (named phase grouping `sessions` by reference, `weekStart`/`weekEnd`; §5.2) |
+| Hevy/Strong-style "each side" logged set (per-side weight/reps entry for a unilateral movement, no combined total) | `WorkUnit.sides` (`count`, `restBetween`; primary metric is per side, not split across sides; §5.5) |
+| TrainHeroic-style session-comment/form-check video attached to a logged set | `media` (envelope field, not inherited; `{url, type: video, label}` on the `WorkUnit`; §7.6) |
 
 #### 10.4 Where the residue goes
 
