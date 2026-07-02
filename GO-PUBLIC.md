@@ -1,8 +1,8 @@
 # Going public — release checklist
 
 The master checklist for taking OpenBody from **private review** to a **public draft
-release**. It spans all five repos (`openbody`, `openbody-ts`, `openbody-registry`,
-`openbody-measurements`, `openbody-docs`) — **released together, as one synchronized
+release**. It spans all four repos (`openbody`, `openbody-ts`, `openbody-registry`,
+`openbody-docs`) — **released together, as one synchronized
 event**, not staggered per-repo. Nothing here is automated — going public is a
 deliberate, one-time event.
 
@@ -51,8 +51,14 @@ stay — they're history):
 
 ## 4. Repository visibility
 
-- [ ] Make public, **all five, together**: **`openbody`**, **`openbody-ts`**,
-      **`openbody-registry`**, **`openbody-measurements`**, **`openbody-docs`**.
+- [ ] **Remove this file (`GO-PUBLIC.md`) from the repo before the flip** — it is an
+      internal operations checklist (private CI tokens, unauthored governance artifacts)
+      and must not ship in the public tree. Move any still-open items to the go-public
+      tracking issue, then `git rm` it in the same commit as the visibility change.
+- [ ] Make public, **all together**: **`openbody`**, **`openbody-ts`**,
+      **`openbody-registry`**, **`openbody-docs`** (four repos —
+      `openbody-measurements` was folded into `openbody-registry` on 2026-07-03, OB-66;
+      archive that repo instead of publishing it).
 - [ ] Verify the docs site's GitHub links resolve once public — `editLink`, the GitHub
       social link, and the `blob/main/...` source links in `astro.config.mjs` and pages
       (they 404 while private).
@@ -85,9 +91,9 @@ practice — so sequence this step **right after §4**, same event, not later:
       `npm publish`, then update the docs install steps (the getting-started page
       currently says "not yet published to npm").
 - [ ] **`openbody-registry`** — confirm the CC0 `LICENSE`, `SOURCES.md` provenance, and
-      id-stability note are release-ready.
-- [ ] **`openbody-measurements`** — confirm the CC0 `LICENSE` and token-stability note
-      (`README.md` "Status") are release-ready (added 2026-07-02, `OB-13`).
+      id-stability note are release-ready. This now includes the measurement-type
+      vocabulary (folded from `openbody-measurements` on 2026-07-03, OB-66) — confirm
+      its token-stability note carried over.
 
 ## 7. Post-publish smoke test
 
