@@ -25,6 +25,12 @@
     { "file": "gymnastics-judged-score.valid.json", "kind": "valid", "methodology": "Judged gymnastics (D/E score)" },
     { "file": "powerlifting-attempts.valid.json", "kind": "valid", "methodology": "Powerlifting meet attempts" },
     { "file": "lengthened-partials.valid.json", "kind": "valid", "methodology": "Lengthened partials (hypertrophy trend)" },
-    { "file": "combat-rounds-bjj.valid.json", "kind": "valid", "methodology": "BJJ rolling rounds (combat sport)" }
+    { "file": "combat-rounds-bjj.valid.json", "kind": "valid", "methodology": "BJJ rolling rounds (combat sport)" },
+    { "file": "highland-games.valid.json", "kind": "valid", "methodology": "Highland games — caber toss (judged) + stone put (distance)" },
+    { "file": "kabaddi.valid.json", "kind": "valid", "methodology": "Kabaddi match (team-sport session outcome)" },
+    { "file": "freediving-apnea.valid.json", "kind": "valid", "methodology": "Freediving — static + dynamic apnea attempts" },
+    { "file": "isokinetic-lsi-rehab.valid.json", "kind": "valid", "methodology": "Isokinetic dynamometer rehab — bilateral peak-torque LSI test" },
+    { "file": "climbing-send-attempt.valid.json", "kind": "valid", "methodology": "Climbing send/attempt (bouldering, outcome.attempts)" },
+    { "file": "swim-swolf.valid.json", "kind": "valid", "methodology": "Swimming SWOLF efficiency index" }
   ]
 }

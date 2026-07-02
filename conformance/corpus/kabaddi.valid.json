@@ -1,0 +1,22 @@
+{
+  "name": "kabaddi",
+  "description": "Kabaddi match: a South Asian contact team sport scored by raid and tackle points, contest IS the session (same shape as soccer-match, different components). Session.outcome with components carries the composite score; participants carries the opposing team.",
+  "specRefs": ["§5.3", "§5.18", "§5.19"],
+  "kind": "valid",
+  "record": {
+    "id": "sess-kabaddi-1", "recordType": "Session", "subject": "subj-001",
+    "intent": "compete", "disciplines": ["kabaddi"],
+    "startTime": "2026-06-27T18:00:00Z", "endTime": "2026-06-27T18:40:00Z",
+    "participants": [
+      { "ref": "subj-001", "subjectType": "team", "role": "athlete" },
+      { "ref": "team-077", "subjectType": "team", "role": "opponent" }
+    ],
+    "outcome": {
+      "kind": "score", "value": 34,
+      "components": [
+        { "name": "raid_points", "value": 20 },
+        { "name": "tackle_points", "value": 14 }
+      ]
+    }
+  }
+}

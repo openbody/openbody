@@ -1,0 +1,15 @@
+{
+  "name": "climbing-send-attempt",
+  "description": "Bouldering send/attempt: a V5 problem sent on the 2nd try of 3 attempts. Uses `outcome.attempts { made, attempted }` (§5.18) — the field the spec calls out by name for climbing send/attempt/flash — alongside a `success` outcome for the send itself; the grade is carried as an open `modifiers` token (the same mechanism as HYROX's `target_height`), not a new field.",
+  "specRefs": ["§5.5", "§5.17", "§5.18"],
+  "kind": "valid",
+  "record": {
+    "id": "wu-boulder-v5", "recordType": "WorkUnit", "subject": "subj-001",
+    "exerciseRef": { "opaque": "boulder problem" }, "scoring": "reps",
+    "performance": {
+      "reps": 3,
+      "modifiers": [{ "type": "grade", "value": "V5" }],
+      "outcome": { "kind": "success", "value": true, "attempts": { "made": 1, "attempted": 3 } }
+    }
+  }
+}

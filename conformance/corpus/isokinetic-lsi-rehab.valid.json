@@ -1,0 +1,49 @@
+{
+  "name": "isokinetic-lsi-rehab",
+  "description": "ACL-rehab return-to-sport isokinetic dynamometer test: bilateral knee-extension peak-torque comparison (Limb Symmetry Index). Distinct from the minimum-core isokinetic vector (a bare prescription) — this is a completed bilateral test: two Exercises (involved/uninvolved limb) each with accommodating resistanceProfile + a fixed-velocity repDetail (§5.16/§5.7) and a per-limb peak-torque WorkUnit outcome, rolled up into a Block-level LSI% outcome via `outcome.components`.",
+  "specRefs": ["§5.4", "§5.5", "§5.7", "§5.16", "§5.18"],
+  "kind": "valid",
+  "record": {
+    "id": "blk-iso-lsi", "recordType": "Block", "subject": "subj-001", "name": "Isokinetic quad strength — LSI test",
+    "scoring": { "scheme": "rounds", "rounds": 2 },
+    "children": [
+      { "id": "iso-involved", "recordType": "Exercise", "exerciseRef": "knee-extension.isokinetic",
+        "notes": "involved (post-ACLR) limb",
+        "descriptors": { "resistanceProfile": "accommodating", "equipment": { "manufacturer": "Biodex", "model": "System 4 Pro" } },
+        "workUnits": [
+          { "id": "iso-involved-wu", "recordType": "WorkUnit", "scoring": "reps",
+            "performance": { "reps": 5, "outcome": { "kind": "score", "value": 142, "unit": "Nm" } },
+            "repDetail": [
+              { "velocity": { "absolute": { "value": 60, "unit": "deg/s" } } },
+              { "velocity": { "absolute": { "value": 60, "unit": "deg/s" } } },
+              { "velocity": { "absolute": { "value": 60, "unit": "deg/s" } } },
+              { "velocity": { "absolute": { "value": 60, "unit": "deg/s" } } },
+              { "velocity": { "absolute": { "value": 60, "unit": "deg/s" } } }
+            ] }
+        ] },
+      { "id": "iso-uninvolved", "recordType": "Exercise", "exerciseRef": "knee-extension.isokinetic",
+        "notes": "uninvolved limb",
+        "descriptors": { "resistanceProfile": "accommodating", "equipment": { "manufacturer": "Biodex", "model": "System 4 Pro" } },
+        "workUnits": [
+          { "id": "iso-uninvolved-wu", "recordType": "WorkUnit", "scoring": "reps",
+            "performance": { "reps": 5, "outcome": { "kind": "score", "value": 168, "unit": "Nm" } },
+            "repDetail": [
+              { "velocity": { "absolute": { "value": 60, "unit": "deg/s" } } },
+              { "velocity": { "absolute": { "value": 60, "unit": "deg/s" } } },
+              { "velocity": { "absolute": { "value": 60, "unit": "deg/s" } } },
+              { "velocity": { "absolute": { "value": 60, "unit": "deg/s" } } },
+              { "velocity": { "absolute": { "value": 60, "unit": "deg/s" } } }
+            ] }
+        ] }
+    ],
+    "performance": {
+      "outcome": {
+        "kind": "score", "value": 84.5, "unit": "%",
+        "components": [
+          { "name": "involved_peak_torque_nm", "value": 142 },
+          { "name": "uninvolved_peak_torque_nm", "value": 168 }
+        ]
+      }
+    }
+  }
+}

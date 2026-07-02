@@ -1,0 +1,23 @@
+{
+  "name": "highland-games",
+  "description": "Scottish Highland games heavy events: caber toss (judged by rotation achieved, not distance — a clock-face outcome score) and stone put (a shot-put-style throw for distance, the stone's mass carried as Load). One competition Session with two Exercises, showing outcome and Load cover a judged-rotation event and a distance-thrown-implement event without any new mechanism.",
+  "specRefs": ["§5.3", "§5.5", "§5.12", "§5.18", "§6.1"],
+  "kind": "valid",
+  "record": {
+    "id": "sess-highland-1", "recordType": "Session", "subject": "subj-001",
+    "intent": "compete", "disciplines": ["highland_games"],
+    "exercises": [
+      { "id": "hg-caber", "recordType": "Exercise", "exerciseRef": "caber-toss",
+        "workUnits": [
+          { "id": "hg-caber-wu", "recordType": "WorkUnit", "scoring": "reps",
+            "performance": { "reps": 1, "outcome": { "kind": "score", "value": 12, "unit": "o'clock" } } }
+        ] },
+      { "id": "hg-stone", "recordType": "Exercise", "exerciseRef": { "opaque": "stone put" },
+        "workUnits": [
+          { "id": "hg-stone-wu", "recordType": "WorkUnit", "scoring": "distance",
+            "performance": { "distance": { "absolute": { "value": 8.2, "unit": "m" } },
+                             "load": { "value": 11, "unit": "kg", "basis": "marked_weight" } } }
+        ] }
+    ]
+  }
+}

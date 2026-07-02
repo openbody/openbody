@@ -1,0 +1,27 @@
+{
+  "name": "swim-swolf",
+  "description": "SWOLF (swim golf): a derived stroke-efficiency index = time (s) + stroke count for one length, lower is better. Not a new metric field — `scoring: continuous` (like the HYROX run legs) carries both `distance` and `time` on the same WorkUnit, and the derived SWOLF value + its two inputs live in `outcome`/`outcome.components` (§5.18), the same composite-score mechanism used for a judged gymnastics score.",
+  "specRefs": ["§5.4", "§5.5", "§5.8", "§5.18"],
+  "kind": "valid",
+  "record": {
+    "id": "blk-swim-swolf", "recordType": "Block", "subject": "subj-001", "name": "SWOLF efficiency set",
+    "scoring": { "scheme": "rounds", "rounds": 8 },
+    "children": [
+      { "id": "ex-swim-swolf", "recordType": "Exercise", "exerciseRef": "swim.freestyle",
+        "workUnits": [
+          { "id": "swolf-wu", "recordType": "WorkUnit", "scoring": "continuous",
+            "performance": {
+              "distance": { "absolute": { "value": 50, "unit": "m" } },
+              "time": { "absolute": { "value": 38, "unit": "s" } },
+              "outcome": {
+                "kind": "score", "value": 56, "unit": "SWOLF",
+                "components": [
+                  { "name": "time_s", "value": 38 },
+                  { "name": "strokes", "value": 18 }
+                ]
+              }
+            } }
+        ] }
+    ]
+  }
+}

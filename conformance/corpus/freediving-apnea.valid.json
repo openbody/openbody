@@ -1,0 +1,24 @@
+{
+  "name": "freediving-apnea",
+  "description": "Freediving breath-hold attempts: static apnea (maximal breath-hold, time-scored) and dynamic apnea without fins (maximal distance on one breath). Both are open-ended 'push it as far as possible' efforts, encoded the same way as the Wim Hof retention hold — a `to_breath` stopCondition Target on the prescribed side, with the actual achieved value on the performed side. Two Exercises under one Session; `freediving` is an open discipline token not yet in the recommended-canon list (round-trips regardless, §5.9).",
+  "specRefs": ["§5.3", "§5.5", "§5.10", "§6.1"],
+  "kind": "valid",
+  "record": {
+    "id": "sess-freediving-1", "recordType": "Session", "subject": "subj-001",
+    "intent": "compete", "disciplines": ["freediving"],
+    "exercises": [
+      { "id": "fd-static", "recordType": "Exercise", "exerciseRef": { "opaque": "static apnea" },
+        "workUnits": [
+          { "id": "fd-static-wu", "recordType": "WorkUnit", "scoring": "time",
+            "prescription": { "time": { "stopCondition": { "kind": "to_breath" } } },
+            "performance": { "time": { "absolute": { "value": 257, "unit": "s" } } } }
+        ] },
+      { "id": "fd-dynamic", "recordType": "Exercise", "exerciseRef": { "opaque": "dynamic apnea without fins" },
+        "workUnits": [
+          { "id": "fd-dynamic-wu", "recordType": "WorkUnit", "scoring": "distance",
+            "prescription": { "distance": { "stopCondition": { "kind": "to_breath" } } },
+            "performance": { "distance": { "absolute": { "value": 75, "unit": "m" } } } }
+        ] }
+    ]
+  }
+}
