@@ -5,7 +5,7 @@ interoperability** — a canonical data model plus mapping semantics that anyone
 implement in any language. Its mission: that **individuals own and port their health
 and fitness data without platform lock-in**.
 
-> **Status: DRAFT — v0.7.0, pre-v1.0. In private review.**
+> **Status: DRAFT — v0.8.0, pre-v1.0. In private review.**
 > This repository is not yet public. The standard has passed an independent
 > implementability review (see `CHANGELOG.md`) but is being dogfooded before a public
 > pre-v1.0 draft release. Breaking changes are still possible before v1.0.
@@ -28,11 +28,13 @@ binding**.
 ## Implementing against it
 
 - The normative standard is **`SPEC.md` §§3–10** (§§1–2 are introductory).
-- Build a parser + validator against the JSON binding; the canonical
-  **normalization/equivalence** procedure (§8.3, grounded on RFC 8785) is what makes
-  independent implementations interoperate.
+- Build a parser + validator against the JSON binding.
 - Conformance is demonstrated by **round-tripping the test vectors** for the profile
-  and tier you claim — see `conformance/`.
+  and tier you claim — see `conformance/`. Equivalence between documents is judged
+  by the suite's **normalized-equivalence method**
+  (`conformance/EQUIVALENCE.md`, grounded on RFC 8785), implemented by the test
+  tooling and the reference implementation — **you do not need to implement it
+  yourself** (§8.3).
 - Two named core profiles (Observation core, Training core) let a single-pillar
   implementation be fully conformant (§8.2).
 

@@ -4,6 +4,39 @@ All notable changes to the OpenBody **standard** are documented here. The standa
 follows [semantic versioning](https://semver.org/): additive = minor, breaking =
 major (deprecate-not-remove within a major), editorial = patch.
 
+## [0.8.0] — 2026-07-03 (private draft)
+
+**Minor (pre-1.0): §8.3 restructured — the canonicalization algorithm demoted from a
+normative implementer requirement to the conformance suite's companion testing method
+(OB-67).** Rationale: **implementer-burden reduction; no change to document semantics
+or the model.** The 9-step canonical-byte-string algorithm (RFC 8785 + exact-decimal
+fixed-point + set-array total ordering + deterministic ids) was the spec's single
+biggest implementer deterrent — no comparable format requires implementers to build
+one. The algorithm itself is unchanged; it remains what makes the test vectors
+checkable.
+
+- **The normalized-equivalence method now lives in `conformance/EQUIVALENCE.md`**,
+  moved out of §8.3 verbatim in substance (steps 1–9 plus the scope-of-
+  canonicalization rules). It is normative **for the conformance suite**: test
+  tooling and the reference implementation (`openbody-ts`) implement it and act as
+  the **equivalence oracle**. **A conformant implementation is no longer required to
+  implement canonicalization** — it is judged by its inputs/outputs against the
+  published vectors.
+- **§8.3 rewritten short**: what the vector suite is; "lossless round-trip" defined
+  at the semantic level; the minimum-core vector list and corpus paragraph kept. The
+  **shorthand equivalences remain normative model facts in-spec** (they define what
+  a document *means*): scalar ↔ `absolute` `Target`, `sets: N` ↔ N `WorkUnit`s,
+  nested ↔ flat+`partOf`, bare-string ↔ `{id}` `ExerciseRef`, absent `status` ↔
+  `active`, and `roundScheme` ↔ its enumerated expansion.
+- Cross-references to the moved algorithm swept throughout (§5.1, §5.3, §5.4, §5.5,
+  §5.10, §5.13, §7.1, §7.2, §7.6, §10.1; plus `README.md`, `conformance/README.md`,
+  `conformance/CORPUS.md`) — semantic-equivalence references still point at §8.3;
+  byte-level/step references now point at `conformance/EQUIVALENCE.md`.
+- **§4.5 repo pointer updated (OB-66, folded in):** measurement-type registry
+  content now ships from the `openbody-registry` repo (the formerly-separate
+  `openbody-measurements` repo was folded into it). Mechanism text unchanged; the
+  registry stays independently versioned (§9.2).
+
 ## [0.7.0] — 2026-07-01 (private draft)
 
 **Additive (minor): a post-v0.6.0 competitive/critical review round** — a fresh

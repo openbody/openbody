@@ -6,7 +6,7 @@ inferior to prior art" gate** (§3.1) — **coverage validation, not a conforman
 
 The vectors live in [`corpus/`](./corpus/) (manifest: [`corpus/index.json`](./corpus/index.json)),
 in the same file format as the minimum-core vectors. Each is `kind: valid` — it must be
-schema-valid **and** normalize idempotently (a round-trip proxy, §8.3). They are run by
+schema-valid **and** normalize idempotently (a round-trip proxy; the normalized-equivalence method, [`EQUIVALENCE.md`](./EQUIVALENCE.md)). They are run by
 `openbody-ts` alongside the conformance vectors (`npm run vectors`) and schema-checked by
 this repo's `npm run check`.
 
@@ -25,7 +25,7 @@ into the standard's change process, not a pass/fail conformance claim.**
 | `drop-set` | Drop set | the canonical single encoding (§5.4): `grouping: drop_set` + `setRole: drop` |
 | `mechanical-drop-set` | Mechanical drop set | collapsed Exercise — each WorkUnit carries its own `exerciseRef` |
 | `rep-ladder-fran` | CrossFit 21-15-9 (Fran) | per-round varying reps enumerated under a `for_time` Block (the rep-ladder gap, G2) |
-| `rep-ladder-roundscheme` | CrossFit 21-15-9 (Fran) — compact | `Block.roundScheme: [21,15,9]` (v0.4) expanding to the enumerated form (§8.3 step 5) |
+| `rep-ladder-roundscheme` | CrossFit 21-15-9 (Fran) — compact | `Block.roundScheme: [21,15,9]` (v0.4) expanding to the enumerated form (§8.3; `EQUIVALENCE.md` step 5) |
 | `swim-send-off` | Swim "on the 1:30" intervals | `scheme: send_off` + `intervalSec` + pace via `relativeToThreshold of: CSS` (G3) |
 | `hyrox-race` | HYROX functional-fitness race | nested run/station blocks under `for_time`; sled = distance+Load; wall ball = reps+`target_height` |
 | `oly-complex` | Olympic weightlifting complex | `grouping: complex`, shared %1RM load across movements |

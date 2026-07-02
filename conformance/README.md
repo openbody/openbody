@@ -1,9 +1,15 @@
 # OpenBody Conformance
 
 Conformance is **testable**: an implementation demonstrates it by **round-tripping**
-the published test vectors for the profile and tier it claims, comparing against the
-normalized canonical form defined in `SPEC.md` §8.3 (parse → canonicalize → serialize,
-RFC 8785). The per-element tier assignments in §§4–7 are normative for *what* is tested.
+the published test vectors for the profile and tier it claims (`SPEC.md` §8.3). The
+per-element tier assignments in §§4–7 are normative for *what* is tested.
+
+Equivalence between documents is judged by the suite's **normalized-equivalence
+method** — parse → canonicalize → serialize, grounded on RFC 8785 — defined in
+[`EQUIVALENCE.md`](./EQUIVALENCE.md). That method is implemented by the test tooling
+and the reference implementation (`openbody-ts`), which act as the equivalence
+oracle; **a conformant implementation is not required to implement it** — it is
+judged by its inputs/outputs against the vectors.
 
 ## Profiles (SPEC §8.2)
 

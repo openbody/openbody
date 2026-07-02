@@ -1,5 +1,5 @@
 # OpenBody — an open standard for health & fitness data interoperability
-## Draft v0.7.0 (normative)
+## Draft v0.8.0 (normative)
 
 > **Change control.** This is the canonical spec. A released version's normative text is
 > immutable — never edit it in place. Normative changes ship as a *new version* (record the
@@ -423,11 +423,11 @@ of *registered token → namespaced source token → opaque string*. An opaque o
 namespaced token **MUST** always round-trip losslessly. The spec defines the
 mechanism; the registry ships content on its own cadence.
 
-Content ships from `openbody-measurements` (OB-13) — a repo separate from the
-exercise registry (§6): measurement types are Pillar A (Observation/telemetry), a
-different domain from the Pillar B exercise taxonomy, so the same license/
-versioning/contributor reasoning that already separates `openbody` from
-`openbody-registry` applies here too. v1 is a narrow, hand-curated high-frequency
+Content ships from the `openbody-registry` repo (which hosts both registries'
+content; the formerly-separate `openbody-measurements` repo was folded into it).
+The measurement-type registry remains an **independently-versioned artifact** on
+its own semver cadence (§9.2), distinct from the exercise registry's — shared
+hosting does not couple their versions. v1 is a narrow, hand-curated high-frequency
 wedge (cardiovascular, respiratory, sleep, body composition, activity, power/pace),
 plus the location `sampleArray` channel-naming convention this section names
 (`lat`/`lon`/`alt`/`speed`/`course`) — not an exhaustive clinical taxonomy.
@@ -534,7 +534,8 @@ it groups the *same* `Session` references `Program` already carries, it does not
 introduce a new referenceable record or change how `Session` attaches to `Program`.
 
 **Containment fields by record type** (the field that holds children at each level —
-load-bearing for the §8.3 flatten/id rules). A parent inlines children under exactly
+load-bearing for the flatten/id rules of the equivalence method, §8.3 /
+`conformance/EQUIVALENCE.md`). A parent inlines children under exactly
 one of its listed arrays:
 
 | Record | Child field(s) | Holds | Kind |
@@ -546,7 +547,7 @@ one of its listed arrays:
 | `Exercise` | `workUnits` | `WorkUnit` (§5.5) | inline container |
 | `WorkUnit` | `repDetail` | per-rep detail (§5.7) — sub-objects, not records | (not flattened) |
 
-Only the **inline container** fields are subject to the §8.3 flatten/id rules;
+Only the **inline container** fields are subject to those flatten/id rules;
 `Program.sessions` and `Program.phases[].sessions` hold `id` references (the
 Sessions are separate records) and `WorkUnit.repDetail` holds sub-objects, so none
 of these are flattened.
@@ -664,7 +665,7 @@ A **`Session`** is one training occurrence.
 A Session structures its content **one way only**: **at most one** of `blocks`,
 `exercises`, or `workUnits` is present (the choice fixes the granularity; to mix
 loose and grouped work, wrap the loose work in a `Block` or `Exercise`). This keeps
-flattening and id-assignment (§8.3) unambiguous.
+flattening and id-assignment (§8.3; `conformance/EQUIVALENCE.md`) unambiguous.
 
 `startTime`/`endTime` are the canonical occurrence-time fields for Pillar B. A
 standalone `Block` or `WorkUnit` (one synced without an enclosing `Session`, §5.5)
@@ -685,7 +686,7 @@ grouping semantics.
 | `notes` | optional | string | Free-text notes for the block. |
 | `children` | required-in-Block | array | Child `Block`s and/or `Exercise`s — or, when the `Exercise` level is collapsed (§5.5), `WorkUnit`s directly (each then carrying its own `exerciseRef`). A Block's `children` array is heterogeneous but every element is one of `Block｜Exercise｜WorkUnit`. |
 | `repetitions` | optional | integer | The block is performed N times — **identical** rounds/circuits. Mutually exclusive with `roundScheme`. |
-| `roundScheme` | optional | array&lt;integer&gt; | **Laddered rounds** (R17): per-round counts, e.g. `[21,15,9]` (Fran), an ascending ladder, or a calorie ladder. The block is performed `length(roundScheme)` rounds; in round *r* each descendant `WorkUnit` whose **primary metric is absent** takes `roundScheme[r-1]` as that metric (§5.8). A *planned* shorthand that expands on normalization (§8.3); mutually exclusive with `repetitions`, and **MUST NOT** appear with a `performance`. |
+| `roundScheme` | optional | array&lt;integer&gt; | **Laddered rounds** (R17): per-round counts, e.g. `[21,15,9]` (Fran), an ascending ladder, or a calorie ladder. The block is performed `length(roundScheme)` rounds; in round *r* each descendant `WorkUnit` whose **primary metric is absent** takes `roundScheme[r-1]` as that metric (§5.8). A *planned* shorthand equivalent to its expansion (§8.3); mutually exclusive with `repetitions`, and **MUST NOT** appear with a `performance`. |
 | `scoring` | optional | object | A **block-level scoring scheme** (R1): `scheme` (open token: `amrap`, `for_time`, `emom`, `tabata`, `rounds`) plus the scheme parameters defined below. The registry holds display synonyms/casing. |
 | `grouping` | optional | token | Open grouping semantic: `superset`, `giant_set`, `circuit`, `drop_set`, … (≈ wger Slot). |
 | `qualities` | optional | array&lt;token&gt; | The **physical quality/qualities** this block develops (R20) — same open vocabulary and semantics as `Session.qualities` (§5.3), at block granularity (a strength session's mobility warmup, conditioning finisher, …). Block-level tags **add to**, and do not override, any session-level `qualities`. |
@@ -759,7 +760,7 @@ required-tier element.
 | `synchronized` | optional | bool | Multi-participant coordination constraint — reps count only if met (R15, §5.19). |
 | `repDetail` | optional | array | Per-rep detail array (§5.7) — distinct from the `reps` *count* metric. |
 | `notes` | optional | string | Free-text notes for this set. |
-| `startTime` / `endTime` | optional | timestamp | Occurrence time (§5.3). On a standalone/top-level `WorkUnit` this is its own time; on an **inlined** WorkUnit it is normally omitted (timing is inherited), but if present it **overrides** the inherited value (§8.3 step 7). |
+| `startTime` / `endTime` | optional | timestamp | Occurrence time (§5.3). On a standalone/top-level `WorkUnit` this is its own time; on an **inlined** WorkUnit it is normally omitted (timing is inherited), but if present it **overrides** the inherited value (applied mechanically by the equivalence method, `conformance/EQUIVALENCE.md` step 7). |
 
 **`prescription` / `performance` fields** (a `prescription` object; `performance`
 takes the same fields minus `sets`, plus `outcome`):
@@ -803,7 +804,8 @@ which is **defined to expand to N identical `WorkUnit`s**. A conformant consumer
 5@RPE8, 5@RPE9) are capturable; `sets` **MUST NOT** appear in `performance`.
 Consequently a `WorkUnit` that carries `sets` **MUST NOT** also carry `performance`
 (a planned shorthand and an enumerated performed result are mutually exclusive on one
-unit) — normalization treats such a record as invalid (§8.3 step 5).
+unit) — such a record is invalid and not normalizable (`conformance/EQUIVALENCE.md`
+step 5).
 
 **`setRole` vs `terminatedBy`.** The two are orthogonal axes and **MUST NOT** be
 conflated. `setRole` is the set's **structural role** within a scheme — its position
@@ -828,7 +830,7 @@ splitting the atom into two `WorkUnit`s:
 | Field | Tier | Type | Semantics |
 |---|---|---|---|
 | `sides.count` | required (when `sides` present) | integer, 1–4 inclusive | The number of sides the atom is performed on (typically 2). |
-| `sides.restBetween` | optional | scalar or `Target` | The transition between sides, e.g. `{ absolute: { value: 5, unit: "s" } }`. Same shape/handling as `rest` (§5.10, §8.3) — default unit `s` when a bare scalar is used. |
+| `sides.restBetween` | optional | scalar or `Target` | The transition between sides, e.g. `{ absolute: { value: 5, unit: "s" } }`. Same shape/handling as `rest` (§5.10; `conformance/EQUIVALENCE.md`) — default unit `s` when a bare scalar is used. |
 
 **The primary metric is per side, not split across sides.** When `sides` is
 present, the `WorkUnit`'s primary metric (whichever of `reps`/`time`/`distance`/
@@ -968,7 +970,8 @@ A **metric value** **MAY** be either a **scalar** or a **`Target`** object. The
 `time`, `distance`, `energy`, `rest` (§5.5), and per-rep `velocity` and
 `rangeOfMotion` (§5.7). Two further slots are scalar-or-`Target` **inside their own
 object**: `load.value` (§5.12) and `Intensity.value` (§5.13) — each wrapped/expanded
-exactly like a metric value (including in normalization, §8.3). `EffortLoad.value`
+exactly like a metric value (including in the normalized-equivalence method,
+`conformance/EQUIVALENCE.md`). `EffortLoad.value`
 (§5.13) is **not** a `Target`: it is a plain number, and a band is its sibling `range`
 object — so an effort never has two encodings. No other field is scalar-or-`Target`.
 
@@ -1002,13 +1005,15 @@ is exactly **one** encoding; an implementer never guesses by shape:
 
 **Scalar shorthand.** A bare scalar `n` (number or fixed-point, §4.2) is shorthand
 for `{ "absolute": { "value": n } }`, used when the unit is implied by the field or
-registry, or carried by an enclosing `Load`. Normalization (§8.3) expands every
+registry, or carried by an enclosing `Load`. The two forms are equivalent (§8.3);
+the equivalence method (`conformance/EQUIVALENCE.md`) expands every
 bare scalar to its `absolute` form before comparison. (Maps to a `oneof` in the
 Protobuf alt binding; test vectors **MUST** cover both the scalar and the `Target`
 form of a field.)
 
 **`ramp` order is preserved.** `ramp` is the only `Target` variant where value order
-carries meaning: normalization (§8.3) **MUST** preserve `from`/`to` exactly as
+carries meaning: normalization (`conformance/EQUIVALENCE.md`) **MUST** preserve
+`from`/`to` exactly as
 authored and **MUST NOT** apply any min/max canonicalization to it (contrast `range`,
 whose `min`/`max` are unordered by definition).
 
@@ -1575,7 +1580,8 @@ timeouts and size limits.
 
 **Not inherited.** Unlike `subject`, which an inlined child inherits from its
 nearest enclosing record when absent (§7.1), or `startTime`/`endTime`, which
-propagate the same way during flattening (§8.3 step 7), `media` is **never**
+propagate the same way during flattening (`conformance/EQUIVALENCE.md` step 7),
+`media` is **never**
 inherited. A `media` array on a `Session` describes that `Session` record alone
 — it does **not** implicitly apply to the `Block`s, `Exercise`s, or `WorkUnit`s
 nested inside it. A producer that wants a video attached to one specific
@@ -1670,123 +1676,47 @@ demonstrates conformance by **round-tripping** the vectors for the profile and t
 it claims. The suite is normative for conformance; the per-element tier assignments
 in §§4–7 are normative for *what* is tested.
 
-**What "lossless round-trip" means.** Round-trip is parse → canonical → serialize.
-Equivalence is decided by reducing each record to a **canonical byte string** via the
-ordered algorithm below and comparing those strings: two records are equivalent
-**iff** their canonical byte strings are identical. The algorithm is deterministic —
-two conformant implementations **MUST** produce the same bytes for semantically-equal
-input, regardless of JSON key order, whitespace, number spelling, or the permitted
-shorthands.
+**What "lossless round-trip" means.** Round-trip is parse → (any internal
+representation) → serialize with **no change of meaning**: the output document must
+be *equivalent* to the input. Equivalence is **semantic, not byte-level** — two
+documents are equivalent **iff** they denote the same set of records under the
+model's defined equivalences, regardless of JSON key order, whitespace, number or
+timestamp spelling, or the permitted shorthands. The following shorthand
+equivalences are **normative facts of the model** (each defined in its home
+section): they state what a document *means*, and a consumer **MUST NOT** treat the
+two sides of any of them as different data:
 
-1. **Canonicalize every number to exact-decimal fixed-point.** A JSON number **MUST**
-   be interpreted from its **decimal text**, never via binary floating point (so
-   `37.4220` is the exact decimal `37422 × 10⁻³`, not its `float64` approximation).
-   Every numeric value anywhere in the record — whether written as a JSON number or as
-   a fixed-point `{coefficient, exponent}` (§4.2), and including non-metric numbers
-   (`percent`, `revision`, `frequencyHz`, `confidence`, `dataPoints`, `timeCapSec`,
-   `EffortLoad.value`, …) — is replaced, **in the canonical form**, by its **lowest-terms
-   fixed-point object** whose `coefficient` and `exponent` are **canonical decimal-integer
-   strings** (trailing factors of 10 removed from the coefficient, incrementing the
-   exponent; no leading zeros; `"0"` for zero; a leading `-` only when negative). Thus
-   `72`, `72.0`, `{coefficient: 720, exponent: -1}` → `{"coefficient":"72","exponent":"0"}`;
-   `80.5` and `{coefficient: 8050, exponent: -2}` → `{"coefficient":"805","exponent":"-1"}`.
-   Because the coefficient/exponent are **strings, not JSON numbers**, JCS (step 9) never
-   applies its `float64` number formatting to *any* value: there is **no 2⁵³ precision
-   ceiling** and arbitrary-precision decimals compare exactly. Zero canonicalizes to
-   `{"coefficient":"0","exponent":"0"}`. (`EffortLoad.value` being a "plain number," §5.13,
-   means it is not a `Target`; it is still canonicalized here.) A `{coefficient, exponent}`
-   object is read as a fixed-point *number* only in fields the spec types as numeric
-   (§4.2 `quantity`, metric values, `load.value`, …); an identically-shaped object that
-   appears inside an opaque `extension`/`script` is a plain object, canonicalized
-   structurally (step 9), **not** re-read as a number. **Timestamps** (RFC 3339
-   strings — `startTime`/`endTime`/`asOf`/…) are likewise canonicalized to a single
-   spelling: uppercase `T` and `Z`; a zero UTC offset written `Z` (never `+00:00`); a
-   non-zero offset `±HH:MM`; trailing-zero fractional seconds removed (and the `.` dropped
-   if none remain). Same-instant-same-offset timestamps then compare equal; a *different*
-   offset is a real, preserved difference (local-time context is meaningful).
-2. **Canonicalize units.** For every metric `Target`, a `unit` equal to the field's
-   §5.10 default is **removed** (so `time: 120` and `time: {absolute:{value:120,
-   unit:"s"}}` converge to the same unit-less `absolute`). A `unit` written inside
-   `load.value` is moved to `Load.unit` (its one canonical home, §5.12) — this applies
-   identically whether `load.value` is `absolute` or `range`: a unit nested inside
-   `load.value.range` folds to `Load.unit` exactly as it does from `load.value.absolute`.
-   Likewise, a `unit` written inside `Intensity.value` is moved to `Intensity.unit` (its
-   one canonical home, §5.13). This unit handling applies uniformly to whichever `Target`
-   variant is present, including `ramp`. A `ramp`'s `from`/`to` are **never**
-   canonicalized by value — they are preserved exactly as authored, with **no**
-   reordering (contrast `range`'s `min`/`max`, which this step also leaves untouched
-   but which carry no order to preserve in the first place, being unordered by
-   definition; §5.10).
-3. **Expand scalar metrics.** A bare scalar → `{ "absolute": { "value": … } }` for
-   every metric-value field **and for `load.value`** (§5.10).
-4. **Expand & fold `ExerciseRef`.** A bare-string ref → `{ "id": … }` (§6.1); and a
-   canonical `id` carrying an explicit `openbody:` prefix is folded to its unprefixed
-   form (§6.2), so the two permitted synonyms canonicalize identically.
-5. **Expand `roundScheme`, then `sets`.**
-   - **`roundScheme`** (§5.4). A `Block` with `roundScheme: [v₁,…,vₙ]` has its `children`
-     replaced by **n** consecutive copies of the source `children`, in order, and
-     `roundScheme` removed. In the *r*-th copy, every descendant `WorkUnit` whose
-     **primary metric** — the metric named by its `scoring` (`reps｜time｜distance｜
-     energy`; a `continuous` unit is **skipped**) — is **absent** has that metric set to
-     `vᵣ` (a bare scalar, expanded by step 3); a `WorkUnit` that already carries its
-     primary metric is copied unchanged. The **1st** copy keeps the source children's
-     `id`s and positions; in copies 2…n every record (the copied children **and their
-     descendants**) is treated as **id-less** for step 6, so it receives a fresh
-     deterministic id and never collides. A `Block` carrying `roundScheme` together with
-     `repetitions`, or with a `performance`, is invalid (§5.4) and is not normalizable.
-   - **`sets`.** A `prescription` with `sets: N` is replaced by **N** sibling
-     `WorkUnit`s, `sets` removed from each. The **1st** keeps the source `WorkUnit`'s
-     `id` and array position; the other N−1 follow **immediately after, in order**. A
-     `WorkUnit` carrying both `sets` and `performance` is invalid (§5.5) and is not
-     normalizable.
-6. **Assign deterministic ids (root-down).** Any record still lacking an `id` is
-   assigned `<nearestAncestorId>#<containerField>#<index>`, `<index>` being its 1-based
-   position in the parent's container array as it stands after step 5 and before
-   flattening (the 3rd element of an `Exercise`'s `workUnits` → `ex-1#workUnits#3`;
-   chained for id-less ancestors → `sess-1#exercises#1#workUnits#3`). Assigned
-   parent-before-child. `#` is **reserved** in record ids (§7.1), so an assigned id
-   never collides with a producer id. Records with an `id` keep it.
-7. **Flatten containment.** Each inlined child becomes a standalone record with an
-   explicit `partOf` link to its parent; the parent's containment arrays (`blocks`,
-   `exercises`, `workUnits`, `children`) are removed (containment carried solely by
-   `partOf`). `subject`, and **each of `startTime`/`endTime` that is present** on the
-   nearest enclosing record, is propagated onto every descendant (when several
-   ancestors are timed, the **nearest** wins; an explicit value already on the child
-   wins over all, §5.5). If a child **already** carries an explicit `partOf`
-   to that same container, flattening does **not** add a duplicate.
-8. **Default `status`.** Absent `status` → `active` (§7.5).
-9. **Serialize canonically (final).** Order the **set-valued arrays** — `links` by
-   `(type, ref)`, `effortLoad` by `(kind, method)`, `intensity` by `(dimension)`,
-   `modifiers` by `(type)`, `media` by `(url)` (§7.6 — an unordered set of
-   attachments, like the other set-valued arrays), and `qualities` (an array of
-   plain tokens) by **token value**,
-   **with any tie broken by the element's own canonical byte
-   string** (step 9 applied recursively), giving a total order. These six (`links`,
-   `effortLoad`, `intensity`, `modifiers`, `media`, `qualities`) are the **only** set-valued arrays; **all
-   other** arrays (`children`, `repDetail`, `phasePattern` phases,
-   `dataPoints`/`offsets`, `Program.sessions`) are order-significant and keep their
-   semantic order. Then
-   serialize each record per **RFC 8785 (JSON Canonicalization Scheme)** — lexicographic
-   key sort, canonical string
-   escaping, no insignificant whitespace. Because step 1 left no bare numbers, JCS's
-   `float64` number formatting is never invoked. The resulting bytes are the canonical
-   form.
+- a bare **scalar** metric value ≡ its `{ "absolute": { "value": … } }` `Target`
+  form (§5.10);
+- a planned **`sets: N`** shorthand ≡ N identical sibling `WorkUnit`s (§5.5);
+- a **`roundScheme`** `Block` ≡ the same `Block` with its rounds fully enumerated
+  as `children` (§5.4);
+- a **nested** containment document ≡ the same records **flat + `partOf`** (§7.2),
+  with `subject` and timing inherited from the nearest enclosing record (§5.3,
+  §7.1);
+- a **bare-string `ExerciseRef`** ≡ `{ "id": … }`, and an explicit `openbody:`
+  prefix ≡ the unprefixed canonical id (§6.1, §6.2);
+- an **absent `status`** ≡ `status: "active"` (§7.5).
 
-The set of canonical record byte strings (one per flattened record) is compared as an
-unordered set.
+**How equivalence is judged.** The conformance suite decides equivalence
+**mechanically** with a **normalized-equivalence method** — a deterministic
+normalization/canonicalization algorithm (grounded on RFC 8785, the JSON
+Canonicalization Scheme) defined in the companion document
+**`conformance/EQUIVALENCE.md`**. That method is normative **for the conformance
+suite**: the published vectors' equivalence and normalization assertions are
+defined and checked in terms of it, and conformance test tooling and the reference
+implementation implement it, acting as the **equivalence oracle**.
+**Implementations are not required to implement the canonicalization method**: a
+conformant implementation is judged by its **inputs and outputs against the
+published vectors** — the suite plus the reference implementation serve as the
+equivalence oracle. An implementation **MAY** implement the method (e.g. to
+self-test); test tooling and reference implementations **MUST** follow it exactly.
 
-**Scope of canonicalization.** Steps 1–9 descend into **all** JSON structure,
-**including** namespaced `extension` objects and the opaque `script` (§5.14): every
-value is canonicalized **identically** (numbers → string fixed-point per step 1, then
-JCS key-sort), so two byte-different encodings of the *same* content compare equal.
-There is **no "verbatim / received-bytes" exception** — it would be both unnecessary
-and unimplementable (received bytes are not recoverable after parsing, and a
-non-canonical fragment cannot be spliced into an otherwise-JCS record). JCS
-canonicalizes any JSON deterministically, and an opaque string is simply a string JCS
-leaves intact. This canonical-form procedure is distinct from the §8.1 wire-passthrough
-rule: §8.1 guarantees unknown content is never *dropped*; §8.3 defines how it is
-*compared*. The two are consistent — canonicalization reorders and re-spells, never
-discards.
+**Deterministic ids.** An id-less inlined child (§7.1/§7.2) stays addressable
+because the equivalence method assigns it a **deterministic id** derived from its
+container position, using `#` as the separator — the reason `#` is reserved in
+producer-assigned ids (§7.1). The assignment scheme is defined in
+`conformance/EQUIVALENCE.md` (step 6).
 
 **Minimum core vectors** (required for a conformance claim) **MUST** cover:
 
@@ -1797,9 +1727,10 @@ discards.
 - Both the **nested and flat+`partOf`** encodings of one containment structure,
   asserted equivalent (§7.2).
 - A **normalization-determinism** vector: a multi-`WorkUnit` `Exercise` with a
-  `sets: N` shorthand **and** an id-less inlined child, with its exact post-`§8.3`
-  ids and `partOf` links asserted — so two implementers' normalized output must
-  match byte-for-byte. Plus a number-canonicalization case (`72`, `72.0`, and the
+  `sets: N` shorthand **and** an id-less inlined child, with its exact
+  post-normalization ids and `partOf` links asserted (per the equivalence method,
+  `conformance/EQUIVALENCE.md`) — so the suite's judgment of the expansion is
+  fully determined. Plus a number-canonicalization case (`72`, `72.0`, and the
   fixed-point encoding asserted equal).
 - An unresolved `ExerciseRef` (`opaque` only), an unknown extension, and an unknown
   open-vocabulary token — each asserted to **round-trip losslessly**.
