@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://openbody.dev/schema/v0.7/openbody.schema.json",
   "title": "OpenBody record (v0.7.0)",
-  "description": "JSON Schema for the OpenBody standard, primary binding (SPEC.md §§4-7). NOTE: this validates STRUCTURE. Several rules are context-dependent or normalization-level and are enforced by a CONFORMING implementation, not this schema (the reference impl openbody-ts validate() runs schema validation plus a set of intra-record cross-checks — see src/validate.ts: `Program.phases[].sessions` referential integrity and disjointness (§5.2); `Load.unit`'s conditional requirement, scoring<->metric agreement, `sets`+`performance` mutual exclusion, the tombstone-only-fields rule (§5.5, §5.12, §7.1/§7.5), and a WorkUnit's exerciseRef being mutually exclusive with an enclosing Exercise (§5.5); the remaining rules below are still schema-only gaps): top-level records MUST carry id+subject while inlined children may inherit them (§7.1/§7.2); a Measurement MUST carry type, startTime and endTime, with unit conditionally required by value kind (§4.1); algorithm required when method=algorithm (recommended, not required, when derivedFrom present) (§7.4); a `Program.phases[].sessions` order MUST be a contiguous, order-preserving subsequence of `Program.sessions` when both are present (§5.2); `WorkUnit.repDetail` length MUST equal `reps × sides.count` in side-major order when both `repDetail` and `sides` are present (§5.5/§5.7); and the §8.3 canonicalization/equivalence procedure. Open registry-backed tokens are typed `string` (closed enums are constrained).",
+  "description": "JSON Schema for the OpenBody standard, primary binding (SPEC.md §§4-7). NOTE: this validates STRUCTURE. Several rules are context-dependent or normalization-level and are enforced by a CONFORMING implementation, not this schema (the reference impl openbody-ts validate() runs schema validation plus a set of intra-record cross-checks — see src/validate.ts: `Program.phases[].sessions` referential integrity and disjointness (§5.2); `Load.unit`'s conditional requirement, scoring<->metric agreement, `sets`+`performance` mutual exclusion, the tombstone-only-fields rule (§5.5, §5.12, §7.1/§7.5), a WorkUnit's exerciseRef being mutually exclusive with an enclosing Exercise (§5.5), and ThresholdProfileEntry's `estimationFormula`/`estimatedFrom` being mutually exclusive with `source: tested` (§5.11); the remaining rules below are still schema-only gaps): top-level records MUST carry id+subject while inlined children may inherit them (§7.1/§7.2); a Measurement MUST carry type, startTime and endTime, with unit conditionally required by value kind (§4.1); algorithm required when method=algorithm (recommended, not required, when derivedFrom present) (§7.4); a `Program.phases[].sessions` order MUST be a contiguous, order-preserving subsequence of `Program.sessions` when both are present (§5.2); `WorkUnit.repDetail` length MUST equal `reps × sides.count` in side-major order when both `repDetail` and `sides` are present (§5.5/§5.7); and the §8.3 canonicalization/equivalence procedure. Open registry-backed tokens are typed `string` (closed enums are constrained).",
   "$ref": "#/$defs/record",
   "$defs": {
     "record": {
@@ -1611,6 +1611,25 @@
               },
               "confidence": {
                 "type": "number"
+              },
+              "estimationFormula": {
+                "type": "string"
+              },
+              "estimatedFrom": {
+                "type": "object",
+                "properties": {
+                  "reps": {
+                    "type": "integer"
+                  },
+                  "load": {
+                    "$ref": "#/$defs/Load"
+                  }
+                },
+                "required": [
+                  "reps",
+                  "load"
+                ],
+                "additionalProperties": false
               }
             },
             "required": [

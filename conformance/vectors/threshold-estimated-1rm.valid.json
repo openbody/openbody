@@ -1,0 +1,15 @@
+{
+  "name": "threshold-estimated-1rm",
+  "description": "An estimated 1RM entry carrying `estimationFormula` and `estimatedFrom` (§5.11, OB-32): the regression formula used (Epley) plus the submaximal reps/load it was computed from, so a consumer can independently verify or recompute the estimate.",
+  "specRefs": ["§5.11"],
+  "kind": "valid",
+  "record": {
+    "id": "tp-subj-002", "recordType": "ThresholdProfile", "subject": "subj-001",
+    "entries": [
+      { "kind": "1RM", "value": 108.3, "unit": "kg", "for": "bench-press.barbell.flat",
+        "asOf": "2026-07-01T00:00:00Z", "source": "estimated",
+        "estimationFormula": "epley",
+        "estimatedFrom": { "reps": 8, "load": { "value": 90, "unit": "kg" } } }
+    ]
+  }
+}

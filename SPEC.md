@@ -1039,6 +1039,14 @@ carries freshness and provenance:
 | `asOf` | recommended | timestamp | When it was established (freshness — a 1RM goes stale after a layoff). |
 | `source` | recommended | enum | `tested｜estimated`. |
 | `confidence` | optional | number | Confidence in the value. |
+| `estimationFormula` | conditional | token | The regression formula that produced the estimate (open, registry-backed: `brzycki｜epley｜lombardi｜mayhew｜oconner｜wathan｜…`, §6). **MUST NOT** be present when `source` is `tested` (OB-32). |
+| `estimatedFrom` | conditional | `{ reps, load }` | The submaximal `reps` (integer) and `load` (§5.12) the estimate was computed from, letting a consumer independently verify or recompute it. **MUST NOT** be present when `source` is `tested` (OB-32). |
+
+Both `estimationFormula` and `estimatedFrom` are optional even when `source` is
+`estimated` — a producer that can't name the formula or recover the submaximal
+inputs (e.g. a third-party import) still records the estimate itself rather than
+being forced to drop it or fabricate provenance, the same tradeoff `provenance.algorithm`
+makes for `derivedFrom` (§7.4).
 
 #### 5.12 Load (R11)
 

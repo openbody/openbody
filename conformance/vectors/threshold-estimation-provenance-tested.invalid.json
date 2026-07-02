@@ -1,0 +1,13 @@
+{
+  "name": "threshold-estimation-provenance-tested",
+  "description": "`estimationFormula`/`estimatedFrom` document how an *estimate* was derived (§5.11, OB-32) and MUST NOT be present when the entry's `source` is `tested` — a formula attached to a directly-tested max is meaningless and misleading.",
+  "specRefs": ["§5.11"],
+  "kind": "invalid",
+  "record": {
+    "id": "tp-subj-003", "recordType": "ThresholdProfile", "subject": "subj-001",
+    "entries": [
+      { "kind": "1RM", "value": 140, "unit": "kg", "for": "squat.barbell.high-bar",
+        "source": "tested", "estimationFormula": "epley" }
+    ]
+  }
+}

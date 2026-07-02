@@ -94,6 +94,14 @@
       "kind": "valid"
     },
     {
+      "file": "threshold-estimated-1rm.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "threshold-estimation-provenance-tested.invalid.json",
+      "kind": "invalid"
+    },
+    {
       "file": "multi-participant.valid.json",
       "kind": "valid"
     },

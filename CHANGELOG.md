@@ -55,6 +55,13 @@ documentation gap. Each item below is additive/non-breaking:
   for this round's four additions — Zwift `.zwo` ramp, TrainingPeaks/TrainerRoad
   periodization, Hevy/Strong-style per-side sets, TrainHeroic-style video attachments
   (OB-53).
+- **`ThresholdProfileEntry.estimationFormula`/`estimatedFrom` (§5.11; OB-32).** A second
+  OpenWeight comparison finding, closed after this entry's initial cut and folded in here
+  for the same reason as OB-27 above: OpenWeight's `Estimated1RM` records which regression
+  formula produced an estimate and the submaximal reps/load it came from; OpenBody's
+  `ThresholdProfileEntry` had `source: tested|estimated` but no derivation. Both new fields
+  are optional and **MUST NOT** be present when `source` is `tested`. Registry:
+  `vocab/estimation-formula.json` (brzycki/epley/lombardi/mayhew/oconner/wathan).
 
 **Pre-1.0, private, not a final shape:** this is a review-driven batch, not a single
 design axis like R17–R20; each item above is independently revisable as model iteration
