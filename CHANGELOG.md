@@ -12,7 +12,7 @@ self-directed pre-public red-team pass, surfaced real capability gaps and one
 documentation gap. Each item below is additive/non-breaking:
 
 - **`Intensity.value.range` unit-folding fixed (§8.3 step 2; OB-33).** A sibling of the
-  still-open `Load.value.range` gap (OB-27): the normative unit-fold rule named `Load`
+  `Load.value.range` gap (OB-27, fixed below): the normative unit-fold rule named `Load`
   but not `Intensity`, even though §5.10 states they're normalized identically.
 - **`ramp` Target variant (§5.10, §5.13; OB-34).** A fifth `Target` variant for directional
   linear progressions (`{ramp: {from, to, unit?}}` or threshold-relative), e.g. a
@@ -34,12 +34,27 @@ documentation gap. Each item below is additive/non-breaking:
 - **`media` — envelope-level attachments (§7.6, §8.3; OB-43).** URL-referenced photo/video/
   audio/document attachments, available on **any** addressable record kind since it lives
   on the shared envelope rather than one record type. Closed `type` enum; reference-by-URL
-  only (no embedded binary); per-node, not inherited by nested children.
+  only (no embedded binary); per-node, not inherited by nested children. Note: inserting
+  this section as the new §7.6 renumbers the pre-existing §7.6 (correction lineage worked
+  example) to §7.7; SPEC.md's internal cross-references reflect this, but external
+  citations elsewhere may not.
 - **Registry** (independently versioned per §9.2, not itself part of this spec-version
   bump, but shipped alongside it): `vocab/grip.json`/`stance.json`/`bar-position.json`
-  (OB-35) and `vocab/phase-name.json` (OB-36) controlled vocabularies; `progressions`/
-  `regressions`/`variations` relationship fields on `registry-entry.schema.json` (OB-44).
-- `Load.value.range`'s unit-folding gap (OB-27) remains open — not fixed in this round.
+  (OB-35), `vocab/phase-name.json` (OB-36), and `vocab/equipment.json` (OB-30, closing the
+  one open, ungoverned facet the sibling fix (OB-35) didn't cover) controlled
+  vocabularies; `progressions`/`regressions`/`variations` relationship fields on
+  `registry-entry.schema.json` (OB-44).
+- **`Load.value.range` unit-folding fixed (§8.3 step 2; OB-27).** The `Load` half of the
+  `Intensity`/`Load` sibling pair above (OB-33) — landed after this entry's initial cut;
+  folded in here rather than as a separate version bump (draft, pre-1.0; VERSIONING.md's
+  mutability tolerance applies).
+- **A v0.7.0 panel review (2026-07-02) closed follow-on gaps found in this round's own
+  content, folded into this entry for the same reason:** `media.url` restricted to the
+  `http`/`https` scheme with a negative conformance vector, plus a SHOULD-level SSRF
+  advisory for consumers that fetch it (§7.6; OB-51, OB-52); §10.3 crosswalk rows added
+  for this round's four additions — Zwift `.zwo` ramp, TrainingPeaks/TrainerRoad
+  periodization, Hevy/Strong-style per-side sets, TrainHeroic-style video attachments
+  (OB-53).
 
 **Pre-1.0, private, not a final shape:** this is a review-driven batch, not a single
 design axis like R17–R20; each item above is independently revisable as model iteration
