@@ -1,0 +1,36 @@
+{
+  "name": "workunit-sides-repdetail-cardinality",
+  "description": "A reps-scored, sides-bearing WorkUnit (unilateral row, per-side VBT tracking): `reps: 8` + `sides: { count: 2 }` means 8 reps performed per side, 16 total (§5.5). `repDetail` therefore holds `reps × sides.count` = 16 entries in side-major order — indices 0-7 are side 1's per-rep bar velocity, indices 8-15 are side 2's (§5.7) — not 8 entries covering only one side.",
+  "specRefs": ["§5.5", "§5.7"],
+  "kind": "valid",
+  "record": {
+    "id": "wu-row-unilateral-vbt",
+    "recordType": "WorkUnit",
+    "subject": "subj-001",
+    "exerciseRef": "row.single-arm-dumbbell",
+    "scoring": "reps",
+    "performance": {
+      "reps": 8,
+      "sides": { "count": 2, "restBetween": { "absolute": { "value": 5, "unit": "s" } } },
+      "load": { "value": 24, "unit": "kg", "basis": "marked_weight" }
+    },
+    "repDetail": [
+      { "velocity": { "absolute": { "value": 0.62, "unit": "m/s" } } },
+      { "velocity": { "absolute": { "value": 0.60, "unit": "m/s" } } },
+      { "velocity": { "absolute": { "value": 0.58, "unit": "m/s" } } },
+      { "velocity": { "absolute": { "value": 0.55, "unit": "m/s" } } },
+      { "velocity": { "absolute": { "value": 0.53, "unit": "m/s" } } },
+      { "velocity": { "absolute": { "value": 0.50, "unit": "m/s" } } },
+      { "velocity": { "absolute": { "value": 0.47, "unit": "m/s" } } },
+      { "velocity": { "absolute": { "value": 0.44, "unit": "m/s" } } },
+      { "velocity": { "absolute": { "value": 0.59, "unit": "m/s" } } },
+      { "velocity": { "absolute": { "value": 0.57, "unit": "m/s" } } },
+      { "velocity": { "absolute": { "value": 0.55, "unit": "m/s" } } },
+      { "velocity": { "absolute": { "value": 0.52, "unit": "m/s" } } },
+      { "velocity": { "absolute": { "value": 0.49, "unit": "m/s" } } },
+      { "velocity": { "absolute": { "value": 0.46, "unit": "m/s" } } },
+      { "velocity": { "absolute": { "value": 0.43, "unit": "m/s" } } },
+      { "velocity": { "absolute": { "value": 0.40, "unit": "m/s" } } }
+    ]
+  }
+}

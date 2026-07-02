@@ -58,6 +58,14 @@
       "kind": "valid"
     },
     {
+      "file": "workunit-sides-repdetail-cardinality.valid.json",
+      "kind": "valid"
+    },
+    {
+      "file": "workunit-sides-continuous.invalid.json",
+      "kind": "invalid"
+    },
+    {
       "file": "continuous-endurance.valid.json",
       "kind": "valid"
     },

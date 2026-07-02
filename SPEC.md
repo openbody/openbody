@@ -793,7 +793,7 @@ expressed as two fields on one `WorkUnit`, e.g. `setRole: "drop"` +
 terminal-state value.
 
 **`sides` (per-side sub-structure).** A `WorkUnit` is still strictly one scored
-atom — one `effortLoad`, one `notes` — but some atoms are performed once per side
+atom — one `effortLoad`, one `notes`, one `media` — but some atoms are performed once per side
 with an internal transition (a per-side plank hold, a per-side carry). `sides` is a
 modular `prescription`/`performance` field, a sibling of the other metric fields
 above (not a replacement for any of them), that carries this structure without
@@ -813,6 +813,16 @@ total, 10 s per side." A consumer computing total elapsed time or total volume
 **MUST** multiply the primary metric by `sides.count` (and add
 `sides.restBetween` between sides, if present) — it **MUST NOT** treat the primary
 metric as already divided across sides.
+
+Because this rule is anchored to *the* primary metric that matches `scoring`,
+`sides` presupposes a scoring kind with a single, fixed primary metric.
+`scoring: continuous` (§5.8) has no such metric — it **MAY** carry any of
+`distance`, `time`, and `energy`, with none required (the `scoring` ↔ metric
+exception above) — so `sides` **MUST NOT** be present when `scoring: continuous`.
+`sides` is designed around a fixed reps/time/distance/energy atom (e.g. a
+per-side plank hold or carry); a producer needing a genuinely per-side
+continuous effort **MUST** use the two-`WorkUnit` decomposition with
+`facets.laterality` (below) instead.
 
 `sides.restBetween` is semantically **distinct** from the `WorkUnit`'s own `rest`
 field: `rest` is *inter-set* rest (after the whole atom, before the next
@@ -864,6 +874,14 @@ A **`Rep`** is optional per-repetition detail under a `WorkUnit`, carried in the
 | `rangeOfMotion` | optional | scalar or `Target` | Per-rep ROM, default unit `deg` (§5.10). |
 | `phasePattern` | optional | `phasePattern` | Per-rep phase timing (§5.15). |
 | `outcome` | optional | `outcome` | Per-rep/per-attempt result (§5.18) — e.g. an arrow's score, a made/missed free throw, a per-attempt success (R19). |
+
+**Cardinality when `sides` is present.** When the enclosing `WorkUnit` carries
+`sides` (§5.5), `repDetail` — if present — holds `reps × sides.count` entries,
+in **side-major order**: all of side 1's reps, in order, followed by all of
+side 2's, and so on for any additional sides. For example, `reps: 8` with
+`sides: { count: 2 }` gives a 16-entry `repDetail` (if present) — indices 0–7
+are side 1's reps and indices 8–15 are side 2's — never 8 entries covering only
+one side.
 
 Per-rep detail is an optional-tier elaboration; its absence never invalidates the
 `WorkUnit`. (`repDetail` is the per-rep array; the rep *count* is the `reps` metric,
