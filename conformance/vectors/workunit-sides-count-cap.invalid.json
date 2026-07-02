@@ -1,0 +1,17 @@
+{
+  "name": "workunit-sides-count-cap",
+  "description": "`sides.count` is capped at 4 (§5.5): `sides` exists for distinct anatomical sides (typically 2, occasionally more for genuinely multi-limb patterns), not as a mechanism for repeated same-limb efforts with rest between — that pattern belongs to `Block.grouping: cluster` (§5.4) with child `WorkUnit`s carrying `setRole: cluster` instead.",
+  "specRefs": ["§5.5"],
+  "kind": "invalid",
+  "record": {
+    "id": "wu-sides-count-cap-invalid",
+    "recordType": "WorkUnit",
+    "subject": "subj-001",
+    "exerciseRef": "row.single_arm",
+    "scoring": "reps",
+    "performance": {
+      "reps": 2,
+      "sides": { "count": 5, "restBetween": { "absolute": { "value": 10, "unit": "s" } } }
+    }
+  }
+}

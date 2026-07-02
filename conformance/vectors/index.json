@@ -66,6 +66,10 @@
       "kind": "invalid"
     },
     {
+      "file": "workunit-sides-count-cap.invalid.json",
+      "kind": "invalid"
+    },
+    {
       "file": "continuous-endurance.valid.json",
       "kind": "valid"
     },

@@ -253,8 +253,13 @@ The survey yields eight design commitments, each carried into the normative mode
   treatment as special-category data under regimes such as GDPR Art. 9, and under
   some regional health-data statutes); producers and consumers SHOULD treat these
   types with commensurately greater care in storage, transmission, and access
-  control. This spec does not itself provide legal guidance, and implementers
-  remain responsible for applicable compliance.
+  control. The same elevated-care guidance applies to `media` (§7.6) attachments
+  on records carrying reproductive-health-adjacent context — for example a
+  `StatusPeriod` (§5.20) record whose `type` indicates this (e.g. `pregnancy`):
+  producers and consumers SHOULD treat such attachments with commensurately
+  greater care in storage, transmission, and access control. This spec does not
+  itself provide legal guidance, and implementers remain responsible for
+  applicable compliance.
 
 > *Clinical/FHIR mapping is a first-class **future** extensibility target, not a v1
 > optimization (§2.1). It is not a non-goal — it is deferred. FHIR informs
@@ -801,7 +806,7 @@ splitting the atom into two `WorkUnit`s:
 
 | Field | Tier | Type | Semantics |
 |---|---|---|---|
-| `sides.count` | required (when `sides` present) | integer ≥ 1 | The number of sides the atom is performed on (typically 2). |
+| `sides.count` | required (when `sides` present) | integer, 1–4 inclusive | The number of sides the atom is performed on (typically 2). |
 | `sides.restBetween` | optional | scalar or `Target` | The transition between sides, e.g. `{ absolute: { value: 5, unit: "s" } }`. Same shape/handling as `rest` (§5.10, §8.3) — default unit `s` when a bare scalar is used. |
 
 **The primary metric is per side, not split across sides.** When `sides` is
@@ -823,6 +828,15 @@ exception above) — so `sides` **MUST NOT** be present when `scoring: continuou
 per-side plank hold or carry); a producer needing a genuinely per-side
 continuous effort **MUST** use the two-`WorkUnit` decomposition with
 `facets.laterality` (below) instead.
+
+**`sides` is for distinct anatomical sides, not repeated same-limb efforts.**
+`sides.count` is capped at 4: `sides` exists for genuinely bilateral (or, rarely,
+multi-limb) structure — typically 2, occasionally more for patterns like a
+4-limb crawl — not as a mechanism for repeating an effort on the *same* limb
+with rest between reps. A same-limb pattern with fixed intra-set rest points
+(e.g. a 5-cluster single-arm set) **MUST** use `Block.grouping: cluster` (§5.4)
+with child `WorkUnit`s carrying `setRole: cluster` instead of inflating
+`sides.count`.
 
 `sides.restBetween` is semantically **distinct** from the `WorkUnit`'s own `rest`
 field: `rest` is *inter-set* rest (after the whole atom, before the next
@@ -1171,7 +1185,9 @@ explains gaps and modifies interpretation: `{ type, from, to?, note? }` where
 `type` is an open token (`injury｜illness｜layoff｜pregnancy｜taper｜
 return_to_play｜…`). It is context, not a training event; consumers SHOULD use it
 to interpret threshold staleness (§5.11) and load changes but **MUST NOT** treat it
-as a Session.
+as a Session. `StatusPeriod` records whose `type` indicates reproductive-health-
+adjacent context (e.g. `pregnancy`) — including any `media` (§7.6) attached to
+them — fall under the elevated-care guidance in §3.2.
 
 #### 5.21 Worked examples
 
@@ -1492,7 +1508,9 @@ record kind — `Measurement`, `Program`, `Session`, `Block`, `Exercise`,
 extension needed. This closes the gap where a producer has a photo or video to
 attach to a record (a coaching app's form-check video for a specific logged
 `WorkUnit`; a photo of a scale reading on a `Measurement`) but no core field to
-carry the reference.
+carry the reference. `media` attached to reproductive-health-adjacent records
+— e.g. a `StatusPeriod` (§5.20) with `type: pregnancy` — falls under the
+elevated-care guidance in §3.2.
 
 | Field | Tier | Semantics |
 |---|---|---|
