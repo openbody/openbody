@@ -1,0 +1,20 @@
+{
+  "name": "session-blocks-workunits",
+  "description": "A Session MUST NOT carry more than one of `blocks`/`exercises`/`workUnits` (§5.3): the choice of container fixes the granularity of the containment hierarchy, and populating two at once makes flattening and id-assignment (§8.3) ambiguous.",
+  "specRefs": ["§5.3"],
+  "kind": "invalid",
+  "record": {
+    "id": "sess-dual-container", "recordType": "Session", "subject": "subj-001",
+    "name": "Push Day", "disciplines": ["strength"],
+    "blocks": [
+      { "id": "blk-main", "recordType": "Block",
+        "children": [
+          { "id": "ex-bench", "recordType": "Exercise", "exerciseRef": "bench-press.barbell",
+            "workUnits": [{ "id": "wu-bench-1", "recordType": "WorkUnit", "scoring": "reps", "prescription": { "reps": 5 } }] }
+        ] }
+    ],
+    "workUnits": [
+      { "id": "wu-plank", "recordType": "WorkUnit", "exerciseRef": "plank.front", "scoring": "time", "performance": { "time": 60 } }
+    ]
+  }
+}

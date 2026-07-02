@@ -212,6 +212,10 @@
     {
       "file": "envelope-recordtype-unknown.invalid.json",
       "kind": "invalid"
+    },
+    {
+      "file": "session-blocks-workunits.invalid.json",
+      "kind": "invalid"
     }
   ],
   "coverage": {
