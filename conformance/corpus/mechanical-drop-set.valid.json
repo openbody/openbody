@@ -10,7 +10,7 @@
       { "id": "mds-1", "recordType": "WorkUnit", "exerciseRef": "overhead-press.barbell", "scoring": "reps", "setRole": "working",
         "performance": { "reps": 6, "load": { "value": 50, "unit": "kg", "basis": "marked_weight" } } },
       { "id": "mds-2", "recordType": "WorkUnit", "exerciseRef": "push-up", "scoring": "reps", "setRole": "drop",
-        "performance": { "reps": 12, "load": { "value": 1, "basis": "bodyweight_relative" } } }
+        "performance": { "reps": 12, "load": { "value": 1, "unit": "1", "basis": "bodyweight_relative" } } }
     ]
   }
 }

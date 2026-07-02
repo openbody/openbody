@@ -196,6 +196,22 @@
     {
       "file": "program-phases-overlap.invalid.json",
       "kind": "invalid"
+    },
+    {
+      "file": "measurement-missing-type.invalid.json",
+      "kind": "invalid"
+    },
+    {
+      "file": "tombstone-payload.invalid.json",
+      "kind": "invalid"
+    },
+    {
+      "file": "envelope-subject-type.invalid.json",
+      "kind": "invalid"
+    },
+    {
+      "file": "envelope-recordtype-unknown.invalid.json",
+      "kind": "invalid"
     }
   ],
   "coverage": {

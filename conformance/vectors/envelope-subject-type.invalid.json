@@ -1,0 +1,16 @@
+{
+  "name": "envelope-subject-type",
+  "description": "The envelope `subject` field MUST be a string reference to the subject (§7.1: 'Reference to the subject the record is about'). A `subject` encoded as a JSON number rather than a string id MUST fail schema validation for every record type built on the shared envelope.",
+  "specRefs": ["§7.1"],
+  "kind": "invalid",
+  "record": {
+    "id": "obs-subject-number",
+    "recordType": "Measurement",
+    "subject": 12345,
+    "type": "heart_rate",
+    "quantity": 72,
+    "unit": "/min",
+    "startTime": "2026-06-23T14:02:00Z",
+    "endTime": "2026-06-23T14:02:00Z"
+  }
+}

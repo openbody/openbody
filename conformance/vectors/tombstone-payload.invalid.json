@@ -1,0 +1,12 @@
+{
+  "name": "tombstone-payload",
+  "description": "A tombstone (`status: deleted`) MUST NOT carry any field beyond `id`/`recordType`/`status` (§7.1, §7.5). §7.1 exempts a tombstone from all otherwise-required fields 'except id, recordType, and status', and §7.5 states 'an on-the-wire tombstone contains strictly the id, recordType, and status: deleted fields' (GDPR Article 17 erasure). A tombstone still carrying a payload field like `performance` fails to strip metric data and MUST be schema-rejected.",
+  "specRefs": ["§7.1", "§7.5"],
+  "kind": "invalid",
+  "record": {
+    "id": "wu-tombstone-payload",
+    "recordType": "WorkUnit",
+    "status": "deleted",
+    "performance": { "reps": 5, "load": { "value": 100, "unit": "kg" } }
+  }
+}

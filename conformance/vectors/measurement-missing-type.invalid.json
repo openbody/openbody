@@ -1,0 +1,15 @@
+{
+  "name": "measurement-missing-type",
+  "description": "A `Measurement` MUST carry `type` (§4.1): the field table marks `type` required — 'Canonical measurement type, drawn from the measurement-type registry (§4.5), or a namespaced source token (§4.4)' — alongside `value`/`unit`/`startTime`/`endTime`. A Measurement with a valid `quantity`+`unit`+`startTime`+`endTime` but no `type` is a numeric observation with no defined meaning and MUST fail schema validation.",
+  "specRefs": ["§4.1"],
+  "kind": "invalid",
+  "record": {
+    "id": "obs-missing-type",
+    "recordType": "Measurement",
+    "subject": "subj-001",
+    "quantity": 72,
+    "unit": "/min",
+    "startTime": "2026-06-23T14:02:00Z",
+    "endTime": "2026-06-23T14:02:00Z"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "envelope-recordtype-unknown",
+  "description": "`recordType` is a closed discriminator (§7.1: 'Closed discriminator: the record kind (list above)') over the fixed §5/§7 record kinds (Measurement, Program, Session, Block, Exercise, WorkUnit, ThresholdProfile, StatusPeriod) plus the tombstone form. A `recordType` value outside that closed set (e.g. an invented \"Snapshot\") matches none of the record's oneOf branches and MUST fail schema validation.",
+  "specRefs": ["§7.1"],
+  "kind": "invalid",
+  "record": {
+    "id": "obs-bad-recordtype",
+    "recordType": "Snapshot",
+    "subject": "subj-001",
+    "type": "heart_rate",
+    "quantity": 72,
+    "unit": "/min",
+    "startTime": "2026-06-23T14:02:00Z",
+    "endTime": "2026-06-23T14:02:00Z"
+  }
+}
