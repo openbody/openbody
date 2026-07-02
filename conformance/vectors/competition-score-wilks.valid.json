@@ -1,0 +1,22 @@
+{
+  "name": "competition-score-wilks",
+  "description": "Bodyweight-normalized competition scoring (§3.2, OB-31) via the generic `Measurement` mechanism — no demographics/identity model. The `wilks-score` Measurement carries two `derivedFrom` links (bodyweight + lift total, both needed to compute it) and `provenance.algorithm` naming the coefficient; sex/bodyweight-class inputs stay entirely out-of-band in the producing app, never represented here.",
+  "specRefs": ["§3.2", "§4.5", "§7.2", "§7.4"],
+  "kind": "valid",
+  "record": [
+    { "id": "meas-bodyweight-001", "recordType": "Measurement", "subject": "subj-001",
+      "type": "body_weight", "quantity": 83, "unit": "kg",
+      "startTime": "2026-07-02T09:00:00Z", "endTime": "2026-07-02T09:00:00Z" },
+    { "id": "wu-total-meet-001", "recordType": "WorkUnit", "subject": "subj-001",
+      "exerciseRef": "deadlift.barbell.conventional", "scoring": "reps",
+      "performance": { "reps": 1, "load": { "value": 220, "unit": "kg" } } },
+    { "id": "meas-wilks-001", "recordType": "Measurement", "subject": "subj-001",
+      "type": "wilks-score", "quantity": 412.3, "unit": "score",
+      "startTime": "2026-07-02T09:05:00Z", "endTime": "2026-07-02T09:05:00Z",
+      "links": [
+        { "type": "derivedFrom", "ref": "meas-bodyweight-001" },
+        { "type": "derivedFrom", "ref": "wu-total-meet-001" }
+      ],
+      "provenance": { "method": "algorithm", "algorithm": { "name": "wilks-2020", "version": "1" } } }
+  ]
+}

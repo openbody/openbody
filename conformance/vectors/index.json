@@ -102,6 +102,10 @@
       "kind": "invalid"
     },
     {
+      "file": "competition-score-wilks.valid.json",
+      "kind": "valid"
+    },
+    {
       "file": "multi-participant.valid.json",
       "kind": "valid"
     },

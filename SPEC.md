@@ -259,7 +259,19 @@ The survey yields eight design commitments, each carried into the normative mode
   producers and consumers SHOULD treat such attachments with commensurately
   greater care in storage, transmission, and access control. This spec does not
   itself provide legal guidance, and implementers remain responsible for
-  applicable compliance.
+  applicable compliance. **Bodyweight-normalized competition scoring** (Wilks,
+  DOTS, IPF GL, Glossbrenner) is likewise in scope via the generic `Measurement`
+  mechanism, not a named model (OB-31): OpenBody has no subject demographics
+  object (`subject` is an opaque, out-of-band identity reference, §3.2 above),
+  so a producer computes the coefficient externally — supplying sex/bodyweight-
+  class from its own user profile, never from OpenBody — and stores the result
+  as a `Measurement` (registered `type` token, e.g. `wilks-score`; recommended
+  canon in the registry, §4.5) with `links: [{type: "derivedFrom", ref: …}]`
+  pointing at the bodyweight `Measurement` and lift-total `WorkUnit` it was
+  derived from, and `provenance.algorithm.name`/`version` (§7.4) naming the
+  coefficient. This keeps the core format from ever representing identity while
+  still giving competitive-strength-sport integrators a standard, registry-backed
+  way to interoperate on the same score type.
 
 > *Clinical/FHIR mapping is a first-class **future** extensibility target, not a v1
 > optimization (§2.1). It is not a non-goal — it is deferred. FHIR informs

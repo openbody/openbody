@@ -62,6 +62,13 @@ documentation gap. Each item below is additive/non-breaking:
   `ThresholdProfileEntry` had `source: tested|estimated` but no derivation. Both new fields
   are optional and **MUST NOT** be present when `source` is `tested`. Registry:
   `vocab/estimation-formula.json` (brzycki/epley/lombardi/mayhew/oconner/wathan).
+- **Competition-coefficient scoring scope boundary documented (§3.2; OB-31).** The other
+  OpenWeight comparison finding: bodyweight-normalized competition scores (Wilks, DOTS,
+  IPF GL, Glossbrenner) are in scope today via the generic `Measurement` mechanism, not a
+  named model — no schema change, since `links`/`provenance.algorithm` already generalize
+  to any derived value with lineage. Sex/bodyweight-class inputs stay out-of-band in the
+  producing app; OpenBody never represents subject demographics. Registry:
+  `vocab/competition-score.json` (wilks-score/dots-score/ipf-gl-score/glossbrenner-score).
 
 **Pre-1.0, private, not a final shape:** this is a review-driven batch, not a single
 design axis like R17–R20; each item above is independently revisable as model iteration
