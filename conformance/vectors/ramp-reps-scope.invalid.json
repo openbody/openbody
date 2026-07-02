@@ -1,0 +1,16 @@
+{
+  "name": "ramp-reps-scope",
+  "description": "`ramp` is a `Target` variant restricted to `load.value`/`Intensity.value` (§5.10) — it MUST fail schema validation on any other scalar-or-`Target` field. `reps: {ramp:{from,to}}` has no defined meaning (a directional progression of a discrete rep count) and is exactly the unscoped-`ramp` gap OB-46 closes: the base `Target` `$def` used by `reps`/`time`/`distance`/`energy`/`rest`/`sides.restBetween`/`Rep.velocity`/`Rep.rangeOfMotion` has no `ramp` branch; only the `load.value`/`Intensity.value` superset does.",
+  "specRefs": ["§5.10"],
+  "kind": "invalid",
+  "record": {
+    "id": "wu-ramp-reps-scope",
+    "recordType": "WorkUnit",
+    "subject": "subj-001",
+    "exerciseRef": "squat.barbell.high-bar",
+    "scoring": "reps",
+    "prescription": {
+      "reps": { "ramp": { "from": 5, "to": 15 } }
+    }
+  }
+}

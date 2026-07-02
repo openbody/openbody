@@ -883,6 +883,16 @@ exactly like a metric value (including in normalization, §8.3). `EffortLoad.val
 (§5.13) is **not** a `Target`: it is a plain number, and a band is its sibling `range`
 object — so an effort never has two encodings. No other field is scalar-or-`Target`.
 
+**`ramp` is restricted to `load.value` and `Intensity.value`.** The `ramp` variant
+(below) is legal **only** on those two slots. It is **not** a legal variant on
+`reps`, `time`, `distance`, `energy`, `rest`, `sides.restBetween` (§5.5), or per-rep
+`velocity`/`rangeOfMotion` (§5.7) — a directional progression has no defined meaning
+for a discrete rep count or an elapsed/rest duration, and schema validation rejects
+`ramp` on those fields. This is enforced at the schema level: `load.value` and
+`Intensity.value` use a `Target` superset that adds the `ramp` branch, while every
+other scalar-or-`Target` field uses the base `Target` (`absolute｜range｜
+relativeToThreshold｜stopCondition`, no `ramp`).
+
 `load` is the one structural exception to a metric being a `Target` *directly*: it
 always uses the `Load` object (§5.12), whose `value` field is the scalar-or-`Target`
 slot — so a relative load is `load.value = { "relativeToThreshold": … }` while
@@ -899,7 +909,7 @@ is exactly **one** encoding; an implementer never guesses by shape:
 | `range` | `{ "range": { "min": a, "max": b, "unit"?: u } }` | A min–max band (e.g. 8–12 reps). |
 | `relativeToThreshold` | `{ "relativeToThreshold": { "percent": p, "of": t, "ref"?: r } }` **or** `{ "relativeToThreshold": { "min": a, "max": b, "of": t, "ref"?: r } }` | Relative to a `ThresholdProfile` entry (§5.11): `of` is an open threshold token (`1RM｜FTP｜maxHR｜pace｜…`). A **single** relative value uses `percent` (e.g. 80); a **relative band** (a training zone, e.g. 60–70% maxHR, sweet-spot 88–94% FTP) uses `min`/`max`. Exactly one of `percent` or (`min`+`max`) is present. |
 | `stopCondition` | `{ "stopCondition": { "kind": k, "value"?: v } }` | Open-ended/autoregulated: `kind` open token (`to_failure｜to_rpe｜amrap｜work_up_to｜max｜to_breath｜…`); `value` parameterizes (e.g. `to_rpe` 8). |
-| `ramp` | `{ "ramp": { "from": a, "to": b, "unit"?: u } }` **or** `{ "ramp": { "from": a, "to": b, "of": t, "ref"?: r } }` | A **directional** linear progression from `from` (the value at the start of the enclosing step) to `to` (the value at its end) — e.g. a warmup ramping 50→75 %FTP, or 150→200 W. Unlike `range`, order is significant and **MUST NOT** be normalized/sorted; `from` may be greater than `to` (a descending ramp, e.g. a cooldown). Exactly one of `unit` or (`of`, `ref`?) applies, mirroring the `absolute`/`relativeToThreshold` split. |
+| `ramp` (`load.value`/`Intensity.value` **only** — see above) | `{ "ramp": { "from": a, "to": b, "unit"?: u } }` **or** `{ "ramp": { "from": a, "to": b, "of": t, "ref"?: r } }` | A **directional** linear progression from `from` (the value at the start of the enclosing step) to `to` (the value at its end) — e.g. a warmup ramping 50→75 %FTP, or 150→200 W. Unlike `range`, order is significant and **MUST NOT** be normalized/sorted; `from` may be greater than `to` (a descending ramp, e.g. a cooldown). Exactly one of `unit` or (`of`, `ref`?) applies, mirroring the `absolute`/`relativeToThreshold` split. |
 
 **Scalar shorthand.** A bare scalar `n` (number or fixed-point, §4.2) is shorthand
 for `{ "absolute": { "value": n } }`, used when the unit is implied by the field or
@@ -1016,7 +1026,7 @@ entries:
 | `dimension` | required | token | Open token for the intensity dimension: `power｜pace｜hr｜speed｜grade｜…`. |
 | `value` | required² | scalar or `Target` | The target on that dimension — `absolute` (e.g. 250, `unit: W`), `range` (an absolute band), `relativeToThreshold` (a single % or a relative **band**, e.g. 88–94 %FTP; §5.10/§5.11), or `ramp` (a directional progression, e.g. a warmup/cooldown; §5.10). |
 | `zone` | required² | token | Shorthand: a **named zone** (e.g. `z2｜tempo｜sweet_spot`) resolved by the zone registry to a band on `dimension`. |
-| `unit` | conditional | string | UCUM unit when `value` is a scalar or `absolute`/`range` `Target`; omitted for `relativeToThreshold`/`stopCondition` (derived from the threshold) and for `zone`. |
+| `unit` | conditional | string | UCUM unit when `value` is a scalar, an `absolute`/`range` `Target`, or a `ramp` `Target` with `unit` (as opposed to `of`/`ref`); omitted for `relativeToThreshold`/`stopCondition`/a `ramp` using `of`/`ref` (derived from the threshold) and for `zone`. |
 
 ² Exactly one of `value` or `zone` is present.
 
