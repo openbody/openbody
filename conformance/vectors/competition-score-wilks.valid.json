@@ -5,7 +5,7 @@
   "kind": "valid",
   "record": [
     { "id": "meas-bodyweight-001", "recordType": "Measurement", "subject": "subj-001",
-      "type": "body_weight", "quantity": 83, "unit": "kg",
+      "type": "body_mass", "quantity": 83, "unit": "kg",
       "startTime": "2026-07-02T09:00:00Z", "endTime": "2026-07-02T09:00:00Z" },
     { "id": "wu-total-meet-001", "recordType": "WorkUnit", "subject": "subj-001",
       "exerciseRef": "deadlift.barbell.conventional", "scoring": "reps",

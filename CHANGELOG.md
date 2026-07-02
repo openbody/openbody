@@ -69,6 +69,16 @@ documentation gap. Each item below is additive/non-breaking:
   to any derived value with lineage. Sex/bodyweight-class inputs stay out-of-band in the
   producing app; OpenBody never represents subject demographics. Registry:
   `vocab/competition-score.json` (wilks-score/dots-score/ipf-gl-score/glossbrenner-score).
+- **The measurement-type registry (§4.5; OB-13) now has content**, in a new repo,
+  `openbody-measurements` — separate from `openbody-registry` since measurement types
+  (Pillar A) are a different domain than the exercise taxonomy (Pillar B). v1 seeds a
+  narrow, hand-curated high-frequency wedge across cardiovascular, respiratory, sleep,
+  body composition, activity, and power/pace (22 `Measurement.type` tokens), plus the
+  location `sampleArray` channel-naming convention (`lat`/`lon`/`alt`/`speed`/`course`,
+  5 tokens). Scoping this surfaced a real collision already present in this repo's own
+  conformance vectors — three different spellings of body mass (`body_weight`,
+  `body_mass`, `body.mass`) across three vectors — now fixed to the canonical
+  `body_mass` everywhere.
 
 **Pre-1.0, private, not a final shape:** this is a review-driven batch, not a single
 design axis like R17–R20; each item above is independently revisable as model iteration

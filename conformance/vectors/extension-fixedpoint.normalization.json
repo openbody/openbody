@@ -10,7 +10,7 @@
     "id": "m-ext",
     "recordType": "Measurement",
     "subject": "subj-001",
-    "type": "body.mass",
+    "type": "body_mass",
     "quantity": 80.5,
     "unit": "kg",
     "startTime": "2026-01-01T00:00:00Z",
@@ -28,6 +28,6 @@
     }
   },
   "expected": [
-    "{\"endTime\":\"2026-01-01T00:00:00Z\",\"extension\":{\"com.acme\":{\"calibration\":{\"coefficient\":{\"coefficient\":\"72\",\"exponent\":\"1\"},\"exponent\":{\"coefficient\":\"-1\",\"exponent\":\"0\"}}}},\"id\":\"m-ext\",\"provenance\":{\"method\":\"manual\"},\"quantity\":{\"coefficient\":\"805\",\"exponent\":\"-1\"},\"recordType\":\"Measurement\",\"startTime\":\"2026-01-01T00:00:00Z\",\"status\":\"active\",\"subject\":\"subj-001\",\"type\":\"body.mass\",\"unit\":\"kg\"}"
+    "{\"endTime\":\"2026-01-01T00:00:00Z\",\"extension\":{\"com.acme\":{\"calibration\":{\"coefficient\":{\"coefficient\":\"72\",\"exponent\":\"1\"},\"exponent\":{\"coefficient\":\"-1\",\"exponent\":\"0\"}}}},\"id\":\"m-ext\",\"provenance\":{\"method\":\"manual\"},\"quantity\":{\"coefficient\":\"805\",\"exponent\":\"-1\"},\"recordType\":\"Measurement\",\"startTime\":\"2026-01-01T00:00:00Z\",\"status\":\"active\",\"subject\":\"subj-001\",\"type\":\"body_mass\",\"unit\":\"kg\"}"
   ]
 }

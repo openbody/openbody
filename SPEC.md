@@ -423,6 +423,15 @@ of *registered token → namespaced source token → opaque string*. An opaque o
 namespaced token **MUST** always round-trip losslessly. The spec defines the
 mechanism; the registry ships content on its own cadence.
 
+Content ships from `openbody-measurements` (OB-13) — a repo separate from the
+exercise registry (§6): measurement types are Pillar A (Observation/telemetry), a
+different domain from the Pillar B exercise taxonomy, so the same license/
+versioning/contributor reasoning that already separates `openbody` from
+`openbody-registry` applies here too. v1 is a narrow, hand-curated high-frequency
+wedge (cardiovascular, respiratory, sleep, body composition, activity, power/pace),
+plus the location `sampleArray` channel-naming convention this section names
+(`lat`/`lon`/`alt`/`speed`/`course`) — not an exhaustive clinical taxonomy.
+
 #### 4.6 JSON binding (primary, normative)
 
 ```json
