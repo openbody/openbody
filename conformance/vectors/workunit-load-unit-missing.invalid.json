@@ -1,0 +1,11 @@
+{
+  "name": "workunit-load-unit-missing",
+  "description": "`Load.unit` is required when `Load.value` is a bare scalar (§5.12) — a scalar has no nested slot to carry the unit instead (unlike the `absolute`/`range` Target variants, where it may live nested pre-normalization, §8.3 step 2). A scalar-valued `load` with `unit` omitted MUST be rejected.",
+  "specRefs": ["§5.12"],
+  "kind": "invalid",
+  "record": {
+    "id": "wu-load-unit-missing", "recordType": "WorkUnit", "subject": "subj-001",
+    "exerciseRef": "bench-press.barbell", "scoring": "reps",
+    "performance": { "reps": 5, "load": { "value": 100 } }
+  }
+}

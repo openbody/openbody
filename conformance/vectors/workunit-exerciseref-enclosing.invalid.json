@@ -1,0 +1,14 @@
+{
+  "name": "workunit-exerciseref-enclosing",
+  "description": "A WorkUnit's `exerciseRef` is carried directly only when the `Exercise` level is collapsed; it MUST NOT be present when an enclosing `Exercise` already carries it (§5.5). An `Exercise` with `exerciseRef` whose nested `WorkUnit` also carries `exerciseRef` MUST be rejected.",
+  "specRefs": ["§5.5"],
+  "kind": "invalid",
+  "record": {
+    "id": "ex-bench", "recordType": "Exercise", "subject": "subj-001",
+    "exerciseRef": "bench-press.barbell",
+    "workUnits": [
+      { "id": "wu-bench-1", "recordType": "WorkUnit", "exerciseRef": "bench-press.barbell",
+        "scoring": "reps", "prescription": { "reps": 5 } }
+    ]
+  }
+}

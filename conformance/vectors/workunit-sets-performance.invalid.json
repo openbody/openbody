@@ -1,0 +1,12 @@
+{
+  "name": "workunit-sets-performance",
+  "description": "`prescription.sets` is a planned shorthand that expands to N WorkUnits on normalization; the performed form MUST enumerate one WorkUnit per set instead (§5.5, §5.8: 'a planned shorthand and an enumerated performed result are mutually exclusive on one WorkUnit'). A WorkUnit carrying both `prescription.sets` and `performance` MUST be rejected.",
+  "specRefs": ["§5.5", "§5.8"],
+  "kind": "invalid",
+  "record": {
+    "id": "wu-sets-performance", "recordType": "WorkUnit", "subject": "subj-001",
+    "exerciseRef": "bench-press.barbell", "scoring": "reps",
+    "prescription": { "sets": 3, "reps": 5, "load": { "value": 100, "unit": "kg" } },
+    "performance": { "reps": 5, "load": { "value": 100, "unit": "kg" } }
+  }
+}

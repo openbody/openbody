@@ -216,6 +216,22 @@
     {
       "file": "session-blocks-workunits.invalid.json",
       "kind": "invalid"
+    },
+    {
+      "file": "workunit-sets-performance.invalid.json",
+      "kind": "invalid"
+    },
+    {
+      "file": "workunit-scoring-metric-mismatch.invalid.json",
+      "kind": "invalid"
+    },
+    {
+      "file": "workunit-load-unit-missing.invalid.json",
+      "kind": "invalid"
+    },
+    {
+      "file": "workunit-exerciseref-enclosing.invalid.json",
+      "kind": "invalid"
     }
   ],
   "coverage": {
@@ -228,7 +244,8 @@
     "sampleArray": "regular + irregular, single + multi-channel, null dropped sample",
     "normalization": "sets-expansion + accumulation-flatten (subject/startTime propagation, id-assignment, partOf) with exact pinned `expected` canonical bytes",
     "labels": "name (Program/Session/Block) + notes (Session/Block/Exercise/WorkUnit) — named-session vector",
-    "media": "envelope-level `media` attachments (§7.6) on two different record kinds (WorkUnit + Measurement) in one document, plus set-ordering equivalence for `media` arrays"
+    "media": "envelope-level `media` attachments (§7.6) on two different record kinds (WorkUnit + Measurement) in one document, plus set-ordering equivalence for `media` arrays",
+    "semantic_invalids": "context-dependent rules the schema can't express, checked by validate.ts's validateSemantics(): sets+performance mutual exclusion, scoring↔metric mismatch, Load.unit conditional requirement, WorkUnit.exerciseRef/enclosing-Exercise mutual exclusion (S6/OB-26)"
   },
   "todo": [
     "modifiers beyond bfr (ems, altitude, heat, terrain, …)",

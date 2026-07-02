@@ -1,0 +1,11 @@
+{
+  "name": "workunit-scoring-metric-mismatch",
+  "description": "A WorkUnit MUST NOT carry a metric field that contradicts its `scoring` kind (§5.5, §5.8): a `reps`-scored unit's primary metric is `reps`, not `time`. A `scoring: \"reps\"` WorkUnit whose `performance` carries `time` instead of `reps` MUST be rejected.",
+  "specRefs": ["§5.5", "§5.8"],
+  "kind": "invalid",
+  "record": {
+    "id": "wu-scoring-metric-mismatch", "recordType": "WorkUnit", "subject": "subj-001",
+    "exerciseRef": "bench-press.barbell", "scoring": "reps",
+    "performance": { "time": 60 }
+  }
+}
