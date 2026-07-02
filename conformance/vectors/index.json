@@ -38,6 +38,10 @@
       "kind": "valid"
     },
     {
+      "file": "dropset-terminated-by-failure.valid.json",
+      "kind": "valid"
+    },
+    {
       "file": "workunit-time.valid.json",
       "kind": "valid"
     },
@@ -167,6 +171,18 @@
     },
     {
       "file": "ramp-reps-scope.invalid.json",
+      "kind": "invalid"
+    },
+    {
+      "file": "program-recurrence-phases.invalid.json",
+      "kind": "invalid"
+    },
+    {
+      "file": "program-phases-absent-session.invalid.json",
+      "kind": "invalid"
+    },
+    {
+      "file": "program-phases-overlap.invalid.json",
       "kind": "invalid"
     }
   ],

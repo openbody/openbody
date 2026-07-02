@@ -1,0 +1,21 @@
+{
+  "name": "program-phases-absent-session",
+  "description": "A phase MUST NOT reference a session id absent from the top-level `sessions` list (§5.2) — `phases[].sessions` is a same-space grouping/view over `Program.sessions`, not an independent list. `sess-w2d1` appears in the phase but was never listed at the top level.",
+  "specRefs": ["§5.2"],
+  "kind": "invalid",
+  "record": {
+    "id": "prog-phases-absent-session",
+    "recordType": "Program",
+    "subject": "subj-001",
+    "name": "4-Week Block",
+    "sessions": ["sess-w1d1", "sess-w1d2"],
+    "phases": [
+      {
+        "name": "Hypertrophy",
+        "weekStart": 1,
+        "weekEnd": 2,
+        "sessions": ["sess-w1d1", "sess-w2d1"]
+      }
+    ]
+  }
+}

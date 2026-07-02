@@ -1,0 +1,26 @@
+{
+  "name": "program-phases-overlap",
+  "description": "A session id MUST NOT appear in more than one phase's `sessions` array — phases are disjoint (§5.2). This matters most in phases-only mode (no top-level `sessions`), where the effective session list is the concatenation of `phases[].sessions` in phase order; an overlapping id would otherwise be silently duplicated with no defined tie-break. `sess-w2d1` appears in both `Hypertrophy` and `Strength`.",
+  "specRefs": ["§5.2"],
+  "kind": "invalid",
+  "record": {
+    "id": "prog-phases-overlap",
+    "recordType": "Program",
+    "subject": "subj-001",
+    "name": "Overlapping Phases",
+    "phases": [
+      {
+        "name": "Hypertrophy",
+        "weekStart": 1,
+        "weekEnd": 2,
+        "sessions": ["sess-w1d1", "sess-w2d1"]
+      },
+      {
+        "name": "Strength",
+        "weekStart": 3,
+        "weekEnd": 4,
+        "sessions": ["sess-w2d1", "sess-w3d1"]
+      }
+    ]
+  }
+}

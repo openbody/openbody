@@ -1,0 +1,14 @@
+{
+  "name": "dropset-terminated-by-failure",
+  "description": "A drop-set component taken to failure: setRole (structural role, §5.5) and terminatedBy (performed-side terminal state, §5.5) are independently expressible on one WorkUnit — setRole: \"drop\" does not preclude terminatedBy: \"to_failure\".",
+  "specRefs": ["§5.5"],
+  "kind": "valid",
+  "record": {
+    "id": "wu-legpress-drop-1", "recordType": "WorkUnit", "subject": "subj-001",
+    "exerciseRef": "leg-press.machine", "scoring": "reps", "setRole": "drop",
+    "prescription": { "reps": { "stopCondition": { "kind": "to_failure" } }, "load": { "value": 80, "unit": "kg", "basis": "marked_weight" } },
+    "performance": { "reps": 11, "load": { "value": 80, "unit": "kg", "basis": "marked_weight" },
+                     "terminatedBy": "to_failure",
+                     "effortLoad": [{ "kind": "internal", "method": "RPE", "value": 10 }] }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "program-recurrence-phases",
+  "description": "A Program MUST NOT carry both `recurrence` and `phases` (§5.2) — `phases` groups sessions by id reference, which presumes a materialized `sessions` list; `recurrence` generates sessions by rule instead of enumerating them, so there are no ids yet to group.",
+  "specRefs": ["§5.2"],
+  "kind": "invalid",
+  "record": {
+    "id": "prog-recurrence-plus-phases",
+    "recordType": "Program",
+    "subject": "subj-001",
+    "name": "Weekly Template With Phases",
+    "recurrence": { "rule": "weekly" },
+    "phases": [
+      { "name": "Base", "weekStart": 1, "weekEnd": 4 }
+    ]
+  }
+}
