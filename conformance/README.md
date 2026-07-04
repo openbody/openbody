@@ -40,5 +40,5 @@ mandatory at every tier.
 The minimum-core `vectors/` and the activity-coverage `corpus/` are both **authored and
 runnable**: `openbody-ts` (`npm run vectors`) checks each assertion against the reference
 implementation, and this repo's `npm run check` schema-validates every record. The corpus
-covers 16 real-world training methodologies (see `CORPUS.md`); it grows as new activities
+covers 30 real-world training methodologies across 31 vectors (see `CORPUS.md`); it grows as new activities
 are stress-tested, and gaps it surfaces feed the standard's change process.

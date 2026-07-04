@@ -36,6 +36,20 @@ into the standard's change process, not a pass/fail conformance claim.**
 | `powerlifting-attempts` | Powerlifting meet | three attempts, `outcome.success` good/no-lift, `intent: compete` |
 | `lengthened-partials` | Lengthened partials | `ExerciseRef.facets.rangeOfMotion: lengthened-partial` (hypertrophy trend) |
 | `combat-rounds-bjj` | BJJ rolling rounds | `scheme: rounds` time bouts + `participants.role: opponent` |
+| `cycling-intervals` | Structured cycling intervals | Zone-2 warmup + 3×(sweet-spot 88–94% FTP / recovery); power via `relativeToThreshold of: FTP` + named zones (v0.5 intensity) |
+| `zone-run` | Zone-based endurance run | Continuous run carrying an HR Zone 2 target **and** a pace cap at once (v0.5 intensity) |
+| `archery-end` | Archery end (precision scoring) | One reps-scored `WorkUnit`; per-arrow `repDetail` `outcome`, incl. X and miss (v0.5 Rep.outcome) |
+| `soccer-match` | Football match (team sport) | Contest IS the session: `Session.outcome` 2-1 win + Pillar A telemetry link (v0.5 Session.outcome) |
+| `kabaddi` | Kabaddi match (team sport) | `Session.outcome` with raid/tackle `components` — session-as-contest (same shape as soccer) |
+| `highland-games` | Highland games heavy events | Caber toss (judged clock-face `outcome` score) + stone put (distance + stone-mass `Load`) |
+| `climbing-send-attempt` | Bouldering send/attempt | `outcome.attempts { made, attempted }` (§5.18) + V-grade — the field spec'd for send/attempt/flash |
+| `freediving-apnea` | Freediving apnea | Static (time) + dynamic no-fins (distance) maximal breath-holds; open-ended `stopCondition` effort |
+| `mobility-cars` | Joint mobility (CARs) | `qualities: mobility` Block + `controlled` tempo `phasePattern` + end-range target (v0.6 qualities) |
+| `flexibility-stretch` | Flexibility holds (static + PNF) | `qualities` flexibility Block; PNF contract-relax via `phasePattern` (v0.6 qualities) |
+| `stability-balance` | Balance + stability circuit | Two `qualities` on one Block (`balance`+`stability`); unstable-surface + anti-rotation holds (v0.6) |
+| `agility-speed-test` | Speed & agility test | `test`-intent Session; `agility`/`speed` qualities; pro-agility shuttle + 40 m sprint (v0.6) |
+| `isokinetic-lsi-rehab` | Isokinetic rehab (LSI) | Bilateral knee-extension peak-torque Limb Symmetry Index — ACL return-to-sport test |
+| `swim-swolf` | Swimming SWOLF | Derived stroke-efficiency index — `continuous` carrying distance + time + stroke count |
 
 These exercise the open registry-backed token vocabularies shipped in
 `openbody-registry/vocab/` — the recommended-canon tokens (rest_pause, send_off, complex,
