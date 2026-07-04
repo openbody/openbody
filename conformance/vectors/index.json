@@ -18,6 +18,10 @@
       "kind": "valid"
     },
     {
+      "file": "tombstone-session.valid.json",
+      "kind": "valid"
+    },
+    {
       "file": "supersession.valid.json",
       "kind": "valid"
     },
@@ -199,6 +203,10 @@
     },
     {
       "file": "program-recurrence-phases.invalid.json",
+      "kind": "invalid"
+    },
+    {
+      "file": "program-recurrence-sessions.invalid.json",
       "kind": "invalid"
     },
     {

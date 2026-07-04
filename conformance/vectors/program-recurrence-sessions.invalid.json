@@ -1,0 +1,14 @@
+{
+  "name": "program-recurrence-sessions",
+  "description": "A Program MUST NOT carry both `recurrence` and an enumerated `sessions` list (§5.2) — `recurrence` generates sessions by rule *instead of* enumerating them, so the two are mutually exclusive.",
+  "specRefs": ["§5.2"],
+  "kind": "invalid",
+  "record": {
+    "id": "prog-recurrence-plus-sessions",
+    "recordType": "Program",
+    "subject": "subj-001",
+    "name": "Weekly Template With Enumerated Sessions",
+    "recurrence": { "rule": "weekly" },
+    "sessions": ["sess-mon", "sess-wed"]
+  }
+}

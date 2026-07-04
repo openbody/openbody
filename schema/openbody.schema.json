@@ -6,36 +6,49 @@
   "$ref": "#/$defs/record",
   "$defs": {
     "record": {
-      "description": "Any addressable OpenBody record, discriminated by recordType.",
-      "oneOf": [
-        {
-          "$ref": "#/$defs/tombstone"
-        },
-        {
-          "$ref": "#/$defs/Measurement"
-        },
-        {
-          "$ref": "#/$defs/Program"
-        },
-        {
-          "$ref": "#/$defs/Session"
-        },
-        {
-          "$ref": "#/$defs/Block"
-        },
-        {
-          "$ref": "#/$defs/Exercise"
-        },
-        {
-          "$ref": "#/$defs/WorkUnit"
-        },
-        {
-          "$ref": "#/$defs/ThresholdProfile"
-        },
-        {
-          "$ref": "#/$defs/StatusPeriod"
+      "description": "Any addressable OpenBody record. A status:\"deleted\" record is a stripped tombstone (§7.5) and is routed to the dedicated tombstone branch; every other record is exactly one of the eight kinds, discriminated by recordType. The tombstone is NOT a member of the else-oneOf on purpose: a stripped tombstone for a Session/Program/Block (record kinds whose only required field is recordType) would otherwise match BOTH the tombstone branch and its own type branch, and oneOf would wrongly reject it — yet §7.1/§7.5 require every record kind to be tombstone-able.",
+      "if": {
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "const": "deleted"
+          }
         }
-      ]
+      },
+      "then": {
+        "$ref": "#/$defs/tombstone"
+      },
+      "else": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/Measurement"
+          },
+          {
+            "$ref": "#/$defs/Program"
+          },
+          {
+            "$ref": "#/$defs/Session"
+          },
+          {
+            "$ref": "#/$defs/Block"
+          },
+          {
+            "$ref": "#/$defs/Exercise"
+          },
+          {
+            "$ref": "#/$defs/WorkUnit"
+          },
+          {
+            "$ref": "#/$defs/ThresholdProfile"
+          },
+          {
+            "$ref": "#/$defs/StatusPeriod"
+          }
+        ]
+      }
     },
     "tombstone": {
       "type": "object",
@@ -1063,6 +1076,11 @@
           "not": {
             "required": ["recurrence", "phases"]
           }
+        },
+        {
+          "not": {
+            "required": ["recurrence", "sessions"]
+          }
         }
       ],
       "properties": {
@@ -1087,6 +1105,7 @@
         },
         "recurrence": {
           "type": "object",
+          "description": "Rule-based session generation (§5.2). Mutually exclusive with an enumerated `sessions` list and with `phases` (both enforced by the Block-level `not` constraints above).",
           "properties": {
             "rule": {
               "type": "string"

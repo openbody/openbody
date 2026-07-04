@@ -1,0 +1,11 @@
+{
+  "name": "tombstone-session",
+  "description": "A deletion tombstone for a Session (§7.1, §7.5). Session/Program/Block require only `recordType`, so a stripped tombstone for one of them must not be rejected by the record `oneOf` for matching both the tombstone branch and its own type branch. Every addressable record kind MUST be tombstone-able and round-trip.",
+  "specRefs": ["§7.1", "§7.5"],
+  "kind": "valid",
+  "record": {
+    "id": "sess-001",
+    "recordType": "Session",
+    "status": "deleted"
+  }
+}
