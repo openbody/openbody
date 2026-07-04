@@ -37,6 +37,21 @@ checkable.
   `openbody-measurements` repo was folded into it). Mechanism text unchanged; the
   registry stays independently versioned (§9.2).
 
+### Errata (schema binding corrected to match the normative prose — no model/semantic change)
+
+- **Tombstones now validate for every record kind (§7.1/§7.5).** The schema's
+  top-level `oneOf` double-matched a stripped `status: "deleted"` record for the
+  three kinds requiring only `recordType` (`Session`/`Program`/`Block`), so it
+  wrongly *rejected* valid tombstones for them. Deletions are now routed through the
+  dedicated tombstone branch (`if status == "deleted"`), so all eight kinds tombstone
+  correctly and a `deleted` record carrying extra payload is still rejected.
+- **`recurrence` ⊕ `sessions` now enforced (§5.2).** The prose makes `recurrence`
+  mutually exclusive with an enumerated `sessions` list; the schema only enforced
+  `recurrence` ⊕ `phases`. Added the parallel constraint.
+- **`Measurement.startTime`/`endTime` now schema-required (§4.1).** Both were listed
+  as unconditionally required in prose but omitted from the schema's `required` array
+  (enforcement previously left to code); the binding now matches §4.1.
+
 ## [0.7.0] — 2026-07-01 (private draft)
 
 **Additive (minor): a post-v0.6.0 competitive/critical review round** — a fresh

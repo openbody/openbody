@@ -1045,7 +1045,9 @@
       },
       "required": [
         "recordType",
-        "type"
+        "type",
+        "startTime",
+        "endTime"
       ],
       "oneOf": [
         {

@@ -945,7 +945,8 @@ methodology need a value we didn't ship?"*:
   (`reps｜time｜distance｜continuous｜energy`); `EffortLoad.kind`
   (`external｜internal`); `laterality`; `resistanceProfile`; `subjectType`;
   `Session.intent`; the `Target` variant key
-  (`absolute｜range｜relativeToThreshold｜stopCondition`, §5.10); `outcome.kind`;
+  (`absolute｜range｜relativeToThreshold｜stopCondition`, plus `ramp` as a fifth
+  variant restricted to `load.value`/`Intensity.value`, §5.10); `outcome.kind`;
   `rxStatus` (`rx｜scaled`).
 - **Open, registry-backed token** — has a demonstrated long tail; uses the §4.5/§6
   mechanism (recommended canonical token + namespaced fallback + **lossless opaque
