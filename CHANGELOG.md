@@ -4,6 +4,28 @@ All notable changes to the OpenBody **standard** are documented here. The standa
 follows [semantic versioning](https://semver.org/): additive = minor, breaking =
 major (deprecate-not-remove within a major), editorial = patch.
 
+## [0.9.0] — 2026-07-05 (private draft)
+
+**Minor (additive) — `Measurement.laterality` added (§4.1).** A new **optional,
+closed** enum field on the `Measurement` model — `left｜right｜bilateral` — naming
+which body side an observation pertains to. **Omitted** for midline/axial or
+otherwise non-lateral measurements (waist circumference, body mass, heart rate).
+
+- **Side-bearing measurement `type`s are now side-agnostic.** A left-arm girth is
+  `{ type: "bicep_circumference", laterality: "left" }` — the side lives in the
+  field, not in a `bicep_circumference_left` token. This retires the token-suffix
+  approach for lateral circumferences (the `openbody-registry` anthropometry vocab
+  ships the side-agnostic tokens accordingly).
+- **Complementary to, not the same as,** the exercise `facets.laterality` (§6.3,
+  movement-symmetry variant) and `WorkUnit.sides` (§5.5, per-side atom structure):
+  those describe a *movement's* symmetry (Pillar B); `Measurement.laterality`
+  describes which side of the *body* an observation was taken on (Pillar A). §4.1
+  states the distinction.
+- **Schema.** `laterality` added to the `Measurement` definition's `properties`
+  (optional, closed `enum`, `additionalProperties` stays `false`); it is a
+  passthrough field under §8.3 normalization. Conformance vector
+  `measurement-laterality-bicep.valid.json` added.
+
 ## [0.8.0] — 2026-07-03 (private draft)
 
 **Minor (pre-1.0): §8.3 restructured — the canonicalization algorithm demoted from a

@@ -6,6 +6,10 @@
       "kind": "valid"
     },
     {
+      "file": "measurement-laterality-bicep.valid.json",
+      "kind": "valid"
+    },
+    {
       "file": "samplearray-gps-route.valid.json",
       "kind": "valid"
     },

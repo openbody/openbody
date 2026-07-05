@@ -1,0 +1,18 @@
+{
+  "name": "measurement-laterality-bicep",
+  "description": "A side-bearing body-circumference Measurement carrying the optional laterality field (§4.1). The type is side-agnostic (bicep_circumference) and the side lives in laterality, not in a token suffix. laterality is a passthrough field under §8.3.",
+  "specRefs": ["§4.1"],
+  "kind": "valid",
+  "record": {
+    "id": "obs-bc71a3",
+    "recordType": "Measurement",
+    "subject": "subj-001",
+    "type": "bicep_circumference",
+    "laterality": "left",
+    "quantity": 36.5,
+    "unit": "cm",
+    "startTime": "2026-07-05T08:15:00Z",
+    "endTime": "2026-07-05T08:15:00Z",
+    "provenance": { "method": "manual" }
+  }
+}

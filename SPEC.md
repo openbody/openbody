@@ -1,5 +1,5 @@
 # OpenBody — an open standard for health & fitness data interoperability
-## Draft v0.8.0 (normative)
+## Draft v0.9.0 (normative)
 
 > **Change control.** This is the canonical spec. A released version's normative text is
 > immutable — never edit it in place. Normative changes ship as a *new version* (record the
@@ -340,11 +340,28 @@ shared **record envelope** of §7 (stable `id`, `subject` reference, typed `link
 | `type` | required | string | Canonical measurement type, drawn from the measurement-type registry (§4.5), or a namespaced source token (§4.4). |
 | `value` | required | one-of | Exactly one of `quantity`, `category`, or `sampleArray` (§4.2–§4.3). |
 | `unit` | required¹ | string (UCUM) | UCUM unit for the value. Required for `quantity` and for a single-channel `sampleArray`; omitted for `category` and for multi-channel `sampleArray` (units live per channel). |
+| `laterality` | optional | enum | Closed: `left｜right｜bilateral` — which body side the observation pertains to. **Omitted** for midline/axial/non-lateral measurements (see below). |
 | `startTime` | required | timestamp | Start of the observation (RFC 3339, with offset). |
 | `endTime` | required | timestamp | End of the observation; **equals `startTime`** for an instantaneous point, otherwise the interval end (§4.3). |
 | `extension` | optional | object | Namespaced passthrough for source attributes with no canonical field (§8). |
 
 ¹ Conditionally required — see semantics.
+
+**`laterality` (which body side).** `laterality` names the anatomical side an
+observation pertains to — `left`, `right`, or `bilateral`. It is **omitted** for
+midline/axial or otherwise non-lateral measurements (a waist circumference, body
+mass, heart rate). A side-bearing measurement `type` stays **side-agnostic** — the
+side lives in `laterality`, not the token: a left-arm girth is
+`{ type: "bicep_circumference", laterality: "left" }`, never a
+`bicep_circumference_left` token.
+
+**`laterality` is complementary to — not the same as — the exercise
+`facets.laterality` (§6.3) and `WorkUnit.sides` (§5.5).** Those two describe a
+*movement's* symmetry — which variant an `ExerciseRef` denotes, and the per-side
+structure of a single scored atom (Pillar B). `Measurement.laterality` describes
+which side of the *body* an observation was taken on (Pillar A) — a left-vs-right
+circumference, grip strength, or limb range of motion. The concept shares a name
+across the two pillars but never the same field.
 
 #### 4.2 Value shapes
 
