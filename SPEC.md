@@ -1829,8 +1829,9 @@ OpenBody is **community-extensible** and stewarded by Thabit Labs. During the
 incubation phase (v0.2 to v1.0), the project follows a **Phased Incubation** model:
 the Project Lead (Yasir Ahmad) retains final merge authority (BDFL model) over the GitHub
 repository to ensure coherence, while specification changes are reviewed and approved
-by a public **Technical Steering Committee (TSC)** via asynchronous GitHub RFCs. All
-contributions require sign-off under the **Developer Certificate of Origin (DCO)**.
+by a public **Technical Steering Committee (TSC)** via asynchronous GitHub RFCs (see the
+TSC charter and `CONTRIBUTING.md`). All contributions require sign-off under the
+**Developer Certificate of Origin (DCO)**.
 
 **Transition to Foundation.** To secure ecosystem trust, stewardship and ownership
 of the "OpenBody" trademark will be transferred to an independent, neutral foundation
@@ -1841,8 +1842,9 @@ will operate under a permanent open-governance charter on GitHub.
 
 **Trademark Licensing.** The "OpenBody" trademark remains the property of the steward
 or foundation. A free, royalty-free **Trademark License Policy** is published alongside
-the spec, granting any implementer the right to use the "OpenBody Compatible" mark
-provided their implementation validates against the official conformance test suite.
+the spec (`TRADEMARK-POLICY.md`), granting any implementer the right to use the
+"OpenBody Compatible" mark provided their implementation validates against the official
+conformance test suite.
 
 #### 9.5 Licensing
 

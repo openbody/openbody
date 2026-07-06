@@ -16,7 +16,8 @@ During the incubation phase:
 - The **Project Lead (Yasir Ahmad)** retains final merge authority over the GitHub
   repository (a BDFL model) to keep the standard coherent while it stabilizes.
 - Specification changes are reviewed and approved by a public **Technical Steering
-  Committee (TSC)** via **asynchronous GitHub RFCs**.
+  Committee (TSC)** via **asynchronous GitHub RFCs**. The TSC's purpose, composition,
+  vendor-neutrality guardrail, and decision process are set out in `TSC-CHARTER.md`.
 - All contributions require **Developer Certificate of Origin (DCO)** sign-off
   (`CONTRIBUTING.md`).
 
@@ -47,9 +48,9 @@ permanent open-governance charter on GitHub.
 ## Trademark
 
 The "OpenBody" trademark remains the property of the steward (and later the
-foundation). A free, royalty-free **Trademark License Policy** grants any implementer
-the right to use an **"OpenBody Compatible"** mark provided their implementation
-validates against the official conformance test suite (`conformance/`).
+foundation). A free, royalty-free **Trademark License Policy** (`TRADEMARK-POLICY.md`)
+grants any implementer the right to use an **"OpenBody Compatible"** mark provided their
+implementation validates against the official conformance test suite (`conformance/`).
 
 ## Licensing
 

@@ -41,8 +41,8 @@ binding**.
 ## Contributing
 
 See `CONTRIBUTING.md` (changes go through GitHub RFCs; commits require **DCO**
-sign-off) and `GOVERNANCE.md`. The exercise & measurement-type **registries** are
-separate, independently-versioned artifacts (CC0) — not in this repo.
+sign-off), `GOVERNANCE.md`, and the `TSC-CHARTER.md`. The exercise & measurement-type
+**registries** are separate, independently-versioned artifacts (CC0) — not in this repo.
 
 ## Licensing
 
@@ -53,4 +53,6 @@ separate, independently-versioned artifacts (CC0) — not in this repo.
 
 OpenBody is stewarded by **Thabit Labs** under a Phased-Incubation model, with intent
 to transfer to a neutral foundation as adoption warrants (`GOVERNANCE.md`). "OpenBody"
-is vendor-neutral: the steward is not the brand on the wire.
+is vendor-neutral: the steward is not the brand on the wire. Any conforming
+implementation may call itself **"OpenBody Compatible"** for free under
+`TRADEMARK-POLICY.md`.
