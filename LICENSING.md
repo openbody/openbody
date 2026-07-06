@@ -8,6 +8,7 @@ maximally unencumbered while the steward retains a royalty-free patent posture.
 | **Specification documents** (this repo: `SPEC.md` and the prose docs) | **Open Web Foundation Agreement 1.0 (OWFa 1.0)** | Reciprocal royalty-free patent licensing with defensive termination — the standard-body norm for an open spec. |
 | **Reference code** (SDKs, mappers, conformance tooling — separate repos) | **Apache-2.0** | Permissive, with an explicit patent grant. |
 | **Registry data** (the exercise & measurement-type registries — separate repos) | **CC0** | Public domain; the interop registries must be completely unencumbered (no copyleft contamination). |
+| **Documentation site** (`openbody-docs`: the site/app code, plus the spec prose it mirrors) | **Apache-2.0** (site code) / **OWFa 1.0** (mirrored spec prose) | The site's own code is permissive with a patent grant; the specification prose it mirrors stays under OWFa 1.0, governed by this canonical repo — the mirror carries no independent license. |
 
 Official license texts:
 
