@@ -4,7 +4,7 @@ All notable changes to the OpenBody **standard** are documented here. The standa
 follows [semantic versioning](https://semver.org/): additive = minor, breaking =
 major (deprecate-not-remove within a major), editorial = patch.
 
-## [0.9.0] — 2026-07-05 (private draft)
+## [0.9.0] — 2026-07-05
 
 **Minor (additive) — `Measurement.laterality` added (§4.1).** A new **optional,
 closed** enum field on the `Measurement` model — `left｜right｜bilateral` — naming
@@ -26,7 +26,7 @@ otherwise non-lateral measurements (waist circumference, body mass, heart rate).
   passthrough field under §8.3 normalization. Conformance vector
   `measurement-laterality-bicep.valid.json` added.
 
-## [0.8.0] — 2026-07-03 (private draft)
+## [0.8.0] — 2026-07-03
 
 **Minor (pre-1.0): §8.3 restructured — the canonicalization algorithm demoted from a
 normative implementer requirement to the conformance suite's companion testing method
@@ -74,7 +74,7 @@ checkable.
   as unconditionally required in prose but omitted from the schema's `required` array
   (enforcement previously left to code); the binding now matches §4.1.
 
-## [0.7.0] — 2026-07-01 (private draft)
+## [0.7.0] — 2026-07-01
 
 **Additive (minor): a post-v0.6.0 competitive/critical review round** — a fresh
 comparison against OpenWeight and a newly-surveyed competitor, OpenSet, plus a
@@ -150,11 +150,11 @@ documentation gap. Each item below is additive/non-breaking:
   `body_mass`, `body.mass`) across three vectors — now fixed to the canonical
   `body_mass` everywhere.
 
-**Pre-1.0, private, not a final shape:** this is a review-driven batch, not a single
+**Pre-1.0, not a final shape:** this is a review-driven batch, not a single
 design axis like R17–R20; each item above is independently revisable as model iteration
 continues.
 
-## [0.6.0] — 2026-06-27 (private draft)
+## [0.6.0] — 2026-06-27
 
 **Additive (minor): the trained-quality axis — `qualities` (R20).** Methodology
 validation pass 3 probed the model along the **components of fitness** (endurance,
@@ -175,10 +175,10 @@ exercise identity + prescription shape (lossy) or stuffed into notes/`discipline
 - Vocab: `unstable_surface` modifier token (BOSU/wobble-board balance work). Corpus:
   mobility/CARs, static-stretch flexibility, stability/balance, and an agility-speed
   test vector added — rebalancing the corpus toward the non-strength fitness qualities.
-- **Pre-1.0, private, not a final shape:** `qualities` is the one design call of pass 3
+- **Pre-1.0, not a final shape:** `qualities` is the one design call of pass 3
   (a new descriptive axis); open to revision as model iteration continues.
 
-## [0.5.0] — 2026-06-27 (private draft)
+## [0.5.0] — 2026-06-27
 
 **Additive + re-scoping: the intensity axis — `Intensity`, relative bands, effort
 re-scope (R18).** Methodology validation pass 2 (non-strength) found that the model's
@@ -204,10 +204,10 @@ and `effortLoad` conflated subjective effort with relative load/intensity.
 - Corpus: structured cycling intervals + zone run + archery (per-attempt) + a match
   result added; `swim-send-off` now carries pace as an `intensity` (was hacked onto
   `time`). Zone/intensity vocab in the registry.
-- **Pre-1.0, private:** breaking re-scope of `effortLoad` is acceptable; not a final
+- **Pre-1.0:** breaking re-scope of `effortLoad` is acceptable; not a final
   shape — non-strength model iteration continues.
 
-## [0.4.0] — 2026-06-27 (private draft)
+## [0.4.0] — 2026-06-27
 
 **Additive (minor): laddered rounds — `Block.roundScheme` (R17).** The v1
 methodology-coverage validation found that per-round-varying rep schemes — 21-15-9
@@ -236,7 +236,7 @@ be fully enumerated (verbose and non-canonical to author).
   1.0-readiness pass — not a final/ratified shape. v0.3.x documents that used enumeration
   remain valid (enumeration is always valid; `roundScheme` is optional compression).
 
-## [0.3.1] — 2026-06-26 (private draft)
+## [0.3.1] — 2026-06-26
 
 **Normative (patch): relax `provenance.algorithm` requirement on `derivedFrom`.**
 Previously `algorithm` was required whenever a record carried a `derivedFrom` link.
@@ -251,7 +251,7 @@ fabricate an algorithm (A3 / OB-8).
   conforms. No schema-structure change (the rule was implementation-enforced, never
   schema-encoded; the schema NOTE is updated for accuracy).
 
-## [0.3.0] — 2026-06-25 (private draft)
+## [0.3.0] — 2026-06-25
 
 **Additive (minor): human-readable labels.** Real-data dogfooding (Hevy/Strong/Strava)
 showed every app has a workout title with nowhere interoperable to live.
@@ -267,7 +267,7 @@ showed every app has a workout title with nowhere interoperable to live.
   vectors** (`conformance/vectors/`) — valid / equivalence / normalization cases with a
   manifest and format doc.
 
-## [0.2.1] — 2026-06-24 (private draft)
+## [0.2.1] — 2026-06-24
 
 Publication-prep editorial pass; **no normative change** from v0.2.
 
