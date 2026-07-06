@@ -1,0 +1,89 @@
+name: RFC — Specification change
+description: Propose a change to the OpenBody standard (SPEC.md §§3–10). For new vocabulary tokens, open a registry issue instead.
+title: "RFC: <one-line summary>"
+labels: ["rfc"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping shape OpenBody. This template is for **specification changes** —
+        anything that alters the model in `SPEC.md` §§3–10. It is reviewed by the
+        **Technical Steering Committee** (see `TSC-CHARTER.md`); the Project Lead holds
+        final merge authority during incubation (`GOVERNANCE.md`).
+
+        Not sure this is a spec change? Two common cases route elsewhere:
+        - **New vocabulary** (disciplines, schemes, `Load.basis`, measurement types) is a
+          **registry** change — open it against the relevant registry repo, not here (SPEC §9.1–§9.2).
+        - **Typos / clarifications with no schema effect** can be a direct PR — no RFC needed.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One paragraph. What changes, in plain terms?
+    validations:
+      required: true
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation & problem
+      description: What real-world data or interop gap is unrepresentable (or misrepresented) today? Concrete examples beat abstractions.
+    validations:
+      required: true
+  - type: input
+    id: sections
+    attributes:
+      label: SPEC section(s) affected
+      description: e.g. "§4.1 Measurement", "§6 registries", "new §5.4"
+      placeholder: "§4.1"
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: The specific model/field/wording change. Include a worked example (before/after JSON) where it helps.
+    validations:
+      required: true
+  - type: dropdown
+    id: compatibility
+    attributes:
+      label: Backward compatibility
+      description: How does this land under semver? (Deprecate-not-remove within a major — SPEC §8, §9.3.)
+      options:
+        - "Additive (minor) — no existing document breaks"
+        - "Breaking (major) — requires deprecation path / migration"
+        - "Editorial (patch) — no normative meaning changes"
+    validations:
+      required: true
+  - type: textarea
+    id: migration
+    attributes:
+      label: Migration & lossless round-trip
+      description: If anything could break, what is the migration path? Confirm unknown/older extensions still round-trip losslessly (SPEC §8.1).
+    validations:
+      required: false
+  - type: textarea
+    id: conformance
+    attributes:
+      label: Conformance impact
+      description: Which test vectors in `conformance/` change or get added? New core structures should arrive with a worked example and a vector.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What else did you weigh (including "do nothing" and namespaced-extension instead of core), and why is this the right call?
+    validations:
+      required: false
+  - type: checkboxes
+    id: conventions
+    attributes:
+      label: Conventions
+      options:
+        - label: "This extends rather than reinterprets a core field's meaning (SPEC §8.1), or is an explicit, versioned breaking change."
+          required: true
+        - label: "The change is serialization-neutral and vendor-neutral (no single platform/language baked into the standard)."
+          required: true
+        - label: "I understand contributions require DCO sign-off (`git commit -s`) once this proposal moves to a PR (`CONTRIBUTING.md`)."
+          required: true

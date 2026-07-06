@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: New vocabulary (disciplines, schemes, measurement types)
+    url: https://github.com/openbody/openbody-registry/issues/new
+    about: Registry-backed tokens are versioned independently of the spec (SPEC §9.1–§9.2) — open them against the registry, not here.
+  - name: Reference implementation (openbody-ts)
+    url: https://github.com/openbody/openbody-ts/issues/new
+    about: Bugs or requests in the TypeScript reference code and converters live in openbody-ts.
+  - name: Code of Conduct
+    url: https://github.com/openbody/openbody/blob/main/CODE_OF_CONDUCT.md
+    about: How we work together, and how to report unacceptable behavior.

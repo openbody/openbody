@@ -3,15 +3,17 @@
 OpenBody is community-extensible and stewarded by Thabit Labs. Thank you for helping
 build a neutral, portable standard for health & fitness data.
 
-> While in **private review** (pre-v1.0), contribution is limited; this document sets
-> the process that takes effect at the public draft release.
+> OpenBody is a **public draft** (pre-v1.0). The standard is still stabilizing, so
+> the bar for breaking changes is high — but the process below is live and proposals
+> are welcome.
 
 ## How changes are proposed
 
 - **Specification changes** (anything in `SPEC.md` §§3–10) are proposed as a
-  **GitHub RFC** (an issue/PR using the RFC template) and reviewed by the public
-  **Technical Steering Committee (TSC)**. The Project Lead retains final merge
-  authority during incubation (see `GOVERNANCE.md`).
+  **GitHub RFC** — open an issue with the [RFC template](.github/ISSUE_TEMPLATE/rfc.yml)
+  ("New issue" → *RFC — Specification change*) — and reviewed by the public
+  **Technical Steering Committee (TSC)** (see `TSC-CHARTER.md`). The Project Lead
+  retains final merge authority during incubation (see `GOVERNANCE.md`).
 - **Vocabulary growth** (new open registry-backed tokens — disciplines, schemes,
   `Load.basis`, etc.) is usually a **registry** change, not a spec change — open it
   against the relevant registry repo, not here (SPEC §9.1–§9.2).
