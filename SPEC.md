@@ -1,5 +1,5 @@
 # OpenBody — an open standard for health & fitness data interoperability
-## Draft v0.9.0 (normative)
+## Draft v0.10.0 (normative)
 
 > **Change control.** This is the canonical spec. A released version's normative text is
 > immutable — never edit it in place. Normative changes ship as a *new version* (record the
@@ -1357,7 +1357,7 @@ Two groups:
   bare `id` already implies them, so they are rarely set by hand.
 - **Variation** (which movement this is — *distinguishes one movement from a
   sibling*): `equipment` class (barbell vs dumbbell vs machine), `grip`,
-  `laterality` (`bilateral｜unilateral_left｜unilateral_right｜alternating`),
+  `laterality` (`bilateral｜unilateral｜unilateral_left｜unilateral_right｜alternating`),
   `stance`/`barPosition`, `rangeOfMotion`.
 
 The `facets` object (all fields optional):
@@ -1370,9 +1370,16 @@ The `facets` object (all fields optional):
 | `mechanic` | classification | enum | `compound｜isolation`. |
 | `equipment` | variation | token | Equipment *class* (barbell/dumbbell/machine/…). |
 | `grip` | variation | token | Open grip token. |
-| `laterality` | variation | enum | Closed: `bilateral｜unilateral_left｜unilateral_right｜alternating`. |
+| `laterality` | variation | enum | Closed: `bilateral｜unilateral｜unilateral_left｜unilateral_right｜alternating`. |
 | `stance` / `barPosition` | variation | token | Open positional tokens. |
 | `rangeOfMotion` | variation | token | Open ROM token (e.g. `full｜partial｜deficit`). |
+
+**`laterality` values.** `bilateral` — both limbs work together; `unilateral` — one
+limb at a time, with the side not inherent to the movement (a one-arm dumbbell row, a
+pistol squat); `unilateral_left`/`unilateral_right` — a movement genuinely specific to
+one side (rare canonically; chiefly for recorded data); `alternating` — limbs alternate
+*within* a set (alternating dumbbell curls). Most single-limb exercises are
+`unilateral`; reserve `alternating` for genuine within-set alternation.
 
 Classification and variation tokens reuse the controlled vocabularies of §5.9
 (`modality`, `movementPattern` open; `laterality` closed) — one vocabulary, not a
@@ -1384,8 +1391,8 @@ any classification or variation facet.
 competing. `WorkUnit.sides` is the *within-one-set* mechanism: it lets a single
 scored atom (one `effortLoad`, one `notes`) carry internal per-side structure —
 e.g. a per-side plank hold. `laterality` remains the way to describe *which
-movement variant* an `ExerciseRef` denotes (`unilateral_left`/`unilateral_right`/
-`alternating`/`bilateral`) when a producer instead chooses the two-`WorkUnit`
+movement variant* an `ExerciseRef` denotes (`unilateral`/`unilateral_left`/
+`unilateral_right`/`alternating`/`bilateral`) when a producer instead chooses the two-`WorkUnit`
 decomposition — still valid, and still the right choice whenever two
 independently-scored sides (each with its own RPE/note) make more sense than one
 atom.
