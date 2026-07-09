@@ -4,6 +4,21 @@ All notable changes to the OpenBody **standard** are documented here. The standa
 follows [semantic versioning](https://semver.org/): additive = minor, breaking =
 major (deprecate-not-remove within a major), editorial = patch.
 
+## [0.10.0] — 2026-07-09
+
+**Minor (additive) — `unilateral` added to the Exercise `facets.laterality` enum (§6.3).**
+A new value for the movement-symmetry variation facet, meaning a movement performed **one
+limb at a time, with the side not inherent** to it (a one-arm dumbbell row, a pistol
+squat). The enum is now `bilateral｜unilateral｜unilateral_left｜unilateral_right｜alternating`.
+
+- Fills a gap: single-limb movements previously had no correct token. `unilateral_left`
+  implies a specific side, and `alternating` means *within-set* limb alternation — so
+  one-arm exercises were mis-tagged `alternating` or left blank. `unilateral` is the clean
+  value for "one limb at a time, side not inherent."
+- `unilateral_left`/`unilateral_right` remain for movements genuinely specific to one side
+  (chiefly recorded data); `alternating` is reserved for true within-set alternation.
+- Additive and backward-compatible — existing documents remain valid.
+
 ## [0.9.0] — 2026-07-05
 
 **Minor (additive) — `Measurement.laterality` added (§4.1).** A new **optional,
